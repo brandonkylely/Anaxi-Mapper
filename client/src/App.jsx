@@ -27,6 +27,9 @@ const mapOptions = {
 };
 
 export default function App() {
+  useEffect(() => {
+    fetch('/api/test').then(r => r.json()).then(d => console.log(d))
+  }, [])
   return (
     <Wrapper apiKey={import.meta.env.VITE_APIKEY}>
       <MyMap />
