@@ -2,7 +2,7 @@
 // https://www.youtube.com/watch?v=1QTnMghzTyA&ab_channel=GoogleMapsPlatform
 // https://github.com/leighhalliday/google-maps-threejs
 
-import * as dotenv from 'dotenv';
+// import * as dotenv from 'dotenv';
 import React, { useState, useRef, useEffect } from "react";
 import { Wrapper } from "@googlemaps/react-wrapper";
 import {
