@@ -26,7 +26,7 @@ const mapOptions = {
   tilt: 25,
 };
 
-export default function Mapper() {
+export default function Mapper(props) {
   useEffect(() => {
     fetch('/api/test').then(r => r.json()).then(d => console.log(d))
   }, [])
