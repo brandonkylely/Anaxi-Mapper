@@ -9,7 +9,7 @@ export default function AddressSearch() {
     const handleSetUserAddress = (event: any) => {
         const newAddress = event.target.value
         console.log('address ' + newAddress)
-        setUserAddress(newAddress) 
+        setUserAddress(newAddress)
     }
 
     const handleFormSubmit = (event: any) => {
@@ -24,7 +24,7 @@ export default function AddressSearch() {
     function getCoords(userAddress: string) {
         let requestUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${userAddress}&key=${import.meta.env.VITE_APIKEY}`;
         console.log('fetching')
-        return fetch(requestUrl).then((result) =>  result.json())
+        return fetch(requestUrl).then((result) => result.json())
       }
 
     return <>
