@@ -2,42 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  font-size: 18px;
+  background-color: rgb(244, 242, 237);
 }
 
-h1,
-h2,
-h3,
-h4 {
-  padding: 0.25rem 0rem;
-  margin: 0rem;
-  margin-bottom: 0.5rem;
-}
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
-}
 
 .directions {
   position: absolute;
@@ -46,11 +15,11 @@ a {
   right: 1rem;
   width: 25%;
   padding: 1rem;
-}
+} 
 
 #map {
   width: 100%;
-  height: 100vh;
+  height: 50vh;
 }
 
 .marker {
@@ -103,7 +72,7 @@ a {
 .highlight.sunny {
   background: #ffc300;
   color: black;
-}
+} 
 
 @keyframes fadeIn {
   0% {
@@ -162,4 +131,4 @@ select {
 
 .editing button {
   padding: 0.5rem;
-}
+} 
