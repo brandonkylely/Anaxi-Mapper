@@ -6,7 +6,7 @@ type City = {
   address: string;
   coords: {
     lat: number;
-    lon: number;
+    lng: number;
   };
   place_id: string;
 };
@@ -23,7 +23,7 @@ type GeoLocation = {
   geometry: {
     location: {
       lat: number;
-      lon: number;
+      lng: number;
     };
   };
   place_id: string;
@@ -65,15 +65,18 @@ export default function AddressSearch() {
       address: cityData.results[0].formatted_address,
       coords: {
         lat: cityData.results[0].geometry.location.lat,
-        lon: cityData.results[0].geometry.location.lon,
+        lng: cityData.results[0].geometry.location.lng,
       },
       place_id: cityData.results[0].place_id,
     };
 
-    // cityList.push(city)
-    // return city
+    cityList.push(city)
+    console.log(city)
+    console.log(cityList)
+    return city
 
-    // return cityData.json()
+
+    // return cityData;
 
     // try {
     //   let coords = cityData.json();
