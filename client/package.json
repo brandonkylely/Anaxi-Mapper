@@ -19,6 +19,8 @@
   },
   "devDependencies": {
     "@serverless-stack/static-site-env": "^1.18.4",
+    "@types/google.maps": "^3.52.2",
+    "@types/node": "^18.15.0",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@vitejs/plugin-react": "^3.1.0",
