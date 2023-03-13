@@ -18,9 +18,9 @@ function App() {
             <div>
                 <SearchBar />
             </div>
-            {/* <div>
+            <div>
                 <Dropdown />
-            </div> */}
+            </div>
 
 
         </div>
