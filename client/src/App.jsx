@@ -12,14 +12,14 @@ function App() {
             <div>
                 <Mapper />
             </div>
+            <div>
+                <Dropdown />
+            </div>
             <div> 
                 <NavBar />
             </div>
             <div>
                 <SearchBar />
-            </div>
-            <div>
-                <Dropdown />
             </div>
 
 
