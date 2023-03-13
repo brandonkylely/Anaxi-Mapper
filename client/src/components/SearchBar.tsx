@@ -51,7 +51,7 @@ export default function AddressSearch() {
             type="text"
             placeholder="Enter an address"
           />
-          <button className="bg-white text-black px-2 py-1 rounded-lg mt-2 hover:bg-stone-600 ml-2" onClick={handleFormSubmit}>
+          <button className="bg-white text-black px-2 py-1 rounded-lg mt-2 hover:bg-stone-200 ml-2" onClick={handleFormSubmit}>
             submit
           </button>
         </div>

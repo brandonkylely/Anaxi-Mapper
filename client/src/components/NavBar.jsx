@@ -6,12 +6,6 @@ import Typewriter from 'typewriter-effect';
 
 
 const NavBar = () => {
-    // const [navbar, setNavbar] = useState(false);
-
-    // const handleNav = () => { 
-    //     setNavbar(!navbar);
-    // };
-
   return (
     <div className='flex justify-center font-medium font-mono tracking-wide'>
       <p className='md:text-2xl p-2 '>
@@ -26,19 +20,6 @@ const NavBar = () => {
          }}/>
       </p>
     </div>
-    
-    // <div className=" font-bolder text-xl justify-items-end tracking-wide text-xl">
-       
-    //   <ul className="md:flex pt-3.5 pb-5">
-    //     <a onClick={handleNav} href="#home">
-    //       <li className="p-7">HOME</li>
-    //     </a>
-    //     <a onClick={handleNav} href="#login">
-    //       <li className="p-7">LOGIN </li>
-    //     </a>
-    //   </ul> 
-        
-    // </div>
   );
 
 };
