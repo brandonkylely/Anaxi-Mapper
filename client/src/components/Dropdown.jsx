@@ -37,7 +37,7 @@ export default function Dropdown() {
                     'block px-4 py-2 text-sm'
                   )}
                 >
-                  Account settings
+                  yes
                 </a>
               )}
             </Menu.Item>

@@ -1,4 +1,5 @@
 import React from 'react';
+import Typewriter from 'typewriter-effect';
 
 
 const NavBar = () => {
@@ -9,8 +10,16 @@ const NavBar = () => {
     // };
 
   return (
-    <div className="flex justify-center text-xl text-stone-800 tracking-wide">
-        <h1 className="flex justify-center font-serif pt-3">FIND YOUR DESTINATION</h1>
+    <div className='flex justify-center font-medium font-mono tracking-wide'>
+      <p className='md:text-2xl p-2 '>FIND YOUR NEW</p>
+      <p className='md:text-2xl p-2 pl-1 text-lime-700'>
+        <Typewriter options= {{
+          strings: ['VACATION', 'HOME', 'ACTIVITY', 'DESTINATION'],
+          autoStart: true,
+          loop: true,
+          delay: 75
+         }}/>
+      </p>
     </div>
     
     // <div className=" font-bolder text-xl justify-items-end tracking-wide text-xl">
