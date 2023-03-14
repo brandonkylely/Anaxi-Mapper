@@ -8,7 +8,7 @@ import React, {useState} from 'react'
 import NavBar from './components/NavBar'
 import SearchBar from './components/SearchBar'
 import Dropdown from './components/Dropdown'
-
+import Favorite from './components/Favorite'
 
 
 function App() {    
@@ -20,7 +20,7 @@ function App() {
             <div>
               <AddressSearch/>
             </div>
-            {/* <div>
+            <div>
                 <Dropdown />
             </div>
             <div> 
@@ -28,7 +28,11 @@ function App() {
             </div>
             <div>
                 <SearchBar />
-            </div> */}
+            </div>
+            <div>
+                <Favorite />
+            </div>
+
         </div>
         
     )
