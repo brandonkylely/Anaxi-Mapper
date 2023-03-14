@@ -17,15 +17,23 @@ const CommentList = ({ comments = [] }) => {
       <div className="flex-row my-4">
         {comments &&
           comments.map((comment) => (
+              // @ts-ignore
             <div key={comment._id} className="col-12 mb-3 pb-3">
               <div className="p-3 bg-dark text-light">
                 <h5 className="card-header">
                   An anonymous user commented{' '}
                   <span style={{ fontSize: '0.825rem' }}>
-                    on {comment.createdAt}
+                    on {
+                      // @ts-ignore
+                    comment.createdAt
+                    }
                   </span>
                 </h5>
-                <p className="card-body">{comment.commentText}</p>
+                <p className="card-body">{
+                  // @ts-ignore
+                comment.commentText
+                  // @ts-ignore
+                }</p>
               </div>
             </div>
           ))}
