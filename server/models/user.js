@@ -1,33 +1,53 @@
-const { Schema, model } = require('mongoose');
-const assignmentSchema = require('./Assignment');
+const { Model, DataTypes } = require('sequelize');
+const bcrypt = require('bcryptjs');
+const sequelize = require('../config');
 
-// Schema to create Student model
-const studentSchema = new Schema(
+// create our User model
+class User extends Model {
+  // set up method to run on instance data (per user) to check password
+  checkPassword(loginPw) {
+    return bcrypt.compareSync(loginPw, this.password);
+  }
+}
+
+User.init(
   {
-    first: {
-      type: String,
-      required: true,
-      max_length: 50,
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true
     },
-    last: {
-      type: String,
-      required: true,
-      max_length: 50,
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
-    github: {
-      type: String,
-      required: true,
-      max_length: 50,
-    },
-    assignments: [assignmentSchema],
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [4]
+      }
+    }
   },
   {
-    toJSON: {
-      getters: true,
+    hooks: {
+      // set up beforeCreate lifecycle "hook" functionality
+      beforeCreate: async (newUserData) => {
+        newUserData.password = await bcrypt.hash(newUserData.password, 10);
+        return newUserData;
+      },
+      beforeUpdate: async (updatedUserData) => {
+        updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
+        return updatedUserData;
+      }
     },
+    sequelize,
+    timestamps: false,
+    freezeTableName: true,
+    underscored: true,
+    modelName: 'user'
   }
 );
 
-const Student = model('student', studentSchema);
-
-module.exports = Student;
+module.exports = User;
