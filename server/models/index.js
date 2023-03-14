@@ -3,6 +3,7 @@
 const User = require('./User.js');
 const Post = require('./Post');
 const Comment = require('./Comment');
+const Favorite = require('./Favorite');
 
 //Posts will have a userId field connecting to user table's id column
 //if a user gets deleted, all posts made by the user get deleted
@@ -25,11 +26,18 @@ Comment.belongsTo(User, {
   onDelete: 'CASCADE'
 });
 
+User.hasMany(Favorite, {
+  foreignKey: 'userId',
+  onDelete: 'CASCADE'
+});
+
+
 //exports all 3 models as a module
 module.exports = {
   User,
   Comment,
-  Post
+  Post,
+  Favorite
 };
 
 

@@ -37,6 +37,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
+app.use('/api/favorite', require('./routes/favorite'));
+app.use('/api/comment', require('./routes/comment'));
+app.use('/api/users', require('./routes/user'));
 
 app.listen(PORT, () => {console.log(`http://localhost:${PORT}`);
 sequelize.sync({ force: false });
