@@ -3,6 +3,7 @@
 // https://github.com/leighhalliday/google-maps-threejs
 
 // import * as dotenv from 'dotenv';
+// import coordState from "../state";
 import React, { useState, useRef, useEffect } from "react";
 import { Wrapper } from "@googlemaps/react-wrapper";
 import {
@@ -27,9 +28,9 @@ const mapOptions = {
 };
 
 export default function Mapper(props) {
-  useEffect(() => {
-    fetch('/api/test').then(r => r.json()).then(d => console.log(d))
-  }, [])
+  // useEffect(() => {
+  //   fetch('/api/test').then(r => r.json()).then(d => console.log(d))
+  // }, [])
   return (
     <Wrapper apiKey={import.meta.env.VITE_APIKEY}>
       <MyMap />
