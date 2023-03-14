@@ -4,6 +4,9 @@ const User = require('./User.js');
 const Post = require('./Post');
 const Comment = require('./Comment');
 const Favorite = require('./Favorite');
+const Place = require("./Place");
+const NearbySearch = require("./NearbySearch");
+
 
 //Posts will have a userId field connecting to user table's id column
 //if a user gets deleted, all posts made by the user get deleted
@@ -37,7 +40,9 @@ module.exports = {
   User,
   Comment,
   Post,
-  Favorite
+  Favorite,
+  Place, 
+  NearbySearch
 };
 
 
