@@ -11,3 +11,4 @@ connect(connectionString, {
 });
 
 module.exports = connection;
+
