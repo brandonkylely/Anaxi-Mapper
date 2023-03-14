@@ -5,13 +5,13 @@ const nearbySearchSchema = new Schema({
     places: [Place],
 });
 
-nearbySearchSchema.method.addAllToFavorites = function () {
+nearbySearchSchema.method.addAllToFavorites = function () { //these are called when users want to toggle the default on or off for an entire nearbySearch Result
     this.places.forEach((place) => {
         place.addToFavorites();
     });
 };
 
-nearbySearchSchema.method.removeAllFromFavorites = function () {
+nearbySearchSchema.method.removeAllFromFavorites = function () { //these are called when users want to toggle the default on or off
     this.places.forEach((place) => {
         place.removeFromFavorites();
     });
@@ -20,6 +20,8 @@ nearbySearchSchema.method.removeAllFromFavorites = function () {
 const NearbySearch = model("NearbySearch", nearbySearchSchema);
 
 module.exports = NearbySearch;
+
+//
 
 //User
 //user has a favorites list of nearby seraches
