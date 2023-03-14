@@ -37,14 +37,14 @@ type GeoLocationResult = {
 // https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=1500&type=${type}&keyword=${keyword}&key=import.meta.env.VITE_APIKEY
 
 export default function AddressSearch() {
-  const localCoordState = useContext(coordState)
+  const localCoordState = useContext(coordState);
 
-  if  (!localCoordState) {
-    return <></>
+  if (!localCoordState) {
+    return <></>;
   }
-  const {currentCoords, setCurrentCoords} = localCoordState
+  const { currentCoords, setCurrentCoords } = localCoordState;
 
-  const cityList: City[] = []
+  const cityList: City[] = [];
 
   const [userAddress, setUserAddress] = useState<string>("");
 
@@ -56,12 +56,27 @@ export default function AddressSearch() {
 
   const handleFormSubmit: MouseEventHandler = (event) => {
     getCoords(userAddress).then((result) => {
-      event.preventDefault()
+      event.preventDefault();
       console.log(result);
       // return result.json();
       // alert(`${apiFetch(result)}`);
     });
   };
+
+  // search address, map with nothing, save
+  // second search, with filters, map pops up with businesses in area
+  // favorite list: [{searchAddress}, ...]
+  // searchAddress =
+  //   [
+  //     {
+  //       business result 1
+  // display: boolean
+  //     },
+  //     {
+  //       result 2
+  //     }
+  //   ]
+  // api req: find result where type= restaurant, set display = false
 
   async function getCoords(userAddress: string) {
     let requestUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${userAddress}&key=${
@@ -78,15 +93,24 @@ export default function AddressSearch() {
       },
       place_id: cityData.results[0].place_id,
     };
-    console.log(city)
-    setCurrentCoords(city.coords)
+    console.log(city);
+    // setCurrentCoords(city.coords)
 
     // cityList.push(city)
-    console.log(cityData)
+    // console.log(cityData)
     // console.log(cityList)
     // return city
 
+    let nextUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${
+      city.coords.lat
+    },${city.coords.lng}&radius=15000&type=restaurant&keyword=asian&key=${
+      import.meta.env.VITE_APIKEY
+    }`;
+    //temporarilty hardcoding Radius, Type, and Keyword, but these will be selectable
+    let res2 = await fetch(nextUrl);
 
+    const nearbySearch = (await res2.json()) as unknown;
+    console.log(nearbySearch);
     // return cityData;
 
     // try {
@@ -102,16 +126,21 @@ export default function AddressSearch() {
     <>
       <form className="form">
         <input
+          className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
           value={userAddress}
           name="userAddress"
-          onChange= {handleSetUserAddress}
+          onChange={handleSetUserAddress}
           type="text"
           placeholder="Enter an address"
         />
-        <button type="button" onClick={handleFormSubmit}>
+        <button
+          className="bg-white text-gray-600 px-2 py-1 rounded-lg mt-2 hover:bg-stone-200 ml-2"
+          type="button"
+          onClick={handleFormSubmit}
+        >
           Submit
         </button>
-        { currentCoords.lat }, { currentCoords.lng }
+        {currentCoords.lat}, {currentCoords.lng}
       </form>
     </>
   );

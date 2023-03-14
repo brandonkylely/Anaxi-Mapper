@@ -1,8 +1,8 @@
-import Mapper from "../components/Mapper";
-import NavBar from "../components/NavBar";
-import SearchBar from "../components/SearchBar";
-import Dropdown from "../components/Dropdown";
-import Favorite from "../components/FavoriteList/Favorite";
+import Mapper from "../components/Mapper2";
+// import NavBar from "../components/NavBar";
+// import SearchBar from "../components/SearchBar";
+// import Dropdown from "../components/Dropdown";
+// import Favorite from "../components/FavoriteList/Favorite";
 
 
 export default function MainPage() {
@@ -10,13 +10,13 @@ export default function MainPage() {
     <div>
       <Mapper />
 
-      <Dropdown />
+      {/* <Dropdown /> */}
 
-      <NavBar />
+      {/* <NavBar />
 
       <SearchBar />
 
-      <Favorite />
+      <Favorite /> */}
 
     </div>
   );
