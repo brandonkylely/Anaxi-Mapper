@@ -1,5 +1,5 @@
 import React from "react";
-import History from "./pages/History";
+// import History from "../pages/History";
 
 //https://larainfo.com/blogs/react-tailwind-css-dropdowns-menu-example
 //https://stackoverflow.com/questions/70673541/link-options-on-select-with-react
