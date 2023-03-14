@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS userLogin_db,
+
+CREATE DATABASE userLogin_db;

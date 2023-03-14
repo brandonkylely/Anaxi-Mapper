@@ -28,8 +28,10 @@ const mapOptions = {
 
 export default function Mapper(props) {
   useEffect(() => {
-    fetch('/api/test').then(r => r.json()).then(d => console.log(d))
-  }, [])
+    fetch("/api/test")
+      .then((r) => r.json())
+      .then((d) => console.log(d));
+  }, []);
   return (
     <Wrapper apiKey={import.meta.env.VITE_APIKEY}>
       <MyMap />
@@ -40,26 +42,36 @@ export default function Mapper(props) {
 function MyMap() {
   const overlayRef = useRef();
   const [map, setMap] = useState();
+  const [scene, setScene] = useState<Scene>(new Scene());
+  const [camera, setCamera] = useState<PerspectiveCamera>(
+    new PerspectiveCamera()
+  );
+  const [renderer, setRenderer] = useState<WebGLRenderer>(new WebGLRenderer());
   const ref = useRef();
 
   useEffect(() => {
     if (!overlayRef.current) {
+      // @ts-ignore
       const instance = new window.google.maps.Map(ref.current, mapOptions);
       setMap(instance);
-      overlayRef.current = createOverlay(instance);
+      overlayRef.current = createOverlay(instance, scene, camera, renderer);
     }
   }, []);
 
+  // @ts-ignore
   return <div ref={ref} id="map" />;
 }
 
-function createOverlay(map) {
+function createOverlay(
+  map,
+  scene: Scene,
+  camera: PerspectiveCamera,
+  renderer: WebGLRenderer
+) {
   const overlay = new google.maps.WebGLOverlayView();
-  let renderer, scene, camera, loader;
+  let loader;
 
   overlay.onAdd = () => {
-    scene = new Scene();
-    camera = new PerspectiveCamera();
     const light = new AmbientLight(0xffffff, 0.9);
     scene.add(light);
 
@@ -73,12 +85,15 @@ function createOverlay(map) {
     });
   };
 
-  overlay.onContextRestored = ({ gl }) => {
-    renderer = new WebGLRenderer({
-      canvas: gl.canvas,
-      context: gl,
-      ...gl.getContextAttributes(),
-    });
+  //later to type this out
+  overlay.onContextRestored = ({ gl }: { gl: unknown }) => {
+    setRenderer(
+      new WebGLRenderer({
+        canvas: gl.canvas,
+        context: gl,
+        ...gl.getContextAttributes(),
+      })
+    );
     renderer.autoClear = false;
 
     // loader.manager.onLoad = () => {
