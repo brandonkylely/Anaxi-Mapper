@@ -1,29 +1,28 @@
-const { Schema, model } = require('mongoose');
-const assignmentSchema = require('./Assignment');
 
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../config');
 
-const favoriteSchema = new Schema(
-{
-    userFrom: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
+class Favorite extends Model {}
+
+Favorite.init(
+    {   id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        userId: {
+            type: String,
+        },
+        locationId: {
+            type: String,
+        },
     },
-    locationId: {
-        type: String,
-    },
-    locationName: {
-        type: String,
-    },
-    locationType: {
-        type: String,
-    },
-    locationImage: {
-        type: String,
-    },
-    
-}
+    {  
+        sequelize,
+        freezeTableName: true,
+        modelName: 'favorite'
+    }
 );
-
-const Favorite = model('Favorite', favoriteSchema);
 
 module.exports = Favorite;
