@@ -28,6 +28,16 @@ export default function AddressSearch() {
     return fetch(requestUrl).then((result) => result.json());
   }
 
+  
+  //user enters address
+  //that address is converted to coordinates
+  //feeding that result to secondary search call
+  //those coordinates are fed into the nearbysearch call || hardcore key words and radius and types
+  //the result of that call is fed to the backend
+
+  //after, we start setting up filtering, so users can actually select what is fed into the nearby serach api call
+  //and we figure out how the map will be displayed 
+
   return (
     <>
       {/* <form className="form">
