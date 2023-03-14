@@ -1,13 +1,16 @@
 import {createContext} from 'react'
 
-type CoordContextType = {
-  currentCoords: {
+export type CoordinateObject =
+  {
     lat: number,
     lng: number
-  },
-  setCurrentCoords: (lat: number, lng: number) => void
+  }
+
+type CoordContextType = {
+  currentCoords: CoordinateObject,
+  setCurrentCoords: (coords: CoordinateObject) => void
 }
 
-const coordState = createContext<CoordContextType | null>(null);
+const CoordState = createContext<CoordContextType | null>(null);
 
-export default coordState;
+export default CoordState;

@@ -3,8 +3,8 @@
 // https://github.com/leighhalliday/google-maps-threejs
 
 // import * as dotenv from 'dotenv';
-// import coordState from "../state";
-import React, { useState, useRef, useEffect } from "react";
+import coordState from "../state";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { Wrapper } from "@googlemaps/react-wrapper";
 import {
   PerspectiveCamera,
@@ -18,14 +18,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 // import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 // console.log(import.meta.env)
 
-const mapOptions = {
-  mapId: import.meta.env.VITE_MAPID,
-  center: { lat: 43.661036, lng: -79.391277 },
-  zoom: 17,
-  disableDefaultUI: true,
-  heading: 25,
-  tilt: 25,
-};
+
 
 export default function Mapper(props) {
   // useEffect(() => {
@@ -43,18 +36,50 @@ function MyMap() {
   const [map, setMap] = useState();
   const ref = useRef();
 
+  const localCoordState = useContext(coordState)
+
+  if  (!localCoordState) {
+    return <></>
+  }
+  const {currentCoords, setCurrentCoords} = localCoordState
+
+  const [mapOptions, setMapOptions] = useState({
+    mapId: import.meta.env.VITE_MAPID,
+    center: { lat: 43.661036, lng: -79.391277 },
+    zoom: 17,
+    disableDefaultUI: true,
+    heading: 25,
+    tilt: 25,
+  });
+
   useEffect(() => {
+    setMapOptions((prevOptions) => ({
+      ...prevOptions,
+      center: currentCoords
+    })) 
+    console.log("CURRETN COORDS CHANGED")
     if (!overlayRef.current) {
+      console.log("WE ARE REDOING THE MAP")
       const instance = new window.google.maps.Map(ref.current, mapOptions);
       setMap(instance);
-      overlayRef.current = createOverlay(instance);
+      overlayRef.current = createOverlay(instance, mapOptions);
+    } else {
+      // overlayRef.current.moveToCoords(currentCoords)
     }
-  }, []);
+  }, [currentCoords])
 
-  return <div ref={ref} id="map" />;
+  // useEffect(() => {
+   
+  // }, []);
+
+  return <>
+  { currentCoords.lat }, { currentCoords.lng }
+    <div ref={ref} id="map" />
+  </>;
 }
 
-function createOverlay(map) {
+function createOverlay(map, mapOptions) {
+
   const overlay = new google.maps.WebGLOverlayView();
   let renderer, scene, camera, loader;
 

@@ -1,7 +1,7 @@
 // https://developers.google.com/maps/documentation/javascript/places#place_searches
 
 import { MouseEventHandler, useState, useContext } from "react";
-// import coordState from "../state";
+import coordState from "../state";
 
 type City = {
   address: string;
@@ -37,7 +37,12 @@ type GeoLocationResult = {
 // https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=1500&type=${type}&keyword=${keyword}&key=import.meta.env.VITE_APIKEY
 
 export default function AddressSearch() {
-  // const {currentCoords, setCurrentCoords} = useContext(coordState)
+  const localCoordState = useContext(coordState)
+
+  if  (!localCoordState) {
+    return <></>
+  }
+  const {currentCoords, setCurrentCoords} = localCoordState
 
   const cityList: City[] = []
 
@@ -73,6 +78,8 @@ export default function AddressSearch() {
       },
       place_id: cityData.results[0].place_id,
     };
+    console.log(city)
+    setCurrentCoords(city.coords)
 
     // cityList.push(city)
     console.log(cityData)
@@ -104,6 +111,7 @@ export default function AddressSearch() {
         <button type="button" onClick={handleFormSubmit}>
           Submit
         </button>
+        { currentCoords.lat }, { currentCoords.lng }
       </form>
     </>
   );
