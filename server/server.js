@@ -1,7 +1,8 @@
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
 const db = require("./config/index");
 const routes = require("./controllers");
+const { auth } = require("./middleware/auth");
 // require('./src')();
 
 const PORT = process.env.PORT || 3001;
@@ -9,6 +10,7 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(auth);
 app.use(routes);
 
 // test route

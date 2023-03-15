@@ -1,22 +1,25 @@
-const router = require('express').Router();
-const Profile = require('../../models/Profile.js');
+const router = require("express").Router();
+const Profile = require("../../models/Profile.js");
+const { signToken } = require("../../utils/auth.js");
 
 // POST /api/users is a registration route for creating a new user
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const newUser = await Profile.create({
-      username: req.body.username,
+      name: req.body.name,
+      email: req.body.email,
       password: req.body.password,
     });
-
-    console.log("new user", newUser)
+    //create a jwt, and send back to FE
+    const token = signToken(newUser);
+    res.status(200).json({ success: true, token });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ success: false, token: null });
   }
 });
 
 // POST /api/users/login is a login route for an existing user
-router.post('/login', async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({
       where: {
@@ -26,7 +29,7 @@ router.post('/login', async (req, res) => {
 
     if (!user) {
       // res.status(400).json({ message: 'No user account found!' });
-      res.redirect('/game');
+      res.redirect("/game");
       return;
     }
 
@@ -34,7 +37,7 @@ router.post('/login', async (req, res) => {
 
     if (!validPassword) {
       // res.status(400).json({ message: 'No user account found!' });
-      res.redirect('/game');
+      res.redirect("/game");
       return;
     }
 
@@ -43,17 +46,16 @@ router.post('/login', async (req, res) => {
       req.session.username = user.username;
       req.session.loggedIn = true;
 
-      res.redirect('/game');
+      res.redirect("/game");
     });
   } catch (err) {
-    res.status(400).json({ message: 'No user account found!' });
+    res.status(400).json({ message: "No user account found!" });
   }
 });
 
-
-// POST /api/users/logout is a logout route for an existing user, 
+// POST /api/users/logout is a logout route for an existing user,
 //it also destroys the session so the user is no longer logged in
-router.post('/logout', (req, res) => {
+router.post("/logout", (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
       res.status(204).end();
