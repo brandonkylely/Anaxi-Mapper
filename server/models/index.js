@@ -1,3 +1,11 @@
+const Comment = require('./Comment');
+const Favorite = require('./Favorite');
+const Place = require("./Place");
+const NearbySearch = require("./NearbySearch");
+const Post = require('./Post');
+const Profile = require('./Profile');
+module.exports = { Profile, Post, Comment, Favorite, Place, NearbySearch };
+
 // // index.js establishes relationships between the models, 
 // //and also creates the foreign key constraights without explicitly setting them in the Models
 // const User = require('./User.js');

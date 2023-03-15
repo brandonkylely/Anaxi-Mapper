@@ -14,5 +14,8 @@
     "license": "ISC",
     "devDependencies": {
         "concurrently": "^7.6.0"
+    },
+    "dependencies": {
+        "jotai": "^2.0.3"
     }
 }
