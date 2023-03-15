@@ -16,10 +16,7 @@
         "concurrently": "^7.6.0"
     },
     "dependencies": {
-<<<<<<< Updated upstream
-        "jotai": "^2.0.3"
-=======
+        "jotai": "^2.0.3",
         "@headlessui/react": "^1.7.13"
->>>>>>> Stashed changes
     }
 }

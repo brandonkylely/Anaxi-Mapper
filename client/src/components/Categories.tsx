@@ -1,9 +1,108 @@
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 
+//https://larainfo.com/blogs/react-tailwind-css-dropdowns-menu-example
+
 function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
+
+// accounting
+// airport
+// amusement_park
+// aquarium
+// art_gallery
+// atm
+// bakery
+// bank
+// bar
+// beauty_salon
+// bicycle_store
+// book_store
+// bowling_alley
+// bus_station
+// cafe
+// campground
+// car_dealer
+// car_rental
+// car_repair
+// car_wash
+// casino
+// cemetery
+// church
+// city_hall
+// clothing_store
+// convenience_store
+// courthouse
+// dentist
+// department_store
+// doctor
+// drugstore
+// electrician
+// electronics_store
+// embassy
+// fire_station
+// florist
+// funeral_home
+// furniture_store
+// gas_station
+// gym
+// hair_care
+// hardware_store
+// hindu_temple
+// home_goods_store
+// hospital
+// insurance_agency
+// jewelry_store
+// laundry
+// lawyer
+// library
+// light_rail_station
+// liquor_store
+// local_government_office
+// locksmith
+// lodging
+// meal_delivery
+// meal_takeaway
+// mosque
+// movie_rental
+// movie_theater
+// moving_company
+// museum
+// night_club
+// painter
+// park
+// parking
+// pet_store
+// pharmacy
+// physiotherapist
+// plumber
+// police
+// post_office
+// primary_school
+// real_estate_agency
+// restaurant
+// roofing_contractor
+// rv_park
+// school
+// secondary_school
+// shoe_store
+// shopping_mall
+// spa
+// stadium
+// storage
+// store
+// subway_station
+// supermarket
+// synagogue
+// taxi_stand
+// tourist_attraction
+// train_station
+// transit_station
+// travel_agency
+// university
+// veterinary_care
+// zoo
 
 
 
@@ -52,7 +151,7 @@ export default function Categories() {
                                         "block px-4 py-2 text-sm"
                                     )}
                                 >
-                                    Account settings
+                                    Accounting
                                 </a>
                             )}
                         </Menu.Item>
@@ -67,7 +166,7 @@ export default function Categories() {
                                         "block px-4 py-2 text-sm"
                                     )}
                                 >
-                                    Support
+                                    Airport
                                 </a>
                             )}
                         </Menu.Item>
@@ -82,7 +181,7 @@ export default function Categories() {
                                         "block px-4 py-2 text-sm"
                                     )}
                                 >
-                                    License
+                                    Amusement Park
                                 </a>
                             )}
                         </Menu.Item>
@@ -98,7 +197,160 @@ export default function Categories() {
                                             "block w-full text-left px-4 py-2 text-sm"
                                         )}
                                     >
-                                        Sign out
+                                        Aquarium
+                                    </button>
+                                )}
+                            </Menu.Item>
+                        </form>
+                        <form method="POST" action="#">
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <button
+                                        type="submit"
+                                        className={classNames(
+                                            active
+                                                ? "bg-gray-100 text-gray-900"
+                                                : "text-gray-700",
+                                            "block w-full text-left px-4 py-2 text-sm"
+                                        )}
+                                    >
+                                        Art Gallery
+                                    </button>
+                                )}
+                            </Menu.Item>
+                        </form>
+                        <form method="POST" action="#">
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <button
+                                        type="submit"
+                                        className={classNames(
+                                            active
+                                                ? "bg-gray-100 text-gray-900"
+                                                : "text-gray-700",
+                                            "block w-full text-left px-4 py-2 text-sm"
+                                        )}
+                                    >
+                                        Art Gallergy
+                                    </button>
+                                )}
+                            </Menu.Item>
+                        </form>
+                        <form method="POST" action="#">
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <button
+                                        type="submit"
+                                        className={classNames(
+                                            active
+                                                ? "bg-gray-100 text-gray-900"
+                                                : "text-gray-700",
+                                            "block w-full text-left px-4 py-2 text-sm"
+                                        )}
+                                    >
+                                        Bakery
+                                    </button>
+                                )}
+                            </Menu.Item>
+                        </form>
+                        <form method="POST" action="#">
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <button
+                                        type="submit"
+                                        className={classNames(
+                                            active
+                                                ? "bg-gray-100 text-gray-900"
+                                                : "text-gray-700",
+                                            "block w-full text-left px-4 py-2 text-sm"
+                                        )}
+                                    >
+                                        Bank
+                                    </button>
+                                )}
+                            </Menu.Item>
+                        </form>
+                        <form method="POST" action="#">
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <button
+                                        type="submit"
+                                        className={classNames(
+                                            active
+                                                ? "bg-gray-100 text-gray-900"
+                                                : "text-gray-700",
+                                            "block w-full text-left px-4 py-2 text-sm"
+                                        )}
+                                    >
+                                        Bar
+                                    </button>
+                                )}
+                            </Menu.Item>
+                        </form>
+                        <form method="POST" action="#">
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <button
+                                        type="submit"
+                                        className={classNames(
+                                            active
+                                                ? "bg-gray-100 text-gray-900"
+                                                : "text-gray-700",
+                                            "block w-full text-left px-4 py-2 text-sm"
+                                        )}
+                                    >
+                                        Beauty Salon
+                                    </button>
+                                )}
+                            </Menu.Item>
+                        </form>
+                        <form method="POST" action="#">
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <button
+                                        type="submit"
+                                        className={classNames(
+                                            active
+                                                ? "bg-gray-100 text-gray-900"
+                                                : "text-gray-700",
+                                            "block w-full text-left px-4 py-2 text-sm"
+                                        )}
+                                    >
+                                        Bicycle Store
+                                    </button>
+                                )}
+                            </Menu.Item>
+                        </form>
+                        <form method="POST" action="#">
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <button
+                                        type="submit"
+                                        className={classNames(
+                                            active
+                                                ? "bg-gray-100 text-gray-900"
+                                                : "text-gray-700",
+                                            "block w-full text-left px-4 py-2 text-sm"
+                                        )}
+                                    >
+                                        Book Store
+                                    </button>
+                                )}
+                            </Menu.Item>
+                        </form>
+                        <form method="POST" action="#">
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <button
+                                        type="submit"
+                                        className={classNames(
+                                            active
+                                                ? "bg-gray-100 text-gray-900"
+                                                : "text-gray-700",
+                                            "block w-full text-left px-4 py-2 text-sm"
+                                        )}
+                                    >
+                                        Bowling Alley
                                     </button>
                                 )}
                             </Menu.Item>
