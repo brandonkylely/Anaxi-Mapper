@@ -1,6 +1,8 @@
 // https://developers.google.com/maps/documentation/javascript/places#place_searches
 
 import { MouseEventHandler, useState, useContext } from "react";
+import { useAtomValue } from "jotai/react";
+import { userAtom } from "../state";
 import coordState from "../state";
 
 type City = {
@@ -37,6 +39,7 @@ type GeoLocationResult = {
 // https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=1500&type=${type}&keyword=${keyword}&key=import.meta.env.VITE_APIKEY
 
 export default function SearchBar() {
+  const user = useAtomValue(userAtom);
   const { currentCoords, setCurrentCoords } = useContext(coordState);
 
   // if (!localCoordState) {
@@ -138,15 +141,21 @@ export default function SearchBar() {
         </button>
       </form> */}
       <form className="max-w-sm px-4 form ">
+        {/* JUST POC , THIS IS HOW TO CONSUME */}
+        <h1>Logged In as {user?.email}</h1>
         <div className="">
-          <input className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
+          <input
+            className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
             value={userAddress}
             name="userAddress"
             onChange={handleSetUserAddress}
             type="text"
             placeholder="Enter an address"
           />
-          <button className="bg-white text-gray-600 px-2 py-1 rounded-lg mt-2 hover:bg-stone-200 ml-2" onClick={handleFormSubmit}>
+          <button
+            className="bg-white text-gray-600 px-2 py-1 rounded-lg mt-2 hover:bg-stone-200 ml-2"
+            onClick={handleFormSubmit}
+          >
             submit
           </button>
         </div>
