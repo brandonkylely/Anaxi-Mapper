@@ -1,4 +1,27 @@
+const { Schema, Types, model } = require("mongoose");
 
+const commentSchema =  new mongoose.Schema({
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }, 
+    postId: {
+        type: String,
+    },
+    responseTo: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    content: {
+        type: String
+    }
+
+});
+
+
+const Comment = mongoose.model('Comment', commentSchema);
+
+module.exports = { Comment }
 // const { Model, DataTypes } = require('sequelize');
 // const sequelize = require('../config');
 
