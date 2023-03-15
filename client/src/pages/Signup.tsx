@@ -4,6 +4,9 @@ import { useAtom } from "jotai/react";
 import { useNavigate } from "react-router-dom";
 import token from "../utils/token";
 import { userAtom, MapperUser } from "../state";
+// import { LockClosedIcon } from '@heroicons/react/20/solid'
+
+
 export default function Signup() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -47,7 +50,7 @@ export default function Signup() {
       <h2>REGISTER: </h2>
 
       <form id="signup-form" className="card-body" onSubmit={handleFormSubmit}>
-        <div className="form-outline mb-4">
+        <div className="form-outline mb-4 ">
           <label htmlFor="username-input-signup" className="form-label">
             Your name
           </label>
