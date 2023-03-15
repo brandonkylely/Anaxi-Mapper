@@ -1,9 +1,53 @@
 // https://developers.google.com/maps/documentation/javascript/places#place_searches
 
-import React, { useState } from "react";
+import { MouseEventHandler, useState, useContext } from "react";
+import coordState from "../state";
 
-export default function AddressSearch() {
-  const [userAddress, setUserAddress] = useState("");
+type City = {
+  address: string;
+  coords: {
+    lat: number;
+    lng: number;
+  };
+  place_id: string;
+};
+
+// address: cityData.results[0].formatted_address,
+// coords: {
+//   lat: cityData.results[0].geometry.location.lat,
+//   lon: cityData.results[0].geometry.location.lon,
+// },
+// place_id: cityData.results[0].place_id,
+
+type GeoLocation = {
+  formatted_address: string;
+  geometry: {
+    location: {
+      lat: number;
+      lng: number;
+    };
+  };
+  place_id: string;
+};
+
+type GeoLocationResult = {
+  results: GeoLocation[];
+};
+
+// https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=1500&type=${type}&keyword=${keyword}&key=import.meta.env.VITE_APIKEY
+
+export default function SearchBar() {
+  const { currentCoords, setCurrentCoords } = useContext(coordState);
+
+  // if (!localCoordState) {
+  //   console.warn('because the local coord state is undefined, the search bar is not being returned );')
+  //   return <></>;
+  // }
+  // const { currentCoords, setCurrentCoords } = localCoordState;
+
+  const cityList: City[] = [];
+
+  const [userAddress, setUserAddress] = useState<string>("");
 
   const handleSetUserAddress = (event: any) => {
     const newAddress = event.target.value;
@@ -11,7 +55,7 @@ export default function AddressSearch() {
     setUserAddress(newAddress);
   };
 
-  const handleFormSubmit = (event: any) => {
+  const handleFormSubmit: MouseEventHandler = (event) => {
     getCoords(userAddress).then((result) => {
       event.preventDefault();
       console.log(result);
@@ -20,23 +64,64 @@ export default function AddressSearch() {
     });
   };
 
-  function getCoords(userAddress: string) {
+  // search address, map with nothing, save
+  // second search, with filters, map pops up with businesses in area
+  // favorite list: [{searchAddress}, ...]
+  // searchAddress =
+  //   [
+  //     {
+  //       business result 1
+  // display: boolean
+  //     },
+  //     {
+  //       result 2
+  //     }
+  //   ]
+  // api req: find result where type= restaurant, set display = false
+
+  async function getCoords(userAddress: string) {
     let requestUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${userAddress}&key=${
       import.meta.env.VITE_APIKEY
     }`;
-    console.log("fetching");
-    return fetch(requestUrl).then((result) => result.json());
+    let res = await fetch(requestUrl);
+    const cityData = (await res.json()) as GeoLocationResult;
+
+    let city: City = {
+      address: cityData.results[0].formatted_address,
+      coords: {
+        lat: cityData.results[0].geometry.location.lat,
+        lng: cityData.results[0].geometry.location.lng,
+      },
+      place_id: cityData.results[0].place_id,
+    };
+    console.log(city);
+    // setCurrentCoords(city.coords)
+
+    // cityList.push(city)
+    // console.log(cityData)
+    // console.log(cityList)
+    // return city
+
+    let nextUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${
+      city.coords.lat
+    },${city.coords.lng}&radius=15000&type=restaurant&keyword=asian&key=${
+      import.meta.env.VITE_APIKEY
+    }`;
+    //temporarilty hardcoding Radius, Type, and Keyword, but these will be selectable
+    let res2 = await fetch(nextUrl);
+
+    const nearbySearch = (await res2.json()) as unknown;
+    console.log(nearbySearch);
+    // return cityData;
+
+    // try {
+    //   let coords = cityData.json();
+    //   return coords
+    // } catch (error) {
+    //   console.error(error);
+    // }
+    // console.log('fetching')
   }
-
-  
-  //user enters address
-  //that address is converted to coordinates
-  //feeding that result to secondary search call
-  //those coordinates are fed into the nearbysearch call || hardcore key words and radius and types
-  //the result of that call is fed to the backend
-
-  //after, we start setting up filtering, so users can actually select what is fed into the nearby serach api call
-  //and we figure out how the map will be displayed 
 
   return (
     <>

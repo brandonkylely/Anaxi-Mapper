@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './favorite.css';
 import Axios from 'axios';
+  // @ts-ignore
 import { Popover } from 'antd';
 
 
@@ -31,10 +32,11 @@ function FavoritePage() {
 
 
 
-
+  // @ts-ignore
     const onClickRemove = (movieId) => {
         
         const variable = {
+            // @ts-ignore
             locationId: locationId,
             userFrom:  localStorage.getItem('userId')
         }
@@ -58,7 +60,10 @@ function FavoritePage() {
 
         const content = (
             <div>
-                {movie.moviePost ? 
+                {
+                    // @ts-ignore
+                movie.moviePost ? 
+                  // @ts-ignore
                 <img src={`${IMAGE_URL}w500${movie.moviePost}`} alt="moviePost" />
                 : 
                 "no Image"}
@@ -66,14 +71,25 @@ function FavoritePage() {
         )
 
         return <tr >
+            <Popover content={content} title={`${
+                // @ts-ignore
+              movie.movieTitle
+              }`} >
 
-            <Popover content={content} title={`${movie.movieTitle}`} >
-
-                <td>{movie.movieTitle}</td>
+                <td>{
+                  // @ts-ignore
+                movie.movieTitle
+                }</td>
 
             </Popover>
-            <td>{movie.movieRunTime} mins</td>
-            <td><button onClick={()=>onClickRemove(movie.movieId)}>
+            <td>{
+              // @ts-ignore
+            movie.movieRunTime
+            } mins</td>
+            <td><button onClick={()=>onClickRemove(
+                // @ts-ignore
+              movie.movieId
+              )}>
                 Remove from the Favorites</button></td>
         </tr>
 
