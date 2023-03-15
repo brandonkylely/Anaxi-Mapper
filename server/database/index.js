@@ -18,7 +18,7 @@ async function connectToDatabase() {
 } catch (error) {
     Logger.error(error);
 }
-
+}
 module.exports = connectToDatabase;
 
 //&authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false

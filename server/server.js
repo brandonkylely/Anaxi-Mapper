@@ -1,13 +1,15 @@
+require('dotenv').config();
 const express = require("express");
 const db = require("./config/index");
 const routes = require("./controllers");
+// require('./src')();
 
 const PORT = process.env.PORT || 3001;
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// app.use(routes);
+app.use(routes);
 
 // test route
 app.get("/api/test", (req, res) => {
@@ -23,6 +25,6 @@ if (process.env.NODE_ENV === "production") {
 
 db.once("open", () => {
   app.listen(PORT, () => {
-    console.log(`API server running on port ${PORT}!`);
+    console.log(`API server running http://localhost:${PORT}`);
   });
 });

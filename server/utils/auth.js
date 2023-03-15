@@ -1,10 +1,12 @@
-// const withAuth = (req, res, next) => {
-//     if (!req.session.userId) {
-//       res.redirect("/login");
-//     } else {
-//       next();
-//     }
-//   };
-  
-// module.exports = withAuth;
+const jwt = require("jsonwebtoken");
 
+const secret = process.env.JWT_SECRET || "mysecretssshhhhhhh";
+const expiration = "2h";
+
+module.exports = {
+  signToken: function ({ email, name, _id }) {
+    const payload = { email, name, _id };
+    return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
+  },
+  decode: (token) => jwt.verify(token, secret),
+};
