@@ -37,12 +37,13 @@ type GeoLocationResult = {
 // https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=1500&type=${type}&keyword=${keyword}&key=import.meta.env.VITE_APIKEY
 
 export default function SearchBar() {
-  const localCoordState = useContext(coordState);
+  const { currentCoords, setCurrentCoords } = useContext(coordState);
 
-  if (!localCoordState) {
-    return <></>;
-  }
-  const { currentCoords, setCurrentCoords } = localCoordState;
+  // if (!localCoordState) {
+  //   console.warn('because the local coord state is undefined, the search bar is not being returned );')
+  //   return <></>;
+  // }
+  // const { currentCoords, setCurrentCoords } = localCoordState;
 
   const cityList: City[] = [];
 
@@ -121,16 +122,6 @@ export default function SearchBar() {
     // }
     // console.log('fetching')
   }
-
-  
-  //user enters address
-  //that address is converted to coordinates
-  //feeding that result to secondary search call
-  //those coordinates are fed into the nearbysearch call || hardcore key words and radius and types
-  //the result of that call is fed to the backend
-
-  //after, we start setting up filtering, so users can actually select what is fed into the nearby serach api call
-  //and we figure out how the map will be displayed 
 
   return (
     <>

@@ -26,6 +26,7 @@ const mapOptions = {
   tilt: 25,
 };
 
+  // @ts-ignore
 export default function Mapper(props) {
   useEffect(() => {
     fetch("/api/test")
@@ -53,8 +54,10 @@ function MyMap() {
     if (!overlayRef.current) {
       // @ts-ignore
       const instance = new window.google.maps.Map(ref.current, mapOptions);
+        // @ts-ignore
       setMap(instance);
-      overlayRef.current = createOverlay(instance, scene, camera, renderer);
+        // @ts-ignore
+      overlayRef.current = createOverlay(instance, scene, camera, renderer, setRenderer);
     }
   }, []);
 
@@ -63,10 +66,12 @@ function MyMap() {
 }
 
 function createOverlay(
+    // @ts-ignore
   map,
   scene: Scene,
   camera: PerspectiveCamera,
-  renderer: WebGLRenderer
+  renderer: WebGLRenderer,
+  setRenderer: any
 ) {
   const overlay = new google.maps.WebGLOverlayView();
   let loader;
@@ -87,10 +92,13 @@ function createOverlay(
 
   //later to type this out
   overlay.onContextRestored = ({ gl }: { gl: unknown }) => {
+      // @ts-ignore
     setRenderer(
       new WebGLRenderer({
+          // @ts-ignore
         canvas: gl.canvas,
         context: gl,
+          // @ts-ignore
         ...gl.getContextAttributes(),
       })
     );

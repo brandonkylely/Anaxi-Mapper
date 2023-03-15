@@ -10,12 +10,13 @@ export default function MainPage() {
     <div>
       <Mapper />
 
-      <SearchBar />
 
       <Dropdown />
 
       <NavBar />
 
+      <SearchBar />
+      
       <Favorite />
 
     </div>
