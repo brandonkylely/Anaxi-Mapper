@@ -6,7 +6,6 @@ import token from "../utils/token";
 import { userAtom, MapperUser } from "../state";
 // import { LockClosedIcon } from '@heroicons/react/20/solid'
 
-
 export default function Signup() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -34,7 +33,7 @@ export default function Signup() {
 
       //store token in local storage;
       token.login(data.token);
-      const user = token.decode(data.token)
+      const user = token.decode(data.token);
       //update user state
       setUser(user.data);
       //maybe redirect to home page?
@@ -47,12 +46,17 @@ export default function Signup() {
   };
   return (
     <>
-      <h2>REGISTER: </h2>
-
-      <form id="signup-form" className="card-body" onSubmit={handleFormSubmit}>
-        <div className="form-outline mb-4 ">
+      <form
+        id="signup-form"
+        className="card-body flex justify-center p-10 m-5"
+        onSubmit={handleFormSubmit}
+      >
+        <div className="form-outline space-y-4 rounded-lg">
+          <div className="font-bold text-lg justify-center">
+          <h2>REGISTER: </h2>
+          </div>
           <label htmlFor="username-input-signup" className="form-label">
-            Your name
+            Name:
           </label>
           <input
             onChange={handleFormChange}
@@ -61,10 +65,9 @@ export default function Signup() {
             id="username-input-signup"
             className="form-control"
           />
-        </div>
-        <div className="form-outline mb-4">
+          <div className="">
           <label htmlFor="username-input-signup" className="form-label">
-            Email
+            Email:
           </label>
           <input
             onChange={handleFormChange}
@@ -73,11 +76,10 @@ export default function Signup() {
             id="username-input-signup"
             className="form-control"
           />
-        </div>
-
-        <div className="form-outline mb-4">
+          </div>
+          <div>
           <label htmlFor="password-input-signup" className="form-label">
-            Password
+            Password:
           </label>
           <input
             onChange={handleFormChange}
@@ -86,11 +88,14 @@ export default function Signup() {
             id="password-input-signup"
             className="form-control"
           />
+          </div>
+          <button
+            type="submit"
+            className="btn btn-primary px-4 py-2 pr-4 pl-4 text-gray-600 hover:text-gray-700 hover:bg-gray-50 shadow-sm appearance-none m-5 rounded-md bg-white"
+          >
+            Signup!
+          </button>
         </div>
-
-        <button type="submit" className="btn btn-primary">
-          Signup!
-        </button>
       </form>
     </>
   );
