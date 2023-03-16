@@ -185,7 +185,6 @@ export default function Categories() {
                                 </a>
                             )}
                         </Menu.Item>
-                        <form method="POST" action="#">
                             <Menu.Item>
                                 {({ active }) => (
                                     <button
@@ -201,8 +200,6 @@ export default function Categories() {
                                     </button>
                                 )}
                             </Menu.Item>
-                        </form>
-                        <form method="POST" action="#">
                             <Menu.Item>
                                 {({ active }) => (
                                     <button
@@ -218,8 +215,6 @@ export default function Categories() {
                                     </button>
                                 )}
                             </Menu.Item>
-                        </form>
-                        <form method="POST" action="#">
                             <Menu.Item>
                                 {({ active }) => (
                                     <button
@@ -235,8 +230,6 @@ export default function Categories() {
                                     </button>
                                 )}
                             </Menu.Item>
-                        </form>
-                        <form method="POST" action="#">
                             <Menu.Item>
                                 {({ active }) => (
                                     <button
@@ -252,8 +245,6 @@ export default function Categories() {
                                     </button>
                                 )}
                             </Menu.Item>
-                        </form>
-                        <form method="POST" action="#">
                             <Menu.Item>
                                 {({ active }) => (
                                     <button
@@ -269,8 +260,6 @@ export default function Categories() {
                                     </button>
                                 )}
                             </Menu.Item>
-                        </form>
-                        <form method="POST" action="#">
                             <Menu.Item>
                                 {({ active }) => (
                                     <button
@@ -286,8 +275,6 @@ export default function Categories() {
                                     </button>
                                 )}
                             </Menu.Item>
-                        </form>
-                        <form method="POST" action="#">
                             <Menu.Item>
                                 {({ active }) => (
                                     <button
@@ -303,8 +290,6 @@ export default function Categories() {
                                     </button>
                                 )}
                             </Menu.Item>
-                        </form>
-                        <form method="POST" action="#">
                             <Menu.Item>
                                 {({ active }) => (
                                     <button
@@ -320,8 +305,6 @@ export default function Categories() {
                                     </button>
                                 )}
                             </Menu.Item>
-                        </form>
-                        <form method="POST" action="#">
                             <Menu.Item>
                                 {({ active }) => (
                                     <button
@@ -337,8 +320,6 @@ export default function Categories() {
                                     </button>
                                 )}
                             </Menu.Item>
-                        </form>
-                        <form method="POST" action="#">
                             <Menu.Item>
                                 {({ active }) => (
                                     <button
@@ -354,7 +335,277 @@ export default function Categories() {
                                     </button>
                                 )}
                             </Menu.Item>
-                        </form>
+                            <Menu.Item>
+                            {({ active }) => (
+                                <a
+                                    href="#"
+                                    className={classNames(
+                                        active
+                                            ? "bg-gray-100 text-gray-900"
+                                            : "text-gray-700",
+                                        "block px-4 py-2 text-sm"
+                                    )}
+                                >
+                                    Bus station
+                                </a>
+                            )}
+                        </Menu.Item>
+                        <Menu.Item>
+                            {({ active }) => (
+                                <a
+                                    href="#"
+                                    className={classNames(
+                                        active
+                                            ? "bg-gray-100 text-gray-900"
+                                            : "text-gray-700",
+                                        "block px-4 py-2 text-sm"
+                                    )}
+                                >
+                                    Cafe
+                                </a>
+                            )}
+                        </Menu.Item>
+                        <Menu.Item>
+                            {({ active }) => (
+                                <a
+                                    href="#"
+                                    className={classNames(
+                                        active
+                                            ? "bg-gray-100 text-gray-900"
+                                            : "text-gray-700",
+                                        "block px-4 py-2 text-sm"
+                                    )}
+                                >
+                                    Campground
+                                </a>
+                            )}
+                        </Menu.Item>
+                        <Menu.Item>
+                            {({ active }) => (
+                                <a
+                                    href="#"
+                                    className={classNames(
+                                        active
+                                            ? "bg-gray-100 text-gray-900"
+                                            : "text-gray-700",
+                                        "block px-4 py-2 text-sm"
+                                    )}
+                                >
+                                    Car dealer
+                                </a>
+                            )}
+                        </Menu.Item>
+                        <Menu.Item>
+                            {({ active }) => (
+                                <a
+                                    href="#"
+                                    className={classNames(
+                                        active
+                                            ? "bg-gray-100 text-gray-900"
+                                            : "text-gray-700",
+                                        "block px-4 py-2 text-sm"
+                                    )}
+                                >
+                                    Car rental
+                                </a>
+                            )}
+                        </Menu.Item>
+                        <Menu.Item>
+                            {({ active }) => (
+                                <a
+                                    href="#"
+                                    className={classNames(
+                                        active
+                                            ? "bg-gray-100 text-gray-900"
+                                            : "text-gray-700",
+                                        "block px-4 py-2 text-sm"
+                                    )}
+                                >
+                                    Car repair
+                                </a>
+                            )}
+                        </Menu.Item>
+                        <Menu.Item>
+                            {({ active }) => (
+                                <a
+                                    href="#"
+                                    className={classNames(
+                                        active
+                                            ? "bg-gray-100 text-gray-900"
+                                            : "text-gray-700",
+                                        "block px-4 py-2 text-sm"
+                                    )}
+                                >
+                                    Car wash
+                                </a>
+                            )}
+                        </Menu.Item>
+                        <Menu.Item>
+                            {({ active }) => (
+                                <a
+                                    href="#"
+                                    className={classNames(
+                                        active
+                                            ? "bg-gray-100 text-gray-900"
+                                            : "text-gray-700",
+                                        "block px-4 py-2 text-sm"
+                                    )}
+                                >
+                                    Casino
+                                </a>
+                            )}
+                        </Menu.Item>
+                        <Menu.Item>
+                            {({ active }) => (
+                                <a
+                                    href="#"
+                                    className={classNames(
+                                        active
+                                            ? "bg-gray-100 text-gray-900"
+                                            : "text-gray-700",
+                                        "block px-4 py-2 text-sm"
+                                    )}
+                                >
+                                    Cemetery
+                                </a>
+                            )}
+                        </Menu.Item>
+                        <Menu.Item>
+                            {({ active }) => (
+                                <a
+                                    href="#"
+                                    className={classNames(
+                                        active
+                                            ? "bg-gray-100 text-gray-900"
+                                            : "text-gray-700",
+                                        "block px-4 py-2 text-sm"
+                                    )}
+                                >
+                                    Church
+                                </a>
+                            )}
+                        </Menu.Item>
+                        <Menu.Item>
+                            {({ active }) => (
+                                <a
+                                    href="#"
+                                    className={classNames(
+                                        active
+                                            ? "bg-gray-100 text-gray-900"
+                                            : "text-gray-700",
+                                        "block px-4 py-2 text-sm"
+                                    )}
+                                >
+                                    City Hall
+                                </a>
+                            )}
+                        </Menu.Item>
+                        <Menu.Item>
+                            {({ active }) => (
+                                <a
+                                    href="#"
+                                    className={classNames(
+                                        active
+                                            ? "bg-gray-100 text-gray-900"
+                                            : "text-gray-700",
+                                        "block px-4 py-2 text-sm"
+                                    )}
+                                >
+                                    Clothing store
+                                </a>
+                            )}
+                        </Menu.Item>
+                        <Menu.Item>
+                            {({ active }) => (
+                                <a
+                                    href="#"
+                                    className={classNames(
+                                        active
+                                            ? "bg-gray-100 text-gray-900"
+                                            : "text-gray-700",
+                                        "block px-4 py-2 text-sm"
+                                    )}
+                                >
+                                    Convenience store
+                                </a>
+                            )}
+                        </Menu.Item>
+                        <Menu.Item>
+                            {({ active }) => (
+                                <a
+                                    href="#"
+                                    className={classNames(
+                                        active
+                                            ? "bg-gray-100 text-gray-900"
+                                            : "text-gray-700",
+                                        "block px-4 py-2 text-sm"
+                                    )}
+                                >
+                                    Courthouse
+                                </a>
+                            )}
+                        </Menu.Item>
+                        <Menu.Item>
+                            {({ active }) => (
+                                <a
+                                    href="#"
+                                    className={classNames(
+                                        active
+                                            ? "bg-gray-100 text-gray-900"
+                                            : "text-gray-700",
+                                        "block px-4 py-2 text-sm"
+                                    )}
+                                >
+                                    Dentist
+                                </a>
+                            )}
+                        </Menu.Item>
+                        <Menu.Item>
+                            {({ active }) => (
+                                <a
+                                    href="#"
+                                    className={classNames(
+                                        active
+                                            ? "bg-gray-100 text-gray-900"
+                                            : "text-gray-700",
+                                        "block px-4 py-2 text-sm"
+                                    )}
+                                >
+                                    Department store
+                                </a>
+                            )}
+                        </Menu.Item>
+                        <Menu.Item>
+                            {({ active }) => (
+                                <a
+                                    href="#"
+                                    className={classNames(
+                                        active
+                                            ? "bg-gray-100 text-gray-900"
+                                            : "text-gray-700",
+                                        "block px-4 py-2 text-sm"
+                                    )}
+                                >
+                                    Doctor
+                                </a>
+                            )}
+                        </Menu.Item>
+                        <Menu.Item>
+                            {({ active }) => (
+                                <a
+                                    href="#"
+                                    className={classNames(
+                                        active
+                                            ? "bg-gray-100 text-gray-900"
+                                            : "text-gray-700",
+                                        "block px-4 py-2 text-sm"
+                                    )}
+                                >
+                                    Drug store
+                                </a>
+                            )}
+                        </Menu.Item>
+                        
                     </div>
                 </Menu.Items>
             </Transition>
