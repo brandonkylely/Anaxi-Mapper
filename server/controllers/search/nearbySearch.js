@@ -1,8 +1,7 @@
-const router = require('express').Router();
-const { Place, NearbySearch } = require('../../models');
+const router = require("express").Router();
+const Place = require("../../models/Place");
+const NearbySearch = require("../../models/NearbySearch");
 
-module.export = {
-    makeNearbySearchCall(req, res) {
-        
-    }
-};
+router.post()
+
+const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${origin}&destinations=${destination}&key=${process.env.GOOGLE_MAPS_API_KEY}`;

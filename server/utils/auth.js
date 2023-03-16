@@ -10,3 +10,4 @@ module.exports = {
   },
   decode: (token) => jwt.verify(token, secret),
 };
+
