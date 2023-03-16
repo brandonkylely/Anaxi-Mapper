@@ -52,7 +52,7 @@ function MyMap() {
   const ref = useRef();
 
   useEffect(() => {
-    console.log('use effect myMap function')
+    console.log('use effect myMap')
     if (!overlayRef.current) {
       // @ts-ignore
       const instance = new window.google.maps.Map(ref.current, mapOptions);

@@ -4,6 +4,7 @@ import { MouseEventHandler, useState, useContext } from "react";
 import { useAtomValue } from "jotai/react";
 import { userAtom } from "../state";
 import coordState from "../state";
+import { nearbySearch } from "../api";
 
 type City = {
   address: string;
@@ -85,12 +86,27 @@ export default function SearchBar() {
   // api req: find result where type= restaurant, set display = false
 
   async function getCoords(userAddress: string) {
-    let requestUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${userAddress}&key=${
+
+    let requestUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${userAddress.replace(" ", "+")}&key=${
       import.meta.env.VITE_APIKEY
     }`;
-
-    requestUrl = requestUrl.replace(" ", "%");
+    
     let res = await fetch(requestUrl);
+    console.log('its broken')
+    // nearbySearch(requestUrl);
+    //take this requestUrl
+    //push it to back end
+    //make the api calls
+
+    
+
+    //push up data to database
+    //pull the placeIds from all the places within the nearby search
+    //feed those into a distanceMatrix Api call
+    //calculate distance/duration from origin to each point on the distance matrix
+    //turn that combined data into a new object
+    //
+
 
     const cityData = (await res.json()) as GeoLocationResult;
     console.log('logging cityData', cityData);
