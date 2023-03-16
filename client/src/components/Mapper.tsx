@@ -29,6 +29,7 @@ const mapOptions = {
   // @ts-ignore
 export default function Mapper(props) {
   useEffect(() => {
+    console.log('use effect mapper function')
     fetch("/api/test")
       .then((r) => r.json())
       .then((d) => console.log(d));
@@ -51,6 +52,7 @@ function MyMap() {
   const ref = useRef();
 
   useEffect(() => {
+    console.log('use effect myMap function')
     if (!overlayRef.current) {
       // @ts-ignore
       const instance = new window.google.maps.Map(ref.current, mapOptions);

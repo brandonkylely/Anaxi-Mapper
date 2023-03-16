@@ -59,9 +59,11 @@ export default function SearchBar() {
   };
 
   const handleFormSubmit: MouseEventHandler = (event) => {
+    console.log('running handleFormSubmit');
     getCoords(userAddress).then((result) => {
       event.preventDefault();
-      console.log(result);
+      console.log('logging the input userAdress', userAddress);
+      console.log('logging result of getCoords', result);
       // return result.json();
       // alert(`${apiFetch(result)}`);
     });
@@ -86,9 +88,12 @@ export default function SearchBar() {
     let requestUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${userAddress}&key=${
       import.meta.env.VITE_APIKEY
     }`;
-    let res = await fetch(requestUrl);
-    const cityData = (await res.json()) as GeoLocationResult;
 
+    requestUrl = requestUrl.replace(" ", "%");
+    let res = await fetch(requestUrl);
+
+    const cityData = (await res.json()) as GeoLocationResult;
+    console.log('logging cityData', cityData);
     let city: City = {
       address: cityData.results[0].formatted_address,
       coords: {
@@ -97,7 +102,7 @@ export default function SearchBar() {
       },
       place_id: cityData.results[0].place_id,
     };
-    console.log(city);
+    console.log('logging city', city);
     // setCurrentCoords(city.coords)
 
     // cityList.push(city)
@@ -108,7 +113,7 @@ export default function SearchBar() {
     let nextUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=40.748817,-73.985428&radius=15000&type=restaurant&keyword=asian&key=AIzaSyBkMHNxpBmBMaHhnlpHHy63cRktfgiFXIA`;
     //temporarilty hardcoding Radius, Type, and Keyword, but these will be selectable
     let res2 = await fetch(nextUrl);
-    
+
     const nearbySearch = (await res2.json()) as unknown;
     console.log(nearbySearch);
    
