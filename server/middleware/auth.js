@@ -3,6 +3,13 @@ const { decode } = require("../utils/auth");
 
 let auth = (req, res, next) => {
   console.log('req.headers.authorization', req.headers)
+  if (!req.headers.authorization) {
+    return next();
+  }
+
+  if (req.headers.authorization === "Bearer null") {
+    return next();
+  }
   const token = req.headers.authorization.replace("Bearer ", "");
 
   console.log("YOUR TOKEN IS HERE", token);

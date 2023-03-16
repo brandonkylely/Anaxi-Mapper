@@ -14,6 +14,7 @@ router.post("/", async (req, res) => {
     const token = signToken(newUser); //breaking here
     res.status(200).json({ success: true, token });
   } catch (err) {
+    console.log('error1', err);
     res.status(500).json({ success: false, token: null });
   }
 });
