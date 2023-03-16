@@ -4,6 +4,8 @@ import { useAtom } from "jotai/react";
 import { useNavigate } from "react-router-dom";
 import token from "../utils/token";
 import { userAtom, MapperUser } from "../state";
+// import { LockClosedIcon } from '@heroicons/react/20/solid'
+
 export default function Signup() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -31,7 +33,7 @@ export default function Signup() {
 
       //store token in local storage;
       token.login(data.token);
-      const user = token.decode(data.token)
+      const user = token.decode(data.token);
       //update user state
       setUser(user.data);
       //maybe redirect to home page?
@@ -44,50 +46,56 @@ export default function Signup() {
   };
   return (
     <>
-      <h2>REGISTER: </h2>
-
-      <form id="signup-form" className="card-body" onSubmit={handleFormSubmit}>
-        <div className="form-outline mb-4">
+      <form
+        id="signup-form"
+        className="card-body flex justify-center p-10 m-5"
+        onSubmit={handleFormSubmit}
+      >
+        <div className="form-outline space-y-4 rounded-lg tracking-wide">
+          <div className="font-bold text-xl justify-center font-semibold tracking-widest">
+          <h2>REGISTER: </h2>
+          </div>
           <label htmlFor="username-input-signup" className="form-label">
-            Your name
+            name:
           </label>
           <input
             onChange={handleFormChange}
             name="name"
             type="text"
             id="username-input-signup"
-            className="form-control"
+            className="form-control rounded-lg"
           />
-        </div>
-        <div className="form-outline mb-4">
+          <div className="">
           <label htmlFor="username-input-signup" className="form-label">
-            Email
+            email:
           </label>
           <input
             onChange={handleFormChange}
             name="email"
             type="text"
             id="username-input-signup"
-            className="form-control"
+            className="form-control rounded-lg"
           />
-        </div>
-
-        <div className="form-outline mb-4">
-          <label htmlFor="password-input-signup" className="form-label">
-            Password
+          </div>
+          <div>
+          <label htmlFor="password-input-signup" className="form-label ">
+            password:
           </label>
           <input
             onChange={handleFormChange}
             name="password"
             type="password"
             id="password-input-signup"
-            className="form-control"
+            className="form-control rounded-lg w-3/5"
           />
+          </div>
+          <button
+            type="submit"
+            className="btn btn-primary pl-4 pr-4 px-2 py-2 text-gray-600 hover:text-gray-700 hover:bg-gray-50 shadow-sm appearance-none rounded-md bg-white"
+          >
+            signup!
+          </button>
         </div>
-
-        <button type="submit" className="btn btn-primary">
-          Signup!
-        </button>
       </form>
     </>
   );

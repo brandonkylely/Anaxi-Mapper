@@ -19,11 +19,14 @@ function App() {
   return (
     <Router>
       {/* quick links for better dev exp, make look nice or remove later */}
-      <Link className="mx-2" to="/signup">
-        Signup
+      <Link className="mx-2 font-light tracking-wide text-stone-800" to="/signup">
+        signup
       </Link>
-      <Link className="mx-2" to="/">
-        Home
+      <Link className="mx-2 font-light tracking-wide text-stone-800" to="/">
+        home
+      </Link>
+      <Link className= "mx-2 font-light tracking-wide text-stone-800" to="/">
+        favorites
       </Link>
       {/* quick links for better dev exp, make look nice or remove later */}
       <Routes>
