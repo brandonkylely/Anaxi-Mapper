@@ -54,20 +54,18 @@ export default function SearchBar() {
   const [userAddress, setUserAddress] = useState<string>("");
 
   const handleSetUserAddress = (event: any) => {
-    const newAddress = event.target.value;
-    console.log("address " + newAddress);
-    setUserAddress(newAddress);
-  };
+    const newAddress = event.target.value
+    console.log('address ' + newAddress)
+    setUserAddress(newAddress)
+}
 
-  const handleFormSubmit: MouseEventHandler = (event) => {
-    console.log('running handleFormSubmit');
+const handleFormSubmit = (event: any) => {
+  event.preventDefault();
     getCoords(userAddress).then((result) => {
-      event.preventDefault();
-      console.log('logging the input userAdress', userAddress);
-      console.log('logging result of getCoords', result);
-      // return result.json();
-      // alert(`${apiFetch(result)}`);
-    });
+        console.log(result)
+        // return result.json();
+        // alert(`${apiFetch(result)}`);
+    })
   };
 
   // search address, map with nothing, save
