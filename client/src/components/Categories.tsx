@@ -108,9 +108,9 @@ function classNames(...classes) {
 
 export default function Categories() {
     return (
-        <Menu as="div" className="relative inline-block float-left p-5 pl-10 mb-8">
+        <Menu as="div" className="relative inline-block float-left p-2 pl-4 mb-10 pt-3">
             <div>
-                <Menu.Button className="flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-grey-100">
+                <Menu.Button className="flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-grey-100">
                     categories
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
