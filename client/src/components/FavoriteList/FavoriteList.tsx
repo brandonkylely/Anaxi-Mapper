@@ -13,7 +13,7 @@ function FavoritePage() {
     const [FavDestination, setFavDestination] = useState([])
 
     useEffect(() => {
-
+        console.log('use effect favorite page')
         fetchFavDestination();
 
 

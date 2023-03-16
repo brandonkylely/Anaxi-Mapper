@@ -4,6 +4,7 @@ import { MouseEventHandler, useState, useContext } from "react";
 import { useAtomValue } from "jotai/react";
 import { userAtom } from "../state";
 import coordState from "../state";
+import { nearbySearch } from "../api";
 
 type City = {
   address: string;
@@ -59,9 +60,11 @@ export default function SearchBar() {
   };
 
   const handleFormSubmit: MouseEventHandler = (event) => {
+    console.log('running handleFormSubmit');
     getCoords(userAddress).then((result) => {
       event.preventDefault();
-      console.log(result);
+      console.log('logging the input userAdress', userAddress);
+      console.log('logging result of getCoords', result);
       // return result.json();
       // alert(`${apiFetch(result)}`);
     });
@@ -83,12 +86,30 @@ export default function SearchBar() {
   // api req: find result where type= restaurant, set display = false
 
   async function getCoords(userAddress: string) {
-    let requestUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${userAddress}&key=${
+
+    let requestUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${userAddress.replace(" ", "+")}&key=${
       import.meta.env.VITE_APIKEY
     }`;
+    
     let res = await fetch(requestUrl);
-    const cityData = (await res.json()) as GeoLocationResult;
+    console.log('its broken')
+    // nearbySearch(requestUrl);
+    //take this requestUrl
+    //push it to back end
+    //make the api calls
 
+    
+
+    //push up data to database
+    //pull the placeIds from all the places within the nearby search
+    //feed those into a distanceMatrix Api call
+    //calculate distance/duration from origin to each point on the distance matrix
+    //turn that combined data into a new object
+    //
+
+
+    const cityData = (await res.json()) as GeoLocationResult;
+    console.log('logging cityData', cityData);
     let city: City = {
       address: cityData.results[0].formatted_address,
       coords: {
@@ -97,7 +118,7 @@ export default function SearchBar() {
       },
       place_id: cityData.results[0].place_id,
     };
-    console.log(city);
+    console.log('logging city', city);
     // setCurrentCoords(city.coords)
 
     // cityList.push(city)
@@ -108,7 +129,7 @@ export default function SearchBar() {
     let nextUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=40.748817,-73.985428&radius=15000&type=restaurant&keyword=asian&key=AIzaSyBkMHNxpBmBMaHhnlpHHy63cRktfgiFXIA`;
     //temporarilty hardcoding Radius, Type, and Keyword, but these will be selectable
     let res2 = await fetch(nextUrl);
-    
+
     const nearbySearch = (await res2.json()) as unknown;
     console.log(nearbySearch);
    
