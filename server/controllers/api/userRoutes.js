@@ -11,9 +11,11 @@ router.post("/", async (req, res) => {
       password: req.body.password,
     });
     //create a jwt, and send back to FE
-    const token = signToken(newUser);
+    const token = signToken(newUser); //breaking here
     res.status(200).json({ success: true, token });
   } catch (err) {
+    console.log(err);
+    console.log('error1', err);
     res.status(500).json({ success: false, token: null });
   }
 });

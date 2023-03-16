@@ -105,25 +105,13 @@ export default function SearchBar() {
     // console.log(cityList)
     // return city
 
-    let nextUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${
-      city.coords.lat
-    },${city.coords.lng}&radius=15000&type=restaurant&keyword=asian&key=${
-      import.meta.env.VITE_APIKEY
-    }`;
+    let nextUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=40.748817,-73.985428&radius=15000&type=restaurant&keyword=asian&key=AIzaSyBkMHNxpBmBMaHhnlpHHy63cRktfgiFXIA`;
     //temporarilty hardcoding Radius, Type, and Keyword, but these will be selectable
     let res2 = await fetch(nextUrl);
-
+    
     const nearbySearch = (await res2.json()) as unknown;
     console.log(nearbySearch);
-    // return cityData;
-
-    // try {
-    //   let coords = cityData.json();
-    //   return coords
-    // } catch (error) {
-    //   console.error(error);
-    // }
-    // console.log('fetching')
+   
   }
 
   return (

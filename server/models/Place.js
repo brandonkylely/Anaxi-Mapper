@@ -2,16 +2,16 @@ const { Schema, Types, model } = require("mongoose");
 
 const addressComponentSchema = new mongoose.Schema({
   address_components: {
-    long_name: { type: string },
-    short_name: { type: string },
-    types: { type: [string] },
+    long_name: String,
+    short_name: String,
+    types: [String],
   },
 });
 
 const latLngLiteralSchema = new mongoose.Schema({
   latLngLiteral: {
-    lat: { type: number },
-    lat: { type: number },
+    lat: Number,
+    lat: Number,
   },
 });
 
@@ -39,98 +39,98 @@ const geometrySchema = new mongoose.Schema({
 
 const openingHoursSchema = new mongoose.Schema({
   opening_hours: {
-    open_now: { type: boolean },
+    open_now: Boolean,
     periods: {
       //might want to make this its own sub schema - 'PlaceOpeningHoursPeriod'
       open: openingHoursPeriodDetailSchema,
       close: openingHoursPeriodDetailSchema,
     },
-    weekday_text: { type: [string] }, //An array of strings describing in human-readable text the hours of the place.
+    weekday_text: [String], //An array of strings describing in human-readable text the hours of the place.
   },
 });
 
 const openingHoursPeriodDetailSchema = new mongoose.Schema({
   opening_hours_period_detail: {
     //PlaceOpeningHoursPeriodDetail
-    day: { type: number }, //expressed as 0 through 6 with 0 being sunday, 1 being monday, etc.
-    time: { type: string }, //May contain a time of day in 24-hour hhmm format. Values are in the range 0000–2359. The time will be reported in the location's time zone.
-    date: { type: string },
-    truncated: { type: boolean },
+    day: Number, //expressed as 0 through 6 with 0 being sunday, 1 being monday, etc.
+    time: String, //May contain a time of day in 24-hour hhmm format. Values are in the range 0000–2359. The time will be reported in the location's time zone.
+    date: String,
+    truncated: Boolean,
   },
 });
 
 const photoSchema = new mongoose.Schema({
   //all required
   photos: {
-    height: { type: number },
-    html_attributions: { type: [string] },
-    photo_reference: { type: string },
-    width: { type: number },
+    height: Number,
+    html_attributions: [String],
+    photo_reference: String,
+    width: Number,
   },
 });
 
 const reviewSchema = new mongoose.Schema({
   reviews: {
-    author_name: { type: string }, //required
-    author_url: { type: string },
-    language: { type: string },
-    profile_photo_url: { type: string },
-    rating: { type: number }, //required
-    relative_time_description: { type: string }, //required
-    text: { type: string },
-    time: { type: number }, //required
+    author_name: String, //required
+    author_url: String,
+    language: String,
+    profile_photo_url: String,
+    rating: Number, //required
+    relative_time_description: String, //required
+    text: String,
+    time: Number, //required
   },
 });
 
 //might want to change to plusCodeSchema
 const plus_codeSchema = new mongoose.Schema({
   plus_code: {
-    compound_code: { type: string },
-    global_code: { type: string }, //required
+    compound_code: String,
+    global_code: String, //required
   },
 });
 
 const placeEditorialSummarySchema = new mongoose.Schema({
   //need to finalize how this, placeEditorialSummary, PlaceOpeningHoursPeriodDetail and latLngLiteral will be formatted
   place_editorial_summary: {
-    language: { type: string },
-    overview: { type: string },
+    language: String,
+    overview: String,
   },
 });
 
 const placeSchema = new mongoose.Schema({
   addToFavorites: { type: boolean, default: false},
-  address_components: addressComponentSchema,
-  adr_address: { type: string },
-  business_status: { type: string }, //some sort of filtering to exclude permanently closed businesses, can be OPERATIONAL, CLOSED_TEMPORARILY, and CLOSED_PERMANENTLY
-  curbside_pickup: { type: boolean },
-  current_opening_hours: { type: boolean },
-  delivery: { type: boolean },
-  dine_in: { type: boolean },
+  address_components: {type : addressComponentSchema},
+  adr_address: String,
+  business_status: String, //some sort of filtering to exclude permanently closed businesses, can be OPERATIONAL, CLOSED_TEMPORARILY, and CLOSED_PERMANENTLY
+  curbside_pickup: Boolean,
+  current_opening_hours: Boolean,
+  delivery: Boolean,
+  dine_in: Boolean,
   editorial_summary: placeEditorialSummarySchema,
-  formatted_address: { type: string },
-  formatted_phone_number: { type: string },
+  formatted_address: String,
+  formatted_phone_number: String,
   geometry: geometrySchema,
-  icon: { type: string },
-  icon_background_color: { type: string },
-  icon_mask_base_uri: { type: string },
-  international_phone_number: { type: string },
-  name: { type: string },
+  icon: String,
+  icon_background_color: String,
+  icon_mask_base_uri: String,
+  international_phone_number: String,
+  name: String,
   opening_hours: openingHoursSchema,
-  // permanently_closed: { type: boolean }, //depreciated
+  // permanently_closed: Boolean, //depreciated
   photos: photoSchema,
-  place_id: { type: string },
+  place_id: String,
   plus_code: plus_codeSchema,
-  price_level: { type: number }, //can be 0, 1, 2, 3, or 4 with 0 being free and 4 being very expensive
-  rating: { type: number }, //Contains the place's rating, from 1.0 to 5.0, based on aggregated user reviews.
+  price_level: Number, //can be 0, 1, 2, 3, or 4 with 0 being free and 4 being very expensive
+  rating: Number, //Contains the place's rating, from 1.0 to 5.0, based on aggregated user reviews.
   reviews: reviewSchema,
-  types: { type: [string] }, //should consider filtering out all Table 2 place types, and only keeping the ones in Table 1
-  url: { type: string },
-  user_ratings_total: { type: number },
-  utc_offset: { type: number },
-  vicinity: { type: string },
-  website: { type: string },
-  wheelchair_accessible: { type: boolean },
+  types: [String], //should consider filtering out all Table 2 place types, and only keeping the ones in Table 1
+  url: String,
+  user_ratings_total: Number,
+  utc_offset: Number,
+  vicinity: String,
+  website: String,
+  wheelchair_accessible: Boolean,
 });
 
 //keepInFavorites Toggle Method
@@ -147,21 +147,21 @@ placeSchema.methods.changeFavorites = function () { //this is used when the user
   this.addToFavorites = !this.addToFavorites;
 };
 
-const Place = model("Place", placeSchema);
+const Place = model("place", placeSchema);
 module.exports = Place;
 
 //saving this in case making too many subdocuments complicates the schema
 //const openingHoursSchema = new mongoose.Schema({
 //   opening_hours: {
-//     open_now: { type: boolean },
+//     open_now: Boolean,
 //     periods: { //might want to make this its own sub schema - 'PlaceOpeningHoursPeriod'
 //       open: { //might want to make this its own sub schema - 'PlaceOpeningHoursPeriodDetail' --required
-//         day: { type: number },
-//         time: { type: string },
+//         day: Number,
+//         time: String,
 //       },
 //       close: { //same as open, just not required
-//         day: { type: number },
-//         time: { type: string },
+//         day: Number,
+//         time: String,
 //       },
 //     },
 //     weekday_text: { type: [string] },

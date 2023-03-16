@@ -2,22 +2,25 @@ const { Schema, Types, model } = require("mongoose");
 import Place from "./Place";
 
 const nearbySearchSchema = new Schema({
-    places: [Place],
+  places: [Place], //might want to change this back later
+  //[{ type: Schema.Types.ObjectId, ref: "place" }]
 });
 
-nearbySearchSchema.method.addAllToFavorites = function () { //these are called when users want to toggle the default on or off for an entire nearbySearch Result
-    this.places.forEach((place) => {
-        place.addToFavorites();
-    });
+nearbySearchSchema.method.addAllToFavorites = function () {
+  //these are called when users want to toggle the default on or off for an entire nearbySearch Result
+  this.places.forEach((place) => {
+    place.addToFavorites();
+  });
 };
 
-nearbySearchSchema.method.removeAllFromFavorites = function () { //these are called when users want to toggle the default on or off
-    this.places.forEach((place) => {
-        place.removeFromFavorites();
-    });
+nearbySearchSchema.method.removeAllFromFavorites = function () {
+  //these are called when users want to toggle the default on or off
+  this.places.forEach((place) => {
+    place.removeFromFavorites();
+  });
 };
 
-const NearbySearch = model("NearbySearch", nearbySearchSchema);
+const NearbySearch = model("nearbySearch", nearbySearchSchema);
 
 module.exports = NearbySearch;
 
@@ -33,15 +36,12 @@ module.exports = NearbySearch;
 
 //finalized / favorited nearby search result is then saved to their favorites list
 
-
-
 //user will options for every place type to be included in their search
 //user will give initial address
 //user will select range
 
 //8 different restaurnts
 //favorites
-
 
 //fetch
 

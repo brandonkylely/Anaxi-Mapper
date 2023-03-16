@@ -6,9 +6,14 @@ axios.defaults.headers[
 
 export const test = async () => {
   const res = await axios.get("/api/test");
+  console.log('res.data', res.data)
   return res.data;
 };
 
 // add additional api calls here
 //export const addFav = () => does some fav stuff
 
+// export const nearbySearh = async (address) => {
+//   const res = await axios.get(`/api/nearbysearch/`);
+//   return res.data;
+// };
