@@ -11,8 +11,17 @@ const addressSchema = new Schema({
     //   results_id: Schema.Types.ObjectId,
     //   ref: "place"
     // }]
+    //comments: [{}]
 });
 
+
+// Search: {
+//   formatted origin address:
+//     Places: 
+//       distances, routes
+//       type
+
+// }
 
 const Address = model("address", addressSchema);
 module.exports = Address;
