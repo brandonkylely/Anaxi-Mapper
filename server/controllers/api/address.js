@@ -7,12 +7,12 @@ router.post("/search", auth, (req, res) => {
 
     const address = new Address(req.body)
 
-    comment.save((err, comment) => {
+    address.save((err, address) => {
         console.log(err)
         if (err) return res.json({ success: false, err })
 
-        Comment.find({ '_id': comment._id })
-            .populate('writer')
+        Address.find({ '_id': address._id })
+            // .populate('address')
             .exec((err, result) => {
                 if (err) return res.json({ success: false, err })
                 return res.status(200).json({ success: true, result })
