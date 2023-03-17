@@ -14,7 +14,7 @@ function App() {
     const tokenData = token.getToken();
     tokenData && setUser(tokenData.data);
     console.log('use effect App')
-    test()
+    test();
     // optional, if no want on main page, you can redirect if no token or expired token
   }, []);
   return (

@@ -4,7 +4,7 @@ import { MouseEventHandler, useState, useContext } from "react";
 import { useAtomValue } from "jotai/react";
 import { userAtom } from "../state";
 import coordState from "../state";
-import { nearbySearch } from "../api";
+import { nearbySearch, post } from "../api";
 
 type City = {
   address: string;
@@ -54,18 +54,18 @@ export default function SearchBar() {
   const [userAddress, setUserAddress] = useState<string>("");
 
   const handleSetUserAddress = (event: any) => {
-    const newAddress = event.target.value
-    console.log('address ' + newAddress)
-    setUserAddress(newAddress)
-}
+    const newAddress = event.target.value;
+    console.log("address " + newAddress);
+    setUserAddress(newAddress);
+  };
 
-const handleFormSubmit = (event: any) => {
-  event.preventDefault();
+  const handleFormSubmit = (event: any) => {
+    event.preventDefault();
     getCoords(userAddress).then((result) => {
-        console.log(result)
-        // return result.json();
-        // alert(`${apiFetch(result)}`);
-    })
+      // console.log(result)
+      // return result.json();
+      // alert(`${apiFetch(result)}`);
+    });
   };
 
   // search address, map with nothing, save
@@ -84,19 +84,10 @@ const handleFormSubmit = (event: any) => {
   // api req: find result where type= restaurant, set display = false
 
   async function getCoords(userAddress: string) {
-
-    let requestUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${userAddress.replace(" ", "+")}&key=${
-      import.meta.env.VITE_APIKEY
-    }`;
-    
-    let res = await fetch(requestUrl);
-    console.log('its broken')
     // nearbySearch(requestUrl);
     //take this requestUrl
     //push it to back end
     //make the api calls
-
-    
 
     //push up data to database
     //pull the placeIds from all the places within the nearby search
@@ -105,32 +96,46 @@ const handleFormSubmit = (event: any) => {
     //turn that combined data into a new object
     //
 
+    const res = await post("/api/address/search", { userAddress });
 
-    const cityData = (await res.json()) as GeoLocationResult;
-    console.log('logging cityData', cityData);
-    let city: City = {
-      address: cityData.results[0].formatted_address,
+    console.log("RES", res);
+
+    //TODO HERE ---
+    const addressData = (await res.json()) as GeoLocation;
+    console.log("logging cityData", addressData);
+
+    let address: City = {
+      address: addressData.formatted_address,
       coords: {
-        lat: cityData.results[0].geometry.location.lat,
-        lng: cityData.results[0].geometry.location.lng,
+        lat: addressData.geometry.location.lat,
+        lng: addressData.geometry.location.lng,
       },
-      place_id: cityData.results[0].place_id,
+      place_id: addressData.place_id,
     };
-    console.log('logging city', city);
-    // setCurrentCoords(city.coords)
 
-    // cityList.push(city)
-    // console.log(cityData)
+    console.log("logging address", address);
+
+    // let resSend = await fetch('/api/address',
+    // {
+    //   method:"POST",
+    //   headers:
+    //   body: address
+    // }
+
+    // )
+    // setCurrentCoords(address.coords)
+
+    // cityList.push(address)
+    // console.log(addressData)
     // console.log(cityList)
     // return city
 
-    let nextUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=40.748817,-73.985428&radius=15000&type=restaurant&keyword=asian&key=AIzaSyBkMHNxpBmBMaHhnlpHHy63cRktfgiFXIA`;
-    //temporarilty hardcoding Radius, Type, and Keyword, but these will be selectable
-    let res2 = await fetch(nextUrl);
+    // let nextUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=40.748817,-73.985428&radius=15000&type=restaurant&keyword=asian&key=AIzaSyBkMHNxpBmBMaHhnlpHHy63cRktfgiFXIA`;
+    // //temporarilty hardcoding Radius, Type, and Keyword, but these will be selectable
+    // let res2 = await fetch(nextUrl);
 
-    const nearbySearch = (await res2.json()) as unknown;
-    console.log(nearbySearch);
-   
+    // const nearbySearch = (await res2.json()) as unknown;
+    // console.log(nearbySearch);
   }
 
   return (
@@ -149,6 +154,7 @@ const handleFormSubmit = (event: any) => {
       </form> */}
       <form className="max-w-sm px-4 form ">
         {/* JUST POC , THIS IS HOW TO CONSUME */}
+
         {/* <h1> {user?.email}</h1> */}
        
           <input
@@ -165,6 +171,22 @@ const handleFormSubmit = (event: any) => {
           >
             submit
           </button>
+
+        <input
+          className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
+          value={userAddress}
+          name="userAddress"
+          onChange={handleSetUserAddress}
+          type="text"
+          placeholder="Enter an address"
+        />
+        <button
+          className="bg-white text-gray-600 px-2 py-1 rounded-lg mt-2 hover:bg-stone-200 ml-2"
+          onClick={handleFormSubmit}
+        >
+          submit
+        </button>
+
       </form>
     </>
   );

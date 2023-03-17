@@ -11,14 +11,14 @@ const NavBar = () => {
       <p className='md:text-2xl p-2 '>
         FIND YOUR NEW
       </p>
-      <p className='md:text-2xl p-2 pl-1 text-lime-700'>
+      <div className='md:text-2xl p-2 pl-1 text-lime-700'>
         <Typewriter options= {{
           strings: ['VACATION', 'HOME', 'ACTIVITY', 'DESTINATION'],
           autoStart: true,
           loop: true,
           delay: 75
          }}/>
-      </p>
+      </div>
     </div>
     
   );

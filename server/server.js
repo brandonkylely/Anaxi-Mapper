@@ -1,8 +1,8 @@
 require("dotenv").config();
 const express = require("express");
-const db = require("./config/index");
+const db = require("./config/connection");
 const routes = require("./controllers");
-const { auth } = require("./middleware/auth");
+const auth = require("./middleware/auth");
 // require('./src')();
 
 const PORT = process.env.PORT || 3001;

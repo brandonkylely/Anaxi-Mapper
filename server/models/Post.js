@@ -1,6 +1,6 @@
 const { Schema, Types, model } = require("mongoose");
 
-const postSchema = new mongoose.Schema(
+const postSchema = new Schema(
   {
     title: {
       type: String,
@@ -11,8 +11,8 @@ const postSchema = new mongoose.Schema(
       required: true,
     },
     user: {
-      type: Types.ObjectId,
-      ref: "User",
+      type: Schema.Types.ObjectId,
+      ref: "user",
     },
   },
   {
@@ -23,25 +23,6 @@ const postSchema = new mongoose.Schema(
   }
 );
 
-const Post = model("Post", postSchema);
+const Post = model("post", postSchema);
 
 module.exports = Post;
-
-// const { Model, DataTypes } = require('sequelize');
-// const sequelize = require('../config');
-
-// class Post extends Model {}
-
-// Post.init(
-//   {
-//     title: DataTypes.STRING,
-//     body: DataTypes.STRING
-//   },
-//   {
-//     sequelize,
-//     freezeTableName: true,
-//     modelName: 'post'
-//   }
-// );
-
-// module.exports = Post;
