@@ -4,7 +4,7 @@ import { MouseEventHandler, useState, useContext } from "react";
 import { useAtomValue } from "jotai/react";
 import { userAtom } from "../state";
 import coordState from "../state";
-import { nearbySearch } from "../api";
+import { nearbySearch, post } from "../api";
 
 type City = {
   address: string;
@@ -54,18 +54,18 @@ export default function SearchBar() {
   const [userAddress, setUserAddress] = useState<string>("");
 
   const handleSetUserAddress = (event: any) => {
-    const newAddress = event.target.value
-    console.log('address ' + newAddress)
-    setUserAddress(newAddress)
-}
+    const newAddress = event.target.value;
+    console.log("address " + newAddress);
+    setUserAddress(newAddress);
+  };
 
-const handleFormSubmit = (event: any) => {
-  event.preventDefault();
+  const handleFormSubmit = (event: any) => {
+    event.preventDefault();
     getCoords(userAddress).then((result) => {
-        // console.log(result)
-        // return result.json();
-        // alert(`${apiFetch(result)}`);
-    })
+      // console.log(result)
+      // return result.json();
+      // alert(`${apiFetch(result)}`);
+    });
   };
 
   // search address, map with nothing, save
@@ -84,13 +84,10 @@ const handleFormSubmit = (event: any) => {
   // api req: find result where type= restaurant, set display = false
 
   async function getCoords(userAddress: string) {
-
     // nearbySearch(requestUrl);
     //take this requestUrl
     //push it to back end
     //make the api calls
-
-    
 
     //push up data to database
     //pull the placeIds from all the places within the nearby search
@@ -98,29 +95,34 @@ const handleFormSubmit = (event: any) => {
     //calculate distance/duration from origin to each point on the distance matrix
     //turn that combined data into a new object
     //
-    let requestUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${userAddress.replace(" ", "+")}&key=${
-      import.meta.env.VITE_APIKEY
-    }`;
-    
-    let res = await fetch(requestUrl);
-    console.log('its broken')
 
+    const res = await post("/api/address/search", { userAddress });
 
-    const addressData = (await res.json()) as GeoLocationResult;
-    console.log('logging cityData', addressData);
+    console.log("RES", res);
+
+    //TODO HERE ---
+    const addressData = (await res.json()) as GeoLocation;
+    console.log("logging cityData", addressData);
 
     let address: City = {
-      address: addressData.results[0].formatted_address,
+      address: addressData.formatted_address,
       coords: {
-        lat: addressData.results[0].geometry.location.lat,
-        lng: addressData.results[0].geometry.location.lng,
+        lat: addressData.geometry.location.lat,
+        lng: addressData.geometry.location.lng,
       },
-      place_id: addressData.results[0].place_id,
+      place_id: addressData.place_id,
     };
 
-    console.log('logging address', address);
+    console.log("logging address", address);
 
-    let resSend = await fetch('/api/')
+    // let resSend = await fetch('/api/address',
+    // {
+    //   method:"POST",
+    //   headers:
+    //   body: address
+    // }
+
+    // )
     // setCurrentCoords(address.coords)
 
     // cityList.push(address)
@@ -134,7 +136,6 @@ const handleFormSubmit = (event: any) => {
 
     // const nearbySearch = (await res2.json()) as unknown;
     // console.log(nearbySearch);
-   
   }
 
   return (
@@ -154,20 +155,20 @@ const handleFormSubmit = (event: any) => {
       <form className="max-w-sm px-4 form ">
         {/* JUST POC , THIS IS HOW TO CONSUME */}
         <h1> {user?.email}</h1>
-          <input
-            className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
-            value={userAddress}
-            name="userAddress"
-            onChange={handleSetUserAddress}
-            type="text"
-            placeholder="Enter an address"
-          />
-          <button
-            className="bg-white text-gray-600 px-2 py-1 rounded-lg mt-2 hover:bg-stone-200 ml-2"
-            onClick={handleFormSubmit}
-          >
-            submit
-          </button>
+        <input
+          className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
+          value={userAddress}
+          name="userAddress"
+          onChange={handleSetUserAddress}
+          type="text"
+          placeholder="Enter an address"
+        />
+        <button
+          className="bg-white text-gray-600 px-2 py-1 rounded-lg mt-2 hover:bg-stone-200 ml-2"
+          onClick={handleFormSubmit}
+        >
+          submit
+        </button>
       </form>
     </>
   );

@@ -1,6 +1,6 @@
 const { Schema, Types, model } = require("mongoose");
 
-const addressComponentSchema = new mongoose.Schema({
+const addressComponentSchema = new Schema({
   address_components: {
     long_name: String,
     short_name: String,
@@ -8,7 +8,7 @@ const addressComponentSchema = new mongoose.Schema({
   },
 });
 
-const latLngLiteralSchema = new mongoose.Schema({
+const latLngLiteralSchema = new Schema({
   latLngLiteral: {
     lat: Number,
     lat: Number,
@@ -23,21 +23,42 @@ const latLngLiteralSchema = new mongoose.Schema({
 //   },
 // });
 
-const boundsSchema = new mongoose.Schema({
+const boundsSchema = new Schema({
   bounds: {
     northeast: latLngLiteralSchema,
     southwest: latLngLiteralSchema,
   },
 });
 
-const geometrySchema = new mongoose.Schema({
+const geometrySchema = new Schema({
   geometry: {
     location: latLngLiteralSchema,
     viewport: boundsSchema,
   },
 });
 
-const openingHoursSchema = new mongoose.Schema({
+
+const openingHoursPeriodDetailSchema = new Schema({
+  opening_hours_period_detail: {
+    //PlaceOpeningHoursPeriodDetail
+    day: Number, //expressed as 0 through 6 with 0 being sunday, 1 being monday, etc.
+    time: String, //May contain a time of day in 24-hour hhmm format. Values are in the range 0000–2359. The time will be reported in the location's time zone.
+    date: String,
+    truncated: Boolean,
+  },
+});
+
+const photoSchema =new Schema({
+  //all required
+  photos: {
+    height: Number,
+    html_attributions: [String],
+    photo_reference: String,
+    width: Number,
+  },
+});
+
+const openingHoursSchema = new Schema({
   opening_hours: {
     open_now: Boolean,
     periods: {
@@ -49,27 +70,7 @@ const openingHoursSchema = new mongoose.Schema({
   },
 });
 
-const openingHoursPeriodDetailSchema = new mongoose.Schema({
-  opening_hours_period_detail: {
-    //PlaceOpeningHoursPeriodDetail
-    day: Number, //expressed as 0 through 6 with 0 being sunday, 1 being monday, etc.
-    time: String, //May contain a time of day in 24-hour hhmm format. Values are in the range 0000–2359. The time will be reported in the location's time zone.
-    date: String,
-    truncated: Boolean,
-  },
-});
-
-const photoSchema = new mongoose.Schema({
-  //all required
-  photos: {
-    height: Number,
-    html_attributions: [String],
-    photo_reference: String,
-    width: Number,
-  },
-});
-
-const reviewSchema = new mongoose.Schema({
+const reviewSchema = new Schema({
   reviews: {
     author_name: String, //required
     author_url: String,
@@ -83,14 +84,14 @@ const reviewSchema = new mongoose.Schema({
 });
 
 //might want to change to plusCodeSchema
-const plus_codeSchema = new mongoose.Schema({
+const plus_codeSchema = new Schema({
   plus_code: {
     compound_code: String,
     global_code: String, //required
   },
 });
 
-const placeEditorialSummarySchema = new mongoose.Schema({
+const placeEditorialSummarySchema = new Schema({
   //need to finalize how this, placeEditorialSummary, PlaceOpeningHoursPeriodDetail and latLngLiteral will be formatted
   place_editorial_summary: {
     language: String,
@@ -98,8 +99,8 @@ const placeEditorialSummarySchema = new mongoose.Schema({
   },
 });
 
-const placeSchema = new mongoose.Schema({
-  addToFavorites: { type: boolean, default: false},
+const placeSchema = new Schema({
+  // addToFavorites: { type: Boolean, default: false},
   address_components: {type : addressComponentSchema},
   adr_address: String,
   business_status: String, //some sort of filtering to exclude permanently closed businesses, can be OPERATIONAL, CLOSED_TEMPORARILY, and CLOSED_PERMANENTLY

@@ -1,6 +1,6 @@
 const { Schema, Types, model } = require("mongoose");
 
-const favoriteSchema = new mongoose.Schema(
+const favoriteSchema = new Schema(
 {
     userFrom: {
         type: Schema.Types.ObjectId,
