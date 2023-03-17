@@ -2,6 +2,8 @@ import { useState, Fragment } from 'react'
 import { Combobox } from '@headlessui/react'
 // import { CheckIcon } from '@heroicons/react/20/solid'
 
+//https://headlessui.com/react/combobox
+
 const category = [
   { id: 0, name: 'Type a category' },
   { id: 1, name: 'Accounting' },
