@@ -53,7 +53,7 @@ export default function Signup() {
       >
         <div className="form-outline space-y-4 rounded-lg tracking-wide">
           <div className="font-bold text-xl justify-center font-semibold tracking-widest">
-          <h2>REGISTER: </h2>
+            <h2>REGISTER: </h2>
           </div>
           <label htmlFor="username-input-signup" className="form-label">
             name:
@@ -66,28 +66,28 @@ export default function Signup() {
             className="form-control rounded-lg"
           />
           <div className="">
-          <label htmlFor="username-input-signup" className="form-label">
-            email:
-          </label>
-          <input
-            onChange={handleFormChange}
-            name="email"
-            type="text"
-            id="username-input-signup"
-            className="form-control rounded-lg"
-          />
+            <label htmlFor="username-input-signup" className="form-label">
+              email:
+            </label>
+            <input
+              onChange={handleFormChange}
+              name="email"
+              type="text"
+              id="username-input-signup"
+              className="form-control rounded-lg"
+            />
           </div>
           <div>
-          <label htmlFor="password-input-signup" className="form-label ">
-            password:
-          </label>
-          <input
-            onChange={handleFormChange}
-            name="password"
-            type="password"
-            id="password-input-signup"
-            className="form-control rounded-lg w-3/5"
-          />
+            <label htmlFor="password-input-signup" className="form-label ">
+              password:
+            </label>
+            <input
+              onChange={handleFormChange}
+              name="password"
+              type="password"
+              id="password-input-signup"
+              className="form-control rounded-lg w-3/5"
+            />
           </div>
           <button
             type="submit"

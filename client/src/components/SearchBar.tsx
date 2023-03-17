@@ -154,7 +154,23 @@ export default function SearchBar() {
       </form> */}
       <form className="max-w-sm px-4 form ">
         {/* JUST POC , THIS IS HOW TO CONSUME */}
-        <h1> {user?.email}</h1>
+
+        {/* <h1> {user?.email}</h1> */}
+       
+          <input
+            className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
+            value={userAddress}
+            name="userAddress"
+            onChange={handleSetUserAddress}
+            type="text"
+            placeholder="Enter an address"
+          />
+          <button
+            className="bg-white text-gray-600 px-2 py-1 rounded-lg mt-2 hover:bg-stone-200 ml-2"
+            onClick={handleFormSubmit}
+          >
+            submit
+          </button>
 
         <input
           className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
