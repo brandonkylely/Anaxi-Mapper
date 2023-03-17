@@ -4,7 +4,7 @@ export default function Login() {
     return (
         <>
         <form
-          id="signup-form"
+          id="login-form"
           className="card-body flex justify-center p-10 m-5"
         //   onSubmit={handleFormSubmit}
         >
@@ -12,37 +12,37 @@ export default function Login() {
             <div className="font-bold text-xl justify-center font-semibold tracking-widest">
             <h2>EXISTING USERS: </h2>
             </div>
-            <label htmlFor="username-input-signup" className="form-label">
+            <label htmlFor="username-input-login" className="form-label">
               name:
             </label>
             <input
             //   onChange={handleFormChange}
               name="name"
               type="text"
-              id="username-input-signup"
+              id="username-input-login"
               className="form-control rounded-lg"
             />
             <div className="">
-            <label htmlFor="username-input-signup" className="form-label">
+            <label htmlFor="username-input-login" className="form-label">
               email:
             </label>
             <input
             //   onChange={handleFormChange}
               name="email"
               type="text"
-              id="username-input-signup"
+              id="username-input-login"
               className="form-control rounded-lg"
             />
             </div>
             <div>
-            <label htmlFor="password-input-signup" className="form-label ">
+            <label htmlFor="password-input-login" className="form-label ">
               password:
             </label>
             <input
             //   onChange={handleFormChange}
               name="password"
               type="password"
-              id="password-input-signup"
+              id="password-input-login"
               className="form-control rounded-lg w-3/5"
             />
             </div>
