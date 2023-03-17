@@ -4,4 +4,5 @@ const Place = require("./Place");
 const NearbySearch = require("./NearbySearch");
 const Post = require('./Post');
 const User = require('./User');
-module.exports = { User, Post, Comment, Favorite, Place, NearbySearch };
+const Address = require('./Address')
+module.exports = { User, Post, Comment, Favorite, Place, NearbySearch, Address };

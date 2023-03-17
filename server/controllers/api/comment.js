@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { Comment } = require("../models/Comment");
-const { auth } = require("../middleware/auth");
+const { Comment } = require("../../models/index");
+const auth = require("../../middleware/auth");
 
 //=================================
 //             Subscribe

@@ -6,7 +6,7 @@ axios.defaults.headers[
 
 //@ts-ignore
 export const test = async (ex) => {
-  console.log(ex)
+  console.log('test', ex)
   const res = await axios.get("/api/test");
   console.log('res.data', res.data)
   return res.data;

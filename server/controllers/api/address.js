@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { Place } = require("../models/Place");
-const { auth } = require("../middleware/auth");
+const { Address } = require("../../models/index");
+const auth = require("../../middleware/auth");
 
-router.post("/saveSearch", auth, (req, res) => {
+router.post("/search", auth, (req, res) => {
 
-    const comment = new Comment(req.body)
+    const address = new Address(req.body)
 
     comment.save((err, comment) => {
         console.log(err)

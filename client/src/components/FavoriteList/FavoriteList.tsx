@@ -8,51 +8,51 @@ import { Popover } from 'antd';
 
 function FavoritePage() {
 
-    const variables = { userFrom: localStorage.getItem('userId') }
+//     const variables = { userFrom: localStorage.getItem('userId') }
 
-    const [FavDestination, setFavDestination] = useState([])
+//     const [FavDestination, setFavDestination] = useState([])
 
-    useEffect(() => {
-        console.log('use effect favorite page')
-        fetchFavDestination();
-
-
-    }, [])
-
-    const fetchFavDestination = () => {
-        Axios.post('/api/favorite/getFavDestination', variables)
-        .then(response => {
-            if (response.data.success) {
-                setFavDestination(response.data.favorites)
-            } else {
-                alert('Failed to get favorited videos')
-            }
-        })
-    }
+//     useEffect(() => {
+//         console.log('use effect favorite page')
+//         fetchFavDestination();
 
 
+//     }, [])
 
-  // @ts-ignore
-    const onClickRemove = (movieId) => {
+//     const fetchFavDestination = () => {
+//         Axios.post('/api/favorite/getFavDestination', variables)
+//         .then(response => {
+//             if (response.data.success) {
+//                 setFavDestination(response.data.favorites)
+//             } else {
+//                 alert('Failed to get favorited videos')
+//             }
+//         })
+//     }
+
+
+
+//   // @ts-ignore
+//     const onClickRemove = (movieId) => {
         
-        const variable = {
-            // @ts-ignore
-            locationId: locationId,
-            userFrom:  localStorage.getItem('userId')
-        }
+//         const variable = {
+//             // @ts-ignore
+//             locationId: locationId,
+//             userFrom:  localStorage.getItem('userId')
+//         }
 
-        Axios.post('/api/favorite/removeFromFavorite', variable)
-        .then(response=> {
-            if(response.data.success) {
+//         Axios.post('/api/favorite/removeFromFavorite', variable)
+//         .then(response=> {
+//             if(response.data.success) {
                
-                fetchFavDestination();
+//                 fetchFavDestination();
 
-            } else {
-                alert(' Failed to remove from favorite')
-            }
-        })
+//             } else {
+//                 alert(' Failed to remove from favorite')
+//             }
+//         })
 
-    }
+//     }
 
 
     const renderTableBody = FavDestination.map((movie, index) => {

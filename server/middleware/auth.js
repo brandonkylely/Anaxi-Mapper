@@ -22,5 +22,5 @@ let auth = (req, res, next) => {
   req.user = decodedToken?.data || null
   next();
 };
-
-module.exports = { auth };
+// ask chad why destructured
+module.exports = auth;
