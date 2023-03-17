@@ -172,7 +172,7 @@ export default function SearchBar() {
             submit
           </button>
 
-        <input
+        {/* <input
           className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
           value={userAddress}
           name="userAddress"
@@ -185,7 +185,7 @@ export default function SearchBar() {
           onClick={handleFormSubmit}
         >
           submit
-        </button>
+        </button> */}
 
       </form>
     </>
