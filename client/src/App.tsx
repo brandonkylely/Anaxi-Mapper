@@ -23,7 +23,7 @@ function App() {
       <Link className="mx-2 font-light tracking-wide text-stone-800" to="/signup">
         signup
       </Link>
-      <Link className="mx-2 font-light tracking-wide text-stone-800" to="/login">
+      <Link className="mx-2 font-light tracking-wide text-stone-800 " to="/login">
         login
       </Link>
       <Link className="mx-2 font-light tracking-wide text-stone-800" to="/">
@@ -32,11 +32,13 @@ function App() {
       <Link className= "mx-2 font-light tracking-wide text-stone-800" to="/">
         favorites
       </Link>
+
       {/* quick links for better dev exp, make look nice or remove later */}
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+
       </Routes>
     </Router>
   );
