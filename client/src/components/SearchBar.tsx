@@ -149,8 +149,7 @@ const handleFormSubmit = (event: any) => {
       </form> */}
       <form className="max-w-sm px-4 form ">
         {/* JUST POC , THIS IS HOW TO CONSUME */}
-        <h1> {user?.email}</h1>
-        <div className="">
+        {/* <h1> {user?.email}</h1> */}
           <input
             className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
             value={userAddress}
