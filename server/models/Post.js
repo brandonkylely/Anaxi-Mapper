@@ -11,7 +11,7 @@ const postSchema = new mongoose.Schema(
       required: true,
     },
     user: {
-      type: Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "user",
     },
   },
@@ -26,22 +26,3 @@ const postSchema = new mongoose.Schema(
 const Post = model("post", postSchema);
 
 module.exports = Post;
-
-// const { Model, DataTypes } = require('sequelize');
-// const sequelize = require('../config');
-
-// class Post extends Model {}
-
-// Post.init(
-//   {
-//     title: DataTypes.STRING,
-//     body: DataTypes.STRING
-//   },
-//   {
-//     sequelize,
-//     freezeTableName: true,
-//     modelName: 'post'
-//   }
-// );
-
-// module.exports = Post;

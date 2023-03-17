@@ -19,25 +19,6 @@ const commentSchema =  new mongoose.Schema({
 });
 
 
-const Comment = mongoose.model('comment', commentSchema);
+const Comment = model('comment', commentSchema);
 
-module.exports = { Comment }
-// const { Model, DataTypes } = require('sequelize');
-// const sequelize = require('../config');
-
-// class Comment extends Model {}
-// Comment.init(
-//   {
-//     body: {
-//       type: DataTypes.STRING,
-//       allowNull: false
-//     }
-//   },
-//   {
-//     sequelize,
-//     freezeTableName: true,
-//     modelName: 'comment'
-//   }
-// );
-
-// module.exports = Comment;
+module.exports = Comment;
