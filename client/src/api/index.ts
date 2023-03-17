@@ -5,8 +5,7 @@ axios.defaults.headers[
 ] = `Bearer ${localStorage.getItem("id_token")}`;
 
 //@ts-ignore
-export const test = async (ex) => {
-  console.log('test', ex)
+export const test = async () => {
   const res = await axios.get("/api/test");
   console.log('res.data', res.data)
   return res.data;

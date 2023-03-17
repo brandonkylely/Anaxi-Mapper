@@ -47,7 +47,7 @@ const CommentForm = () => {
               id="comment"
               rows="4"
               onChange={handleChange}
-              value={Comment}
+              // value={Comment}
               className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
               placeholder="Write a comment..."
               required
