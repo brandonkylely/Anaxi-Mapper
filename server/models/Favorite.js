@@ -4,7 +4,7 @@ const favoriteSchema = new mongoose.Schema(
 {
     userFrom: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'user'
     },
     locationId: {
         type: String,
@@ -22,7 +22,7 @@ const favoriteSchema = new mongoose.Schema(
 }
 );
 
-const Favorite = model('Favorite', favoriteSchema);
+const Favorite = model('favorite', favoriteSchema);
 
 module.exports = Favorite;
 // const { Model, DataTypes } = require('sequelize');

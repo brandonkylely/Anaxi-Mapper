@@ -1,11 +1,11 @@
 const router = require("express").Router();
-const Profile = require("../../models/Profile.js");
+const User = require("../../models/User.js");
 const { signToken } = require("../../utils/auth.js");
 
 // POST /api/users is a registration route for creating a new user
 router.post("/", async (req, res) => {
   try {
-    const newUser = await Profile.create({
+    const newUser = await User.create({
       name: req.body.name,
       email: req.body.email,
       password: req.body.password,

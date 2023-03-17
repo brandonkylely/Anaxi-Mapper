@@ -12,7 +12,7 @@ const postSchema = new mongoose.Schema(
     },
     user: {
       type: Types.ObjectId,
-      ref: "User",
+      ref: "user",
     },
   },
   {
@@ -23,7 +23,7 @@ const postSchema = new mongoose.Schema(
   }
 );
 
-const Post = model("Post", postSchema);
+const Post = model("post", postSchema);
 
 module.exports = Post;
 

@@ -3,7 +3,7 @@ const Favorite = require('./Favorite');
 const Place = require("./Place");
 const NearbySearch = require("./NearbySearch");
 const Post = require('./Post');
-const Profile = require('./Profile');
+const User = require('./User');
 module.exports = { Profile, Post, Comment, Favorite, Place, NearbySearch };
 
 // // index.js establishes relationships between the models, 

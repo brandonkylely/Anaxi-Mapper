@@ -62,7 +62,7 @@ export default function SearchBar() {
 const handleFormSubmit = (event: any) => {
   event.preventDefault();
     getCoords(userAddress).then((result) => {
-        console.log(result)
+        // console.log(result)
         // return result.json();
         // alert(`${apiFetch(result)}`);
     })
@@ -85,12 +85,6 @@ const handleFormSubmit = (event: any) => {
 
   async function getCoords(userAddress: string) {
 
-    let requestUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${userAddress.replace(" ", "+")}&key=${
-      import.meta.env.VITE_APIKEY
-    }`;
-    
-    let res = await fetch(requestUrl);
-    console.log('its broken')
     // nearbySearch(requestUrl);
     //take this requestUrl
     //push it to back end
@@ -104,32 +98,42 @@ const handleFormSubmit = (event: any) => {
     //calculate distance/duration from origin to each point on the distance matrix
     //turn that combined data into a new object
     //
+    let requestUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${userAddress.replace(" ", "+")}&key=${
+      import.meta.env.VITE_APIKEY
+    }`;
+    
+    let res = await fetch(requestUrl);
+    console.log('its broken')
 
 
-    const cityData = (await res.json()) as GeoLocationResult;
-    console.log('logging cityData', cityData);
-    let city: City = {
-      address: cityData.results[0].formatted_address,
+    const addressData = (await res.json()) as GeoLocationResult;
+    console.log('logging cityData', addressData);
+
+    let address: City = {
+      address: addressData.results[0].formatted_address,
       coords: {
-        lat: cityData.results[0].geometry.location.lat,
-        lng: cityData.results[0].geometry.location.lng,
+        lat: addressData.results[0].geometry.location.lat,
+        lng: addressData.results[0].geometry.location.lng,
       },
-      place_id: cityData.results[0].place_id,
+      place_id: addressData.results[0].place_id,
     };
-    console.log('logging city', city);
-    // setCurrentCoords(city.coords)
 
-    // cityList.push(city)
-    // console.log(cityData)
+    console.log('logging address', address);
+
+    let resSend = await fetch('/api/')
+    // setCurrentCoords(address.coords)
+
+    // cityList.push(address)
+    // console.log(addressData)
     // console.log(cityList)
     // return city
 
-    let nextUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=40.748817,-73.985428&radius=15000&type=restaurant&keyword=asian&key=AIzaSyBkMHNxpBmBMaHhnlpHHy63cRktfgiFXIA`;
-    //temporarilty hardcoding Radius, Type, and Keyword, but these will be selectable
-    let res2 = await fetch(nextUrl);
+    // let nextUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=40.748817,-73.985428&radius=15000&type=restaurant&keyword=asian&key=AIzaSyBkMHNxpBmBMaHhnlpHHy63cRktfgiFXIA`;
+    // //temporarilty hardcoding Radius, Type, and Keyword, but these will be selectable
+    // let res2 = await fetch(nextUrl);
 
-    const nearbySearch = (await res2.json()) as unknown;
-    console.log(nearbySearch);
+    // const nearbySearch = (await res2.json()) as unknown;
+    // console.log(nearbySearch);
    
   }
 
@@ -150,7 +154,6 @@ const handleFormSubmit = (event: any) => {
       <form className="max-w-sm px-4 form ">
         {/* JUST POC , THIS IS HOW TO CONSUME */}
         <h1> {user?.email}</h1>
-        <div className="">
           <input
             className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
             value={userAddress}

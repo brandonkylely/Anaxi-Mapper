@@ -3,7 +3,7 @@ import Place from "./Place";
 
 const nearbySearchSchema = new Schema({
   places: [Place], //might want to change this back later
-  //[{ type: Schema.Types.ObjectId, ref: "place" }]
+  //[{ type: Schema.Types.ObjectId, ref: "Place" }]
 });
 
 nearbySearchSchema.method.addAllToFavorites = function () {

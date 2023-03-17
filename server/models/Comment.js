@@ -3,14 +3,14 @@ const { Schema, Types, model } = require("mongoose");
 const commentSchema =  new mongoose.Schema({
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'user'
     }, 
     postId: {
         type: String,
     },
     responseTo: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'user'
     },
     content: {
         type: String
@@ -19,7 +19,7 @@ const commentSchema =  new mongoose.Schema({
 });
 
 
-const Comment = mongoose.model('Comment', commentSchema);
+const Comment = mongoose.model('comment', commentSchema);
 
 module.exports = { Comment }
 // const { Model, DataTypes } = require('sequelize');
