@@ -1,16 +1,16 @@
 const { Schema, Types, model } = require("mongoose");
 
-const commentSchema =  new mongoose.Schema({
+const commentSchema =  new Schema({
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'user'
     }, 
     postId: {
         type: String,
     },
     responseTo: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'user'
     },
     content: {
         type: String
@@ -19,25 +19,6 @@ const commentSchema =  new mongoose.Schema({
 });
 
 
-const Comment = mongoose.model('Comment', commentSchema);
+const Comment = model('comment', commentSchema);
 
-module.exports = { Comment }
-// const { Model, DataTypes } = require('sequelize');
-// const sequelize = require('../config');
-
-// class Comment extends Model {}
-// Comment.init(
-//   {
-//     body: {
-//       type: DataTypes.STRING,
-//       allowNull: false
-//     }
-//   },
-//   {
-//     sequelize,
-//     freezeTableName: true,
-//     modelName: 'comment'
-//   }
-// );
-
-// module.exports = Comment;
+module.exports = Comment;
