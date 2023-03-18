@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const fetch = require("node-fetch")
+const { Address, Place } = require("../../models/index");
 // const { Address } = require("../../models/index");
 const auth = require("../../middleware/auth");
 
@@ -20,9 +21,31 @@ router.post("/search", auth, async (req, res) => {
       console.log("YOUR DATA", data)
       
       // TODO - take data and use to make second api call...
+      const newAddress = await Address.create({
+        addres: data.formatted_address,
+        coords: {
+          lat: data.geometry.location.lat,
+          lng: data.geometry.location.lng,
+        },
+        place_id: data.place_id,
+      })
+      
+      //hard coding keyword, radius, and type for now
+      const nearbyUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${newAddress.coords.lat},${newAddress.coords.lng}&radius=10000&type=restaurant&keyword=&key=${process.env.apiKey}`;
+      const nearbyRes = await fetch(nearbyUrl);
+      const nearbyData = await nearbyRes.json();
+      // console.log("req url 2", nearbyUrl);
+      // console.log('nearbyData',nearbyData)
+      const returnObject = {
+        coords: newAddress.coords,
+        nearbySearch: nearbyData.results,
+      }
+      console.log("nearbyData.results[0].photos", nearbyData.results[0].photos);
 
+      const newPlace = await Place.create(nearbyData.results[0]);
+      // console.log(returnObject)
       //send full res at the end
-      res.json(googleData.results[0].geometry.location)
+      res.json(returnObject)
     };
     // res.json({ success: false, data: null })
   } catch (err) {

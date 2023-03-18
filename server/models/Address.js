@@ -24,4 +24,7 @@ const addressSchema = new Schema({
 // }
 
 const Address = model("address", addressSchema);
+Address.createCollection().then(function(collection) {
+    console.log('Address Collection is created!');
+});
 module.exports = Address;

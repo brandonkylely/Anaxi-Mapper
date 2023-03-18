@@ -7,6 +7,7 @@ import token from "./utils/token";
 import { useSetAtom } from "jotai/react";
 import { userAtom } from "./state";
 import { test } from "./api";
+import { Provider as JotaiProvider } from "jotai";
 
 function App() {
   const setUser = useSetAtom(userAtom);
