@@ -116,7 +116,7 @@ function MyCombobox() {
 
   return (
     <Combobox value={selectedCategory} onChange={setSelectedCategory}>
-      <div className="relative inline-block float-left p-2 pr-8 ml-4 mt-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-grey-100">
+      <div className="relative inline-block float-left p-2 pr-8 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-grey-100">
         <Combobox.Input
           onChange={(event) => setQuery(event.target.value)}
           displayValue={(oneCategory) => oneCategory.name}
@@ -129,6 +129,7 @@ function MyCombobox() {
               key={oneCategory.id}
               value={oneCategory}
               as={Fragment}
+              
             >
               {({ active, selected }) => (
                 <li

@@ -3,6 +3,7 @@
 import { MouseEventHandler, useState, useContext } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { coordinateAtom, userAtom } from "../state";
+import Categories from "./Categories";
 // import coordState from "../state";
 import { nearbySearch, post } from "../api";
 
@@ -157,7 +158,7 @@ export default function SearchBar() {
           Submit
         </button>
       </form> */}
-      <form className="max-w-sm px-4 form ">
+      <form className="px-4 form">
         {/* JUST POC , THIS IS HOW TO CONSUME */}
 
         {/* <h1> {user?.email}</h1> */}
@@ -176,8 +177,13 @@ export default function SearchBar() {
           >
             submit
           </button>
-
+          <div className="float-right">
+          <Categories />
+          </div>
       </form>
+      
     </>
+    
+    
   );
 }
