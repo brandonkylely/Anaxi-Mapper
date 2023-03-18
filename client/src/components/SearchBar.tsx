@@ -101,19 +101,19 @@ export default function SearchBar() {
     console.log("RES", res);
 
     //TODO HERE ---
-    const addressData = (await res.json()) as GeoLocation;
-    console.log("logging cityData", addressData);
+    // const addressData = (await res.json()) as GeoLocation;
+    // console.log("logging cityData", addressData);
 
-    let address: City = {
-      address: addressData.formatted_address,
-      coords: {
-        lat: addressData.geometry.location.lat,
-        lng: addressData.geometry.location.lng,
-      },
-      place_id: addressData.place_id,
-    };
+    // let address: City = {
+    //   address: addressData.formatted_address,
+    //   coords: {
+    //     lat: addressData.geometry.location.lat,
+    //     lng: addressData.geometry.location.lng,
+    //   },
+    //   place_id: addressData.place_id,
+    // };
 
-    console.log("logging address", address);
+    // console.log("logging address", address);
 
     // let resSend = await fetch('/api/address',
     // {
