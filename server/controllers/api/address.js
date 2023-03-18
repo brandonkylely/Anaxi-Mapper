@@ -1,4 +1,3 @@
-require("dotenv").config();
 const express = require('express');
 const router = express.Router();
 const fetch = require("node-fetch")
@@ -22,7 +21,6 @@ router.post("/search", auth, async (req, res) => {
       console.log("YOUR DATA", data)
       
       // TODO - take data and use to make second api call...
-
 
       //send full res at the end
       res.json(googleData.results[0].geometry.location)

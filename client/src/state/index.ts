@@ -20,9 +20,7 @@ export type MapperUser = {
   email: string;
 } | null;
 
-
-
 export const userAtom = atom<MapperUser>(null);
-export const coordinateAtom = atom<CoordinateObject | null>(null);
+export const coordinateAtom = atom({ lat: 40.7484, lng: 73.9857 });
 
 export default CoordState;
