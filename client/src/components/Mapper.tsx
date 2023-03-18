@@ -36,9 +36,7 @@ export default function Mapper(props) {
   //   fetch('/api/test').then(r => r.json()).then(d => console.log(d))
   // }, [])
 
-  // useEffect(() => {
-  //     // move map function
-  //   }, [coordValue])
+
 
   return (<>
   <div>{coordValue.lat} {coordValue.lng}</div>
@@ -50,24 +48,38 @@ export default function Mapper(props) {
   );
 }
 
+let instance;
+
 function MyMap() {
   const overlayRef = useRef();
   const [map, setMap] = useState();
   const ref = useRef();
-  // const coordValue = useAtomValue(coordinateAtom);
+  const coordValue = useAtomValue(coordinateAtom);
 
   // mapOptions.center = coordValue
 
   useEffect(() => {
      // useEffect gets called twice in strict mode, use this to say if map exists, only call once
     if (!overlayRef.current) {
-      const instance = new window.google.maps.Map(ref.current, mapOptions);
+      instance = new window.google.maps.Map(ref.current, mapOptions);
       setMap(instance);
       overlayRef.current = createOverlay(instance);
     }
+    // moveToLocation(coordValue.lat, coordValue.lng)
   }, []);
 
+  useEffect(() => {
+    // move map function
+    moveToLocation(coordValue.lat, coordValue.lng)
+  }, [coordValue])
+
   return <div ref={ref} id="map" />;
+}
+
+function moveToLocation(lat, lng){
+  const center = new google.maps.LatLng(lat, lng);
+  // using global variable:
+  instance.panTo(center);
 }
 
 function createOverlay(map) {

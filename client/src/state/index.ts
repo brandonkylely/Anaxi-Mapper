@@ -1,4 +1,4 @@
-// import { createContext } from "react";
+import { createContext } from "react";
 import { atom } from "jotai";
 
 export type CoordinateObject = {
@@ -25,5 +25,5 @@ export const coordinateAtom = atom<CoordinateObject>({ lat: 40.7484, lng: 73.985
     //   currentCoords: { lat: 40.7484, lng: 73.9857 },
     // });
 
-
+    
     // export default CoordState;
