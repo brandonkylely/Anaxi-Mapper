@@ -119,7 +119,7 @@ const placeSchema = new Schema({
   name: String,
   opening_hours: openingHoursSchema,
   // permanently_closed: Boolean, //depreciated
-  photos: photoSchema,
+  photos: [photoSchema],
   place_id: String,
   plus_code: plus_codeSchema,
   price_level: Number, //can be 0, 1, 2, 3, or 4 with 0 being free and 4 being very expensive
@@ -136,19 +136,22 @@ const placeSchema = new Schema({
 
 //keepInFavorites Toggle Method
 
-placeSchema.methods.addToFavorites = function () { //these are used to assist the nearbysearch methods
-  this.addToFavorites = true;
-};
+// placeSchema.methods.addToFavorites = function () { //these are used to assist the nearbysearch methods
+//   this.addToFavorites = true;
+// };
 
-placeSchema.methods.removeFromFavorites = function () {//these are used to assist the nearbysearch methods
-  this.addToFavorites = false;
-};
+// placeSchema.methods.removeFromFavorites = function () {//these are used to assist the nearbysearch methods
+//   this.addToFavorites = false;
+// };
 
-placeSchema.methods.changeFavorites = function () { //this is used when the user is selecting or deselecting indivdual places
-  this.addToFavorites = !this.addToFavorites;
-};
+// placeSchema.methods.changeFavorites = function () { //this is used when the user is selecting or deselecting indivdual places
+//   this.addToFavorites = !this.addToFavorites;
+// };
 
 const Place = model("place", placeSchema);
+Place.createCollection().then(function(collection) {
+  console.log('Place Collection is created!');
+});
 module.exports = Place;
 
 //saving this in case making too many subdocuments complicates the schema
