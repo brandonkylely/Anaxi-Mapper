@@ -42,7 +42,6 @@ type GeoLocationResult = {
 
 export default function SearchBar() {
   const user = useAtomValue(userAtom);
-  const { currentCoords, setCurrentCoords } = useContext(coordState);
   const coordValue = useAtomValue(coordinateAtom);
   const setCoord = useSetAtom(coordinateAtom);
   

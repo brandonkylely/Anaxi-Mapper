@@ -10,7 +10,7 @@ const auth = require("../../middleware/auth");
 router.post("/search", auth, async (req, res) => {
   try {
     console.log("reqbody", req.body)
-    const requestUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.body.userAddress.replace(" ", "+")}&key=${""}`;
+    const requestUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.body.userAddress.replace(" ", "+")}&key=${process.env.apiKey}`;
     const googleRes = await fetch(requestUrl);
     const googleData = await googleRes.json();
     console.log("req url ", requestUrl);
