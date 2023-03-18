@@ -12,43 +12,74 @@ import {
   Matrix4,
 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { coordinateAtom } from "../state";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
+
 
 const mapOptions = {
   mapId: import.meta.env.VITE_MAPID,
   center: { lat: 43.661036, lng: -79.391277 },
+  // center: {lat: 0, lng: 0},
   zoom: 17,
   disableDefaultUI: true,
   heading: 25,
   tilt: 25,
 };
 
+
 export default function Mapper(props) {
+  const coordValue = useAtomValue(coordinateAtom);
+  // mapOptions.center = coordValue;
+
   // temp comment
   // useEffect(() => {
   //   fetch('/api/test').then(r => r.json()).then(d => console.log(d))
   // }, [])
-  return (
+
+
+
+  return (<>
+  <div>{coordValue.lat} {coordValue.lng}</div>
+  <div>{mapOptions.center.lat} {mapOptions.center.lng}</div>
     <Wrapper apiKey={import.meta.env.VITE_APIKEY}>
       <MyMap />
     </Wrapper>
+  </>
   );
 }
+
+let instance;
 
 function MyMap() {
   const overlayRef = useRef();
   const [map, setMap] = useState();
   const ref = useRef();
+  const coordValue = useAtomValue(coordinateAtom);
+
+  // mapOptions.center = coordValue
 
   useEffect(() => {
      // useEffect gets called twice in strict mode, use this to say if map exists, only call once
     if (!overlayRef.current) {
-      const instance = new window.google.maps.Map(ref.current, mapOptions);
+      instance = new window.google.maps.Map(ref.current, mapOptions);
       setMap(instance);
       overlayRef.current = createOverlay(instance);
     }
+    // moveToLocation(coordValue.lat, coordValue.lng)
   }, []);
 
+  useEffect(() => {
+    // move map function
+    moveToLocation(coordValue.lat, coordValue.lng)
+  }, [coordValue])
+
   return <div ref={ref} id="map" />;
+}
+
+function moveToLocation(lat, lng){
+  const center = new google.maps.LatLng(lat, lng);
+  // using global variable:
+  instance.panTo(center);
 }
 
 function createOverlay(map) {
@@ -108,12 +139,20 @@ function createOverlay(map) {
 
 // happens many times
 // transformer converts lat and lng to its location in a 3d space
-  overlay.onDraw = ({ transformer }) => {
-    const matrix = transformer.fromLatLngAltitude({
-      lat: mapOptions.center.lat,
-      lng: mapOptions.center.lng,
-      altitude: 120,
-    });
+  overlay.onDraw = ({ transformer }) => {    
+    // if (!mapOptions.center === globalCoord) {
+      const matrix = transformer.fromLatLngAltitude({
+        lat: mapOptions.center.lat,
+        lng: mapOptions.center.lng,
+        altitude: 120,
+      });
+    // } else {
+    //   const matrix = transformer.fromLatLngAltitude({
+    //     lat: 43.661036,
+    //     lng: -79.391277,
+    //     altitude: 120,
+    //   });
+    // }
     // tells camera 16 point matrix for setup
     camera.projectionMatrix = new Matrix4().fromArray(matrix);
     // constantly redraw whats in the camera view

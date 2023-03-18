@@ -6,14 +6,6 @@ export type CoordinateObject = {
   lng: number;
 };
 
-type CoordContextType = {
-  currentCoords: CoordinateObject;
-  setCurrentCoords?: (coords: CoordinateObject) => void;
-};
-
-const CoordState = createContext<CoordContextType>({
-  currentCoords: { lat: 40.7484, lng: 73.9857 },
-});
 
 export type MapperUser = {
   name: string;
@@ -23,4 +15,15 @@ export type MapperUser = {
 export const userAtom = atom<MapperUser>(null);
 export const coordinateAtom = atom<CoordinateObject>({ lat: 40.7484, lng: 73.9857 });
 
-export default CoordState;
+
+// type CoordContextType = {
+  //   currentCoords: CoordinateObject;
+  //   setCurrentCoords?: (coords: CoordinateObject) => void;
+  // };
+
+  // const CoordState = createContext<CoordContextType>({
+    //   currentCoords: { lat: 40.7484, lng: 73.9857 },
+    // });
+
+    
+    // export default CoordState;
