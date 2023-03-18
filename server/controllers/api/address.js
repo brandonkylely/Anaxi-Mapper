@@ -12,7 +12,8 @@ router.post("/search", auth, async (req, res) => {
     const googleRes = await fetch(requestUrl);
     const googleData = await googleRes.json();
     console.log("req url ", requestUrl);
-    console.log(googleData)
+    console.log('googleData',googleData)
+    console.log('googleData.results?.length', googleData.results?.length)
     if (googleData && googleData.results?.length) {
       const { address_components, types, ...data } = googleData.results[0]
       // return res.json(data)
