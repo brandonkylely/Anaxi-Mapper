@@ -19,27 +19,34 @@ import { useAtom, useAtomValue, useSetAtom } from "jotai";
 const mapOptions = {
   mapId: import.meta.env.VITE_MAPID,
   center: { lat: 43.661036, lng: -79.391277 },
+  // center: {lat: 0, lng: 0},
   zoom: 17,
   disableDefaultUI: true,
   heading: 25,
   tilt: 25,
 };
 
+
 export default function Mapper(props) {
+  const coordValue = useAtomValue(coordinateAtom);
+  // mapOptions.center = coordValue;
+
   // temp comment
   // useEffect(() => {
   //   fetch('/api/test').then(r => r.json()).then(d => console.log(d))
   // }, [])
-  const coordValue = useAtomValue(coordinateAtom);
 
   // useEffect(() => {
-  //     mapOptions.center = coordValue
+  //     // move map function
   //   }, [coordValue])
 
-  return (
+  return (<>
+  <div>{coordValue.lat} {coordValue.lng}</div>
+  <div>{mapOptions.center.lat} {mapOptions.center.lng}</div>
     <Wrapper apiKey={import.meta.env.VITE_APIKEY}>
       <MyMap />
     </Wrapper>
+  </>
   );
 }
 
@@ -47,6 +54,9 @@ function MyMap() {
   const overlayRef = useRef();
   const [map, setMap] = useState();
   const ref = useRef();
+  // const coordValue = useAtomValue(coordinateAtom);
+
+  // mapOptions.center = coordValue
 
   useEffect(() => {
      // useEffect gets called twice in strict mode, use this to say if map exists, only call once
@@ -117,14 +127,20 @@ function createOverlay(map) {
 
 // happens many times
 // transformer converts lat and lng to its location in a 3d space
-  overlay.onDraw = ({ transformer }) => {
-
-
-    const matrix = transformer.fromLatLngAltitude({
-      lat: mapOptions.center.lat,
-      lng: mapOptions.center.lng,
-      altitude: 120,
-    });
+  overlay.onDraw = ({ transformer }) => {    
+    // if (!mapOptions.center === globalCoord) {
+      const matrix = transformer.fromLatLngAltitude({
+        lat: mapOptions.center.lat,
+        lng: mapOptions.center.lng,
+        altitude: 120,
+      });
+    // } else {
+    //   const matrix = transformer.fromLatLngAltitude({
+    //     lat: 43.661036,
+    //     lng: -79.391277,
+    //     altitude: 120,
+    //   });
+    // }
     // tells camera 16 point matrix for setup
     camera.projectionMatrix = new Matrix4().fromArray(matrix);
     // constantly redraw whats in the camera view
