@@ -29,7 +29,7 @@ const CommentForm = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <br />
       <h3>Comments</h3>
       <br />
