@@ -1,7 +1,8 @@
 // https://developers.google.com/maps/documentation/javascript/places#place_searches
 
 import { MouseEventHandler, useState, useContext } from "react";
-import { useAtomValue } from "jotai/react";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { coordinateAtom } from "../state";
 import { userAtom } from "../state";
 import coordState from "../state";
 import { nearbySearch, post } from "../api";
@@ -42,6 +43,8 @@ type GeoLocationResult = {
 export default function SearchBar() {
   const user = useAtomValue(userAtom);
   const { currentCoords, setCurrentCoords } = useContext(coordState);
+  const coordValue = useAtomValue(coordinateAtom);
+  const setCoord = useSetAtom(coordinateAtom);
 
   // if (!localCoordState) {
   //   console.warn('because the local coord state is undefined, the search bar is not being returned );')
@@ -96,13 +99,16 @@ export default function SearchBar() {
     //turn that combined data into a new object
     //
 
-    const res = await post("/api/address/search", { userAddress });
+    const addressData = await post("/api/address/search", { userAddress });
 
-    console.log("RES", res);
+    console.log("RES", addressData);
+    setCoord(addressData);
+
+    console.log('coordValue', coordValue);
 
     //TODO HERE ---
-    // const addressData = (await res.json()) as GeoLocation;
-    // console.log("logging cityData", addressData);
+    console.log('address lat and lng', addressData.lat, addressData.lng)
+    // setCurrentCoords({ lat: addressData.lat, lng: addressData.lng });
 
     // let address: City = {
     //   address: addressData.formatted_address,
@@ -171,21 +177,6 @@ export default function SearchBar() {
           >
             submit
           </button>
-
-        {/* <input
-          className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
-          value={userAddress}
-          name="userAddress"
-          onChange={handleSetUserAddress}
-          type="text"
-          placeholder="Enter an address"
-        />
-        <button
-          className="bg-white text-gray-600 px-2 py-1 rounded-lg mt-2 hover:bg-stone-200 ml-2"
-          onClick={handleFormSubmit}
-        >
-          submit
-        </button> */}
 
       </form>
     </>
