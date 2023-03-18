@@ -12,6 +12,9 @@ import {
   Matrix4,
 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { coordinateAtom } from "../state";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
+
 
 const mapOptions = {
   mapId: import.meta.env.VITE_MAPID,
@@ -27,6 +30,12 @@ export default function Mapper(props) {
   // useEffect(() => {
   //   fetch('/api/test').then(r => r.json()).then(d => console.log(d))
   // }, [])
+  const coordValue = useAtomValue(coordinateAtom);
+
+  // useEffect(() => {
+  //     mapOptions.center = coordValue
+  //   }, [coordValue])
+
   return (
     <Wrapper apiKey={import.meta.env.VITE_APIKEY}>
       <MyMap />
@@ -109,6 +118,8 @@ function createOverlay(map) {
 // happens many times
 // transformer converts lat and lng to its location in a 3d space
   overlay.onDraw = ({ transformer }) => {
+
+
     const matrix = transformer.fromLatLngAltitude({
       lat: mapOptions.center.lat,
       lng: mapOptions.center.lng,
