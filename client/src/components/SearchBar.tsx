@@ -2,9 +2,8 @@
 
 import { MouseEventHandler, useState, useContext } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { coordinateAtom } from "../state";
-import { userAtom } from "../state";
-import coordState from "../state";
+import { coordinateAtom, userAtom } from "../state";
+// import coordState from "../state";
 import { nearbySearch, post } from "../api";
 
 type City = {
@@ -42,7 +41,7 @@ type GeoLocationResult = {
 
 export default function SearchBar() {
   const user = useAtomValue(userAtom);
-  const { currentCoords, setCurrentCoords } = useContext(coordState);
+  // const { currentCoords, setCurrentCoords } = useContext(coordState);
   const coordValue = useAtomValue(coordinateAtom);
   const setCoord = useSetAtom(coordinateAtom);
 
