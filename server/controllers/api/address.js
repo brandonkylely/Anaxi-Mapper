@@ -1,18 +1,21 @@
+require("dotenv").config();
 const express = require('express');
 const router = express.Router();
 const fetch = require("node-fetch")
 // const { Address } = require("../../models/index");
 const auth = require("../../middleware/auth");
 
+
+
 router.post("/search", auth, async (req, res) => {
   try {
     console.log("reqbody", req.body)
-    const requestUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.body.userAddress.replace(" ", "+")}&key=${"AIzaSyAPLN1txMr9qeLsHpNlbO7TpwIhOctldFU"
-      }`;
+    const requestUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.body.userAddress.replace(" ", "+")}&key=${""}`;
     const googleRes = await fetch(requestUrl);
     const googleData = await googleRes.json();
     console.log("req url ", requestUrl);
-    console.log(googleData)
+    console.log('googleData',googleData)
+    console.log('googleData.results?.length', googleData.results?.length)
     if (googleData && googleData.results?.length) {
       const { address_components, types, ...data } = googleData.results[0]
       // return res.json(data)
@@ -22,9 +25,9 @@ router.post("/search", auth, async (req, res) => {
 
 
       //send full res at the end
-
+      res.json(googleData.results[0].geometry.location)
     };
-    res.json({ success: false, data: null })
+    // res.json({ success: false, data: null })
   } catch (err) {
     console.log(err);
     res.json({ success: false, data: null })
