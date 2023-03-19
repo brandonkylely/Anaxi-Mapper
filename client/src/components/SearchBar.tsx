@@ -80,7 +80,10 @@ export default function SearchBar() {
     const addressData = await post("/api/address/search", { userAddress });
 
     console.log("RES", addressData);
-    setCoord(addressData);
+    //if addressData.validAddress - if the geocode api search does not return a result, this will be false
+    if (addressData.validAddress) setCoord(addressData.newAddress.coords);
+    if (!addressData.validAddress) console.log('that is not a valid address')
+    // setCoord(addressData.newAddress.coords);
     console.log('coordValue', coordValue);
 
     //TODO HERE ---

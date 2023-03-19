@@ -19,6 +19,7 @@ function Favorite(props) {
             }
 
     useEffect(() => {
+        console.log('variable', variable)
         axios.post('/api/favorite/favoriteNumber', variable)
             .then(response => {
                 if (response.data.success) {
