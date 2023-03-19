@@ -36,8 +36,6 @@ export default function Mapper(props) {
   //   fetch('/api/test').then(r => r.json()).then(d => console.log(d))
   // }, [])
 
-
-
   return (<>
   {/* <div>{coordValue.lat} {coordValue.lng}</div>
   <div>{mapOptions.center.lat} {mapOptions.center.lng}</div> */}
@@ -55,21 +53,24 @@ function MyMap() {
   const [map, setMap] = useState();
   const ref = useRef();
   const coordValue = useAtomValue(coordinateAtom);
+  const [loaded, setLoaded] = useState(false)
 
   // mapOptions.center = coordValue
 
   useEffect(() => {
-     // useEffect gets called twice in strict mode, use this to say if map exists, only call once
+  // useEffect gets called twice in strict mode, use this to say if map exists, only call once
     if (!overlayRef.current) {
       instance = new window.google.maps.Map(ref.current, mapOptions);
       setMap(instance);
       overlayRef.current = createOverlay(instance);
+      setLoaded(true)
     }
     // moveToLocation(coordValue.lat, coordValue.lng)
   }, []);
 
   useEffect(() => {
     // move map function
+    if (loaded)
     moveToLocation(coordValue.lat, coordValue.lng)
   }, [coordValue])
 
@@ -81,6 +82,8 @@ function moveToLocation(lat, lng){
   // using global variable:
   instance.panTo(center);
 }
+
+let scooter;
 
 function createOverlay(map) {
   const overlay = new google.maps.WebGLOverlayView();
@@ -95,7 +98,7 @@ function createOverlay(map) {
     scene.add(light);
 
     loader = new GLTFLoader();
-    loader.loadAsync("./scooter/scene.gltf").then((object) => {
+    scooter = loader.loadAsync("./scooter/scene.gltf").then((object) => {
       const group = object.scene;
       group.scale.setScalar(25);
       group.rotation.set(Math.PI / 2, 0, 0);
@@ -140,20 +143,11 @@ function createOverlay(map) {
 // happens many times
 // transformer converts lat and lng to its location in a 3d space
   overlay.onDraw = ({ transformer }) => {    
-    // if (!mapOptions.center === globalCoord) {
       const matrix = transformer.fromLatLngAltitude({
         lat: mapOptions.center.lat,
         lng: mapOptions.center.lng,
         altitude: 120,
       });
-    // } else {
-    //   const matrix = transformer.fromLatLngAltitude({
-    //     lat: 43.661036,
-    //     lng: -79.391277,
-    //     altitude: 120,
-    //   });
-    // }
-    // tells camera 16 point matrix for setup
     camera.projectionMatrix = new Matrix4().fromArray(matrix);
     // constantly redraw whats in the camera view
     overlay.requestRedraw();
