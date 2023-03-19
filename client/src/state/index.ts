@@ -14,6 +14,7 @@ export type MapperUser = {
 
 export const userAtom = atom<MapperUser>(null);
 export const coordinateAtom = atom<CoordinateObject>({ lat: 40.7484, lng: 73.9857 });
+export const currentSearchAtom = atom<unknown>([]);
 
 
 // type CoordContextType = {

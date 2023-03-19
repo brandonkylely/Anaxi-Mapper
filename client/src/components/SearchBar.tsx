@@ -2,7 +2,7 @@
 
 import { MouseEventHandler, useState, useContext } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { coordinateAtom, userAtom } from "../state";
+import { coordinateAtom, userAtom, addressAtom } from "../state";
 import Categories from "./Categories";
 // import coordState from "../state";
 import { nearbySearch, post } from "../api";
@@ -46,6 +46,7 @@ export default function SearchBar() {
   // const { currentCoords, setCurrentCoords } = useContext(coordState);
   const coordValue = useAtomValue(coordinateAtom);
   const setCoord = useSetAtom(coordinateAtom);
+  const setAddress = useSetAtom(addressAtom);
   
   const [loaded, setLoaded] = useState(false)
 
@@ -83,7 +84,7 @@ export default function SearchBar() {
     console.log('coordValue', coordValue);
 
     //TODO HERE ---
-    console.log('address lat and lng', addressData.lat, addressData.lng)
+    console.log('address', addressData)
     
   }
 
