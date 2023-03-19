@@ -18,6 +18,7 @@ const favoriteSchema = new Schema(
     locationImage: {
         type: String,
     },
+    // addresses: [list]
 
 }
 );

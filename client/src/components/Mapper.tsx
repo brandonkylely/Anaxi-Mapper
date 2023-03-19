@@ -39,8 +39,8 @@ export default function Mapper(props) {
 
 
   return (<>
-  <div>{coordValue.lat} {coordValue.lng}</div>
-  <div>{mapOptions.center.lat} {mapOptions.center.lng}</div>
+  {/* <div>{coordValue.lat} {coordValue.lng}</div>
+  <div>{mapOptions.center.lat} {mapOptions.center.lng}</div> */}
     <Wrapper apiKey={import.meta.env.VITE_APIKEY}>
       <MyMap />
     </Wrapper>
