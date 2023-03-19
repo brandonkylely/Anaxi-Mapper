@@ -9,35 +9,35 @@ function Favorite(props) {
     const [FavoriteNumber, setFavoriteNumber] = useState(0)
     const [Favorited, setFavorited] = useState(false)
     
-    const variable = {
-                //TODO: need to fill in the variable
-                userFrom: props.userFrom,
-                locationId: props.locationId,
-                locationName: props.locationName,
-                locationType: props.locationType,
-                locationImage: props.locationImage,
-            }
+    // const variable = {
+    //             //TODO: need to fill in the variable
+    //             userFrom: props.userFrom,
+    //             locationId: props.locationId,
+    //             locationName: props.locationName,
+    //             locationType: props.locationType,
+    //             locationImage: props.locationImage,
+    //         }
 
-    useEffect(() => {
-        axios.post('/api/favorite/favoriteNumber', variable)
-            .then(response => {
-                if (response.data.success) {
-                    setFavoriteNumber(response.data.favoriteNumber)
-                } else {
-                    alert('Failed to get favorite Number')
-                }
-            })
+    // useEffect(() => {
+    //     axios.post('/api/favorite/favoriteNumber', variable)
+    //         .then(response => {
+    //             if (response.data.success) {
+    //                 setFavoriteNumber(response.data.favoriteNumber)
+    //             } else {
+    //                 alert('Failed to get favorite Number')
+    //             }
+    //         })
 
-        axios.post('/api/favorite/favorited', variable)
-            .then(response => {
-                if (response.data.success) {
-                    setFavorited( response.data.favorited)
-                } else {
-                    alert('Failed to get favorite info')
-                }
-            })
+    //     axios.post('/api/favorite/favorited', variable)
+    //         .then(response => {
+    //             if (response.data.success) {
+    //                 setFavorited( response.data.favorited)
+    //             } else {
+    //                 alert('Failed to get favorite info')
+    //             }
+    //         })
 
-        }, [])
+    //     }, [])
 
         const onClickFavorite = () => {
             if (Favorited) {
