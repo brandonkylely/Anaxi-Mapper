@@ -19,9 +19,8 @@ router.post("/search", auth, async (req, res) => {
     console.log("googleData.results?.length", googleData.results?.length);
     if (googleData && googleData.results?.length) {
       const { address_components, types, ...data } = googleData.results[0];
-      // return res.json(data)
+      
       console.log("YOUR DATA", data);
-
       // TODO - take data and use to make second api call...
       const newAddress = await Address.create({
         address: data.formatted_address,
@@ -31,22 +30,9 @@ router.post("/search", auth, async (req, res) => {
         },
         place_id: data.place_id,
       });
+      return res.json(newAddress.coords);
 
-      //hard coding keyword, radius, and type for now
-      const nearbyUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${newAddress.coords.lat},${newAddress.coords.lng}&radius=10000&type=restaurant&keyword=&key=${process.env.apiKey}`;
-      //send full res at the end
-      // res.json(googleData.results[0].geometry.location);
-      const nearbyRes = await fetch(nearbyUrl);
-      const nearbyData = await nearbyRes.json();
-      // console.log("req url 2", nearbyUrl);
-      // console.log('nearbyData',nearbyData)
-      const returnObject = {
-        coords: newAddress.coords,
-        nearbySearch: nearbyData.results,
-      }
-      console.log("newAddres.coords", newAddress.coords);
-      const newPlace = await Place.create(nearbyData.results[0]);
-      res.json(newAddress.coords);
+      
     }
     // res.json({ success: false, data: null })
   } catch (err) {
@@ -71,8 +57,20 @@ router.post("/search", auth, async (req, res) => {
 
 router.post("/nearby", auth, async (req, res) => {
   try {
-    console.log('console log', req.body);
-    res.json(req.body)
+    const parameters = req.body.userParams
+    const coords = parameters.coordinate
+    // const type = parameters.type;
+    // const radius = parameters.radius;
+    // const keyword = parameters.keyword;
+
+    const nearbyUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coords.lat},${coords.lng}&radius=${parameters.radius}&type=${parameters.type}&keyword=${parameters.keyword}&key=${process.env.apiKey}`;
+    const nearbyRes = await fetch(nearbyUrl);
+    const nearbyData = await nearbyRes.json();
+   
+    console.log("nearbyData.results", nearbyData.results);
+    //put here what we want to log in the database:
+    // const newPlace = await Place.create(nearbyData.results);
+    res.json(nearbyData.results);
   }
   catch (err) {
     console.log(err);
