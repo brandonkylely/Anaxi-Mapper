@@ -18,15 +18,16 @@ function Favorite(props) {
     //             locationImage: props.locationImage,
     //         }
 
-    // useEffect(() => {
-    //     axios.post('/api/favorite/favoriteNumber', variable)
-    //         .then(response => {
-    //             if (response.data.success) {
-    //                 setFavoriteNumber(response.data.favoriteNumber)
-    //             } else {
-    //                 alert('Failed to get favorite Number')
-    //             }
-    //         })
+    useEffect(() => {
+        console.log('variable', variable)
+        axios.post('/api/favorite/favoriteNumber', variable)
+            .then(response => {
+                if (response.data.success) {
+                    setFavoriteNumber(response.data.favoriteNumber)
+                } else {
+                    alert('Failed to get favorite Number')
+                }
+            })
 
     //     axios.post('/api/favorite/favorited', variable)
     //         .then(response => {
