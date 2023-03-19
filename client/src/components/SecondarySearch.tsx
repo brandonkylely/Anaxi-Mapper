@@ -24,7 +24,7 @@ export default function SecondarySearchBar() {
       coordinate: coordValue
     }
     getNearby(userParams).then((result) => {
-      console.log(result);
+      // console.log(result);
       // return result.json();
       // alert(`${apiFetch(result)}`);
     });
@@ -32,11 +32,12 @@ export default function SecondarySearchBar() {
 
   async function getNearby(userParams: object) {
     const nearbyData = await post("/api/address/nearby", { userParams });
+    console.log('nearbyData',nearbyData);
+    
   }
 
   return (
     <>
-    <h2>{radius} {type} {keyword}</h2>
       <form className="px-4 form">
         <input
           className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
