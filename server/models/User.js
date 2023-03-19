@@ -26,6 +26,10 @@ const userSchema = new Schema({
       default: []
     },
   ],
+  // favorites: [ 
+  // {addresses: [{places}], comments: [{comments}] } ,
+  // {addresses: [{places}], comments: [{comments}] }
+  // ]
 });
 
 // set up pre-save middleware to create password

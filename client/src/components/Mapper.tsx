@@ -77,7 +77,7 @@ function MyMap() {
   return <div ref={ref} id="map" />;
 }
 
-function moveToLocation(lat, lng){
+function moveToLocation(lat: number, lng: number){
   const center = new google.maps.LatLng(lat, lng);
   // using global variable:
   instance.panTo(center);
@@ -87,7 +87,7 @@ function moveToLocation(lat, lng){
 
 function createOverlay(map) {
   const overlay = new google.maps.WebGLOverlayView();
-  let renderer, scene, camera, loader;
+  let renderer: unknown, scene: unknown, camera: unknown, loader: unknown;
 
   // onAdd happens once when the overlay is created
   // threejs scene setting
@@ -127,9 +127,9 @@ function createOverlay(map) {
           zoom: mapOptions.zoom,
         });
 
-        if (mapOptions.zoom > 17.5) {
-          mapOptions.zoom -= 0.012
-          mapOptions.heading += 0.08
+        if (mapOptions.zoom > 18.5) {
+          mapOptions.zoom -= 0.01
+          mapOptions.heading += 0.04
         } else {
           renderer.setAnimationLoop(null);
         }
