@@ -57,7 +57,7 @@ export default function SearchBar() {
   // const { currentCoords, setCurrentCoords } = localCoordState;
 
   const cityList: City[] = [];
-
+  
   const [userAddress, setUserAddress] = useState<string>("");
 
   const handleSetUserAddress = (event: any) => {
@@ -81,7 +81,10 @@ export default function SearchBar() {
 
     console.log("RES", addressData);
     //if addressData.validAddress - if the geocode api search does not return a result, this will be false
-    if (addressData.validAddress) setCoord(addressData.newAddress.coords);
+    if (addressData.validAddress) {
+      setCoord(addressData.newAddress.coords);
+      setAddress(addressData.newAddress.address);
+    }
     if (!addressData.validAddress) console.log('that is not a valid address')
     // setCoord(addressData.newAddress.coords);
     console.log('coordValue', coordValue);

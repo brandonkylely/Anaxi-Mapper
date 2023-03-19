@@ -4,10 +4,11 @@ import FavoriteList from "./FavoriteList/FavoriteList";
 import Comments from "./CommentForm/Comments";
 import CommentsList from "./CommentForm/CommentsList";
 import { useAtomValue } from "jotai";
-import { currentSearchAtom } from "../state";
+import { currentSearchAtom, addressAtom } from "../state";
 
 export default function CurrentSearch() {
     const searchResults = useAtomValue(currentSearchAtom);
+    const address = useAtomValue(addressAtom);
     return (
         <>
     <div className="columns-2 flex">      

@@ -1,14 +1,16 @@
 import { MouseEventHandler, useState } from "react";
 import { nearbySearch, post } from "../api";
-import { coordinateAtom, userAtom, currentSearchAtom } from "../state";
+import { coordinateAtom, userAtom, currentSearchAtom, addressAtom } from "../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-// import CurrentSearch from "./CurrentSearch";
+import CurrentSearch from "./CurrentSearch";
 
 
 export default function SecondarySearchBar() {
   const coordValue = useAtomValue(coordinateAtom)
   const currentSearch = useAtomValue(currentSearchAtom);
   const setSearch = useSetAtom(currentSearchAtom);
+  
+  const [loaded2, setLoaded2] = useState(false)
   const [radius, setRadius] = useState<string>("");
   const [type, setType] = useState<string>("");
   const [keyword, setKeyword] = useState<string>("");
@@ -37,13 +39,21 @@ export default function SecondarySearchBar() {
 
   async function getNearby(userParams: object) {
     const nearbyData = await post("/api/address/nearby", { userParams });
-    setSearch(nearbyData);
-    console.log('currentSearch Log', currentSearch)
+    if (!currentSearch) {
+      //do something when no nearbysearch results are found
+      console.log('your nearbySearch api did not return any results')
+    }
+    else {
+      setSearch(nearbyData);
+      setLoaded2(true);
+    }
+    
+    console.log('currentSearch Log', );
   }
 
   return (
     <>
-    <h2>{currentSearch[0].place_id}</h2>
+    {/* <h2>{currentSearch[0].place_id}</h2> */}
       <form className="px-4 form">
         <input
           className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
@@ -77,11 +87,11 @@ export default function SecondarySearchBar() {
         </button>
         <div className="float-right"></div>
       </form>
-      {/* {loaded?
+      {loaded2?
       <CurrentSearch></CurrentSearch>
       :
       <div></div>
-      } */}
+      }
     </>
   );
 }
