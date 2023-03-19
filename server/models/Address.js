@@ -11,7 +11,7 @@ const addressSchema = new Schema({
   //   results_id: Schema.Types.ObjectId,
   //   ref: "place"
   // }]
-  //comments: [{}]
+  //comments: [ref comments]
 });
 
 // Search: {
