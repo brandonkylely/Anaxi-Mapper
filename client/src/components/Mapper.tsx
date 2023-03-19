@@ -23,7 +23,7 @@ const mapOptions = {
   zoom: 17,
   disableDefaultUI: true,
   heading: 25,
-  tilt: 25,
+  tilt: 25
 };
 
 
