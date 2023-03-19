@@ -51,6 +51,10 @@ router.post("/search", auth, async (req, res) => {
 });
 
 router.post("/nearby", auth, async (req, res) => {
+  const returnValue = {
+    validAddress: false,
+    newAddress: [],
+  }
   try {
     const parameters = req.body.userParams
     const coords = parameters.coordinate
