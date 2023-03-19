@@ -80,7 +80,7 @@ export default function SearchBar() {
 
     console.log("RES", addressData);
     setCoord(addressData);
-    console.log('coordValue', coordValue);
+    // console.log('coordValue', coordValue);
 
     //TODO HERE ---
     console.log('address lat and lng', addressData.lat, addressData.lng)

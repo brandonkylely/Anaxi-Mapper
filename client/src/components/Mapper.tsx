@@ -18,12 +18,12 @@ import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 const mapOptions = {
   mapId: import.meta.env.VITE_MAPID,
-  center: { lat: 43.661036, lng: -79.391277 },
+  center: {lat: 34.0729297, lng: -118.4401635},
   // center: {lat: 0, lng: 0},
-  zoom: 17,
+  zoom: 19,
   disableDefaultUI: true,
-  heading: 25,
-  tilt: 25
+  heading: 15,
+  tilt: 55
 };
 
 
@@ -83,7 +83,7 @@ function moveToLocation(lat, lng){
   instance.panTo(center);
 }
 
-let scooter;
+// let scooter: unknown;
 
 function createOverlay(map) {
   const overlay = new google.maps.WebGLOverlayView();
@@ -98,7 +98,7 @@ function createOverlay(map) {
     scene.add(light);
 
     loader = new GLTFLoader();
-    scooter = loader.loadAsync("./scooter/scene.gltf").then((object) => {
+    loader.loadAsync("./scooter/scene.gltf").then((object) => {
       const group = object.scene;
       group.scale.setScalar(25);
       group.rotation.set(Math.PI / 2, 0, 0);
@@ -119,25 +119,22 @@ function createOverlay(map) {
     renderer.autoClear = false;
 
 // happens when scene is rendered, can use to start animation
-    // loader.manager.onLoad = () => {
-    //   renderer.setAnimationLoop(() => {
-    //     map.moveCamera({
-    //       tilt: mapOptions.tilt,
-    //       heading: mapOptions.heading,
-    //       zoom: mapOptions.zoom,
-    //     });
+    loader.manager.onLoad = () => {
+      renderer.setAnimationLoop(() => {
+        map.moveCamera({
+          tilt: mapOptions.tilt,
+          heading: mapOptions.heading,
+          zoom: mapOptions.zoom,
+        });
 
-    //     if (mapOptions.tilt < 60) {
-    //       mapOptions.tilt += 0.5;
-    //     } else if (mapOptions.zoom < 20) {
-    //       mapOptions.zoom += 0.05;
-    //     } else if (mapOptions.heading < 125) {
-    //       mapOptions.heading += 0.5;
-    //     } else {
-    //       renderer.setAnimationLoop(null);
-    //     }
-    //   });
-    // };
+        if (mapOptions.zoom > 17.5) {
+          mapOptions.zoom -= 0.012
+          mapOptions.heading += 0.08
+        } else {
+          renderer.setAnimationLoop(null);
+        }
+      });
+    };
   };
 
 // happens many times
