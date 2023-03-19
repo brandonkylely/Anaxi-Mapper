@@ -6,6 +6,7 @@ import { coordinateAtom, userAtom } from "../state";
 import Categories from "./Categories";
 // import coordState from "../state";
 import { nearbySearch, post } from "../api";
+import SecondarySearchBar from "./SecondarySearch";
 
 type City = {
   address: string;
@@ -146,18 +147,6 @@ export default function SearchBar() {
 
   return (
     <>
-      {/* <form className="form">
-        <input
-          value={userAddress}
-          name="userAddress"
-          onChange={handleSetUserAddress}
-          type="text"
-          placeholder="Enter an address"
-        />
-        <button type="button" onClick={handleFormSubmit}>
-          Submit
-        </button>
-      </form> */}
       <form className="px-4 form">
         {/* JUST POC , THIS IS HOW TO CONSUME */}
 
@@ -181,6 +170,7 @@ export default function SearchBar() {
           <Categories />
           </div>
       </form>
+      <SecondarySearchBar></SecondarySearchBar>
       
     </>
     

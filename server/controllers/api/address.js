@@ -69,4 +69,14 @@ router.post("/search", auth, async (req, res) => {
   //         return res.status(200).json({ success: true, result })
 });
 
+router.post("/nearby", auth, async (req, res) => {
+  try {
+    console.log('console log', req.body);
+    res.json(req.body)
+  }
+  catch (err) {
+    console.log(err);
+    res.json( {success: false, data: null})
+  }
+});
 module.exports = router;

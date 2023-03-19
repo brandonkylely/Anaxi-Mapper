@@ -7,6 +7,7 @@ import Favorite from "../components/FavoriteList/Favorite";
 import Categories from "../components/Categories";
 import Title from "../components/Title";
 import FavoriteList from "../components/FavoriteList/FavoriteList";
+import SecondarySearchBar from "../components/SecondarySearch";
 
 // import Slidebar from "../components/slidebar";
 
