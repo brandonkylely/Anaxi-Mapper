@@ -46,6 +46,8 @@ export default function SearchBar() {
   // const { currentCoords, setCurrentCoords } = useContext(coordState);
   const coordValue = useAtomValue(coordinateAtom);
   const setCoord = useSetAtom(coordinateAtom);
+  
+  const [loaded, setLoaded] = useState(false)
 
   // if (!localCoordState) {
   //   console.warn('because the local coord state is undefined, the search bar is not being returned );')
@@ -64,85 +66,25 @@ export default function SearchBar() {
   };
 
   const handleFormSubmit = (event: any) => {
+    setLoaded(true)
     event.preventDefault();
     getCoords(userAddress).then((result) => {
-      // console.log(result)
-      // return result.json();
-      // alert(`${apiFetch(result)}`);
+      //TODO: Add error handing after form submit
     });
   };
 
-  // search address, map with nothing, save
-  // second search, with filters, map pops up with businesses in area
-  // favorite list: [{searchAddress}, ...]
-  // searchAddress =
-  //   [
-  //     {
-  //       business result 1
-  // display: boolean
-  //     },
-  //     {
-  //       result 2
-  //     }
-  //   ]
-  // api req: find result where type= restaurant, set display = false
+
 
   async function getCoords(userAddress: string) {
-    // nearbySearch(requestUrl);
-    //take this requestUrl
-    //push it to back end
-    //make the api calls
-
-    //push up data to database
-    //pull the placeIds from all the places within the nearby search
-    //feed those into a distanceMatrix Api call
-    //calculate distance/duration from origin to each point on the distance matrix
-    //turn that combined data into a new object
-    //
-
     const addressData = await post("/api/address/search", { userAddress });
 
     console.log("RES", addressData);
     setCoord(addressData);
-
     console.log('coordValue', coordValue);
 
     //TODO HERE ---
     console.log('address lat and lng', addressData.lat, addressData.lng)
-    // setCurrentCoords({ lat: addressData.lat, lng: addressData.lng });
-
-    // let address: City = {
-    //   address: addressData.formatted_address,
-    //   coords: {
-    //     lat: addressData.geometry.location.lat,
-    //     lng: addressData.geometry.location.lng,
-    //   },
-    //   place_id: addressData.place_id,
-    // };
-
-    // console.log("logging address", address);
-
-    // let resSend = await fetch('/api/address',
-    // {
-    //   method:"POST",
-    //   headers:
-    //   body: address
-    // }
-
-    // )
-    // setCurrentCoords(address.coords)
-
-    // cityList.push(address)
-    // console.log(addressData)
-    // console.log(cityList)
-    // return city
-
-    // let nextUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=40.748817,-73.985428&radius=15000&type=restaurant&keyword=asian&key=AIzaSyBkMHNxpBmBMaHhnlpHHy63cRktfgiFXIA`;
-    // //temporarilty hardcoding Radius, Type, and Keyword, but these will be selectable
-    // let res2 = await fetch(nextUrl);
-
-    // const nearbySearch = (await res2.json()) as unknown;
-    // console.log(nearbySearch);
+    
   }
 
   return (
@@ -170,7 +112,11 @@ export default function SearchBar() {
           <Categories />
           </div>
       </form>
+      {loaded?
       <SecondarySearchBar></SecondarySearchBar>
+      :
+      <div></div>
+      }
       
     </>
     
