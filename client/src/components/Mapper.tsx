@@ -12,13 +12,16 @@ import {
   Matrix4,
 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { coordinateAtom } from "../state";
+import { currentSearchAtom, coordinateAtom, loadingAtom } from "../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
+let coordValueData = localStorage.getItem('lastCoords') || null;
+console.log(JSON.parse(coordValueData));
+let coordValue = JSON.parse(coordValueData);
 
 const mapOptions = {
   mapId: import.meta.env.VITE_MAPID,
-  center: {lat: 34.0729297, lng: -118.4401635},
+  center: coordValue || {lat: 34.0729297, lng: -118.4401635},
   // center: {lat: 0, lng: 0},
   // zoom based on secondary search radius
   zoom: 19,
@@ -31,7 +34,7 @@ const mapOptions = {
 
 
 export default function Mapper(props) {
-  const coordValue = useAtomValue(coordinateAtom);
+  // coordValue = useAtomValue(coordinateAtom);
   // mapOptions.center = coordValue;
 
   // temp comment
@@ -49,14 +52,18 @@ export default function Mapper(props) {
   );
 }
 
-let instance;
+let instance: unknown;
+let loadValue;
 
 function MyMap() {
   const overlayRef = useRef();
   const [map, setMap] = useState();
   const ref = useRef();
-  const coordValue = useAtomValue(coordinateAtom);
+  coordValue = useAtomValue(coordinateAtom);
   const [loaded, setLoaded] = useState(false)
+  loadValue = useAtomValue(loadingAtom)
+  const setLoadValue = useSetAtom(loadingAtom)
+  const currentSearchValue = useAtomValue(currentSearchAtom)
 
   // mapOptions.center = coordValue
 
@@ -77,19 +84,33 @@ function MyMap() {
     moveToLocation(coordValue.lat, coordValue.lng)
   }, [coordValue])
 
+  // useEffect(() => {
+  //   // if (loadValue) {
+  //   //   overlay.onRemove = () => {
+  //   //     overlay.setMap(null)
+  //   //   }
+  //   if(loadValue) {
+  //     overlay.setMap(null);
+  //     // overlay = null;
+  //     // createOverlay(map)
+  //     setLoadValue(false)
+  //   }
+  //   // }
+  // },[currentSearchValue])
+
   return <div ref={ref} id="map" />;
 }
 
 function moveToLocation(lat: number, lng: number){
   const center = new google.maps.LatLng(lat, lng);
   // using global variable:
-  instance.panTo(center);
+  instance?.panTo(center);
 }
 
-// let scooter: unknown;
+let overlay: unknown;
 
 function createOverlay(map) {
-  const overlay = new google.maps.WebGLOverlayView();
+  overlay = new google.maps.WebGLOverlayView();
   let renderer: unknown, scene: unknown, camera: unknown, loader: unknown;
 
   // onAdd happens once when the overlay is created
