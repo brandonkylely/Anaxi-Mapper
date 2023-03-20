@@ -120,6 +120,15 @@ function createOverlay(map) {
     camera = new PerspectiveCamera();
     const light = new AmbientLight(0xffffff, 0.9);
     scene.add(light);
+    // const search results array [{}]
+    // for (all search results) {
+      // const matrix = transformer.fromLatLngAltitude({
+      //   lat: results[i].center.lat,
+      //   lng: results[i].center.lng,
+      //   altitude: 120,
+      // });
+      // 
+    // }
 
     // TODO: add DRACO loader to use compressed models
     loader = new GLTFLoader();
@@ -178,6 +187,9 @@ function createOverlay(map) {
         lng: mapOptions.center.lng,
         altitude: 120,
       });
+    // console.log(matrix)
+    // returns array with 16 points
+    // Matrix4 is a 16 point matrix
     camera.projectionMatrix = new Matrix4().fromArray(matrix);
     // constantly redraw whats in the camera view
     overlay.requestRedraw();

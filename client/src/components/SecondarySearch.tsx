@@ -47,6 +47,7 @@ export default function SecondarySearchBar() {
       console.log('your nearbySearch api did not return any results')
     }
     else {
+      localStorage.setItem('lastSearch', JSON.stringify(nearbyData));
       setSearch(nearbyData);
       setLoaded(true);
     }
