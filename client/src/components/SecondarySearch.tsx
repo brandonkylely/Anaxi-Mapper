@@ -1,6 +1,6 @@
 import { MouseEventHandler, useState } from "react";
 import { nearbySearch, post } from "../api";
-import { coordinateAtom, userAtom, currentSearchAtom, addressAtom } from "../state";
+import { coordinateAtom, userAtom, currentSearchAtom, addressAtom, loadingAtom } from "../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import CurrentSearch from "./CurrentSearch";
 
@@ -9,8 +9,9 @@ export default function SecondarySearchBar() {
   const coordValue = useAtomValue(coordinateAtom)
   const currentSearch = useAtomValue(currentSearchAtom);
   const setSearch = useSetAtom(currentSearchAtom);
+  // const setLoadValue = useSetAtom(loadingAtom)
   
-  const [loaded2, setLoaded2] = useState(false)
+  const [loaded, setLoaded] = useState(false)
   const [radius, setRadius] = useState<string>("");
   const [type, setType] = useState<string>("");
   const [keyword, setKeyword] = useState<string>("");
@@ -29,6 +30,8 @@ export default function SecondarySearchBar() {
       coordinate: coordValue
     }
     getNearby(userParams).then((result) => {
+      localStorage.setItem('lastCoords', JSON.stringify(coordValue));
+      window.location.reload()
       // console.log('getNearby Result', result)
       // setSearch(result);
       // console.log(result);
@@ -45,7 +48,7 @@ export default function SecondarySearchBar() {
     }
     else {
       setSearch(nearbyData);
-      setLoaded2(true);
+      setLoaded(true);
     }
     
     console.log('currentSearch Log', );
@@ -87,7 +90,7 @@ export default function SecondarySearchBar() {
         </button>
         <div className="float-right"></div>
       </form>
-      {loaded2?
+      {loaded?
       <CurrentSearch></CurrentSearch>
       :
       <div></div>

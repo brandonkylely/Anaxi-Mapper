@@ -12,23 +12,29 @@ import {
   Matrix4,
 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { coordinateAtom } from "../state";
+import { currentSearchAtom, coordinateAtom, loadingAtom } from "../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
+let coordValueData = localStorage.getItem('lastCoords') || null;
+console.log(JSON.parse(coordValueData));
+let coordValue = JSON.parse(coordValueData);
 
 const mapOptions = {
   mapId: import.meta.env.VITE_MAPID,
-  center: { lat: 43.661036, lng: -79.391277 },
+  center: coordValue || {lat: 34.0729297, lng: -118.4401635},
   // center: {lat: 0, lng: 0},
-  zoom: 17,
+  // zoom based on secondary search radius
+  zoom: 19,
   disableDefaultUI: true,
-  heading: 25,
-  tilt: 25
+  heading: 15,
+  tilt: 55
 };
+
+// trigger map overlay rerender once secondary search is done
 
 
 export default function Mapper(props) {
-  const coordValue = useAtomValue(coordinateAtom);
+  // coordValue = useAtomValue(coordinateAtom);
   // mapOptions.center = coordValue;
 
   // temp comment
@@ -46,14 +52,18 @@ export default function Mapper(props) {
   );
 }
 
-let instance;
+let instance: unknown;
+let loadValue;
 
 function MyMap() {
   const overlayRef = useRef();
   const [map, setMap] = useState();
   const ref = useRef();
-  const coordValue = useAtomValue(coordinateAtom);
+  coordValue = useAtomValue(coordinateAtom);
   const [loaded, setLoaded] = useState(false)
+  loadValue = useAtomValue(loadingAtom)
+  const setLoadValue = useSetAtom(loadingAtom)
+  const currentSearchValue = useAtomValue(currentSearchAtom)
 
   // mapOptions.center = coordValue
 
@@ -74,20 +84,34 @@ function MyMap() {
     moveToLocation(coordValue.lat, coordValue.lng)
   }, [coordValue])
 
+  // useEffect(() => {
+  //   // if (loadValue) {
+  //   //   overlay.onRemove = () => {
+  //   //     overlay.setMap(null)
+  //   //   }
+  //   if(loadValue) {
+  //     overlay.setMap(null);
+  //     // overlay = null;
+  //     // createOverlay(map)
+  //     setLoadValue(false)
+  //   }
+  //   // }
+  // },[currentSearchValue])
+
   return <div ref={ref} id="map" />;
 }
 
-function moveToLocation(lat, lng){
+function moveToLocation(lat: number, lng: number){
   const center = new google.maps.LatLng(lat, lng);
   // using global variable:
-  instance.panTo(center);
+  instance?.panTo(center);
 }
 
-let scooter;
+let overlay: unknown;
 
 function createOverlay(map) {
-  const overlay = new google.maps.WebGLOverlayView();
-  let renderer, scene, camera, loader;
+  overlay = new google.maps.WebGLOverlayView();
+  let renderer: unknown, scene: unknown, camera: unknown, loader: unknown;
 
   // onAdd happens once when the overlay is created
   // threejs scene setting
@@ -97,10 +121,19 @@ function createOverlay(map) {
     const light = new AmbientLight(0xffffff, 0.9);
     scene.add(light);
 
+    // TODO: add DRACO loader to use compressed models
     loader = new GLTFLoader();
-    scooter = loader.loadAsync("./scooter/scene.gltf").then((object) => {
+    loader.loadAsync("./scooter/scene.gltf").then((object) => {
       const group = object.scene;
       group.scale.setScalar(25);
+      group.rotation.set(Math.PI / 2, Math.PI / 2.4, 0);
+      group.position.setX(20);
+      group.position.setZ(-120);
+      scene.add(group);
+    });
+    loader.loadAsync("./flag.gltf").then((object) => {
+      const group = object.scene;
+      group.scale.setScalar(20);
       group.rotation.set(Math.PI / 2, 0, 0);
       group.position.setZ(-120);
       scene.add(group);
@@ -119,25 +152,22 @@ function createOverlay(map) {
     renderer.autoClear = false;
 
 // happens when scene is rendered, can use to start animation
-    // loader.manager.onLoad = () => {
-    //   renderer.setAnimationLoop(() => {
-    //     map.moveCamera({
-    //       tilt: mapOptions.tilt,
-    //       heading: mapOptions.heading,
-    //       zoom: mapOptions.zoom,
-    //     });
+    loader.manager.onLoad = () => {
+      renderer.setAnimationLoop(() => {
+        map.moveCamera({
+          tilt: mapOptions.tilt,
+          heading: mapOptions.heading,
+          zoom: mapOptions.zoom,
+        });
 
-    //     if (mapOptions.tilt < 60) {
-    //       mapOptions.tilt += 0.5;
-    //     } else if (mapOptions.zoom < 20) {
-    //       mapOptions.zoom += 0.05;
-    //     } else if (mapOptions.heading < 125) {
-    //       mapOptions.heading += 0.5;
-    //     } else {
-    //       renderer.setAnimationLoop(null);
-    //     }
-    //   });
-    // };
+        if (mapOptions.zoom > 18.5) {
+          mapOptions.zoom -= 0.01
+          mapOptions.heading += 0.04
+        } else {
+          renderer.setAnimationLoop(null);
+        }
+      });
+    };
   };
 
 // happens many times
