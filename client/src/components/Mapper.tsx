@@ -19,12 +19,19 @@ let coordValueData = localStorage.getItem('lastCoords') || null;
 console.log(JSON.parse(coordValueData));
 let coordValue = JSON.parse(coordValueData);
 
+// TODO: set style toggle for user
+// let styleToggle = 'full';
+let styleToggle = 'retail';
+
 const mapOptions = {
-  mapId: import.meta.env.VITE_MAPID,
+  mapId: styleToggle === 'full'? import.meta.env.VITE_MAPID_FULL : import.meta.env.VITE_MAPID_RETAIL,
   center: coordValue || {lat: 34.0729297, lng: -118.4401635},
-  // center: {lat: 0, lng: 0},
   // zoom based on secondary search radius
-  zoom: 19,
+  
+  // zoom: 19,
+  // temporary 15 to test markers
+  zoom: 15,
+  
   disableDefaultUI: true,
   heading: 15,
   tilt: 55
@@ -82,44 +89,62 @@ function MyMap() {
   }, [coordValue])
 
 
-
+// MARKERS BELOW
+// TODO: fetch array of nearby locations with the following: name, coords, icon
   const exampleArray = [
     {
-      name: "Alfredo's Pizza & Pasta",
+      name: "Alfredo's Pizza",
       coords: {
         "lat": 34.1210425,
         "lng": -117.2885072
       },
-      icon: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png"
+      icon: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      // icon_background_color: "#FF9E67",
+      // photo: "https://maps.google.com/maps/contrib/116630505878958830647"
     },
     {
-      name: "Alfredo's Pizza & Pasta",
+      name: "Alfredo's Pasta",
       coords: {
         "lat": 34.1379758,
         "lng": -117.2846497
       },
-      icon: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png"
+      icon: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      // icon_background_color: "#FF9E67",
+      // photo: "https://maps.google.com/maps/contrib/116630505878958830647"
     },
     {
-      name: "Alfredo's Pizza & Pasta",
+      name: "Pizza Hut",
       coords: {
         "lat": 34.1355842,
         "lng": -117.2581798
       },
-      icon: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png"
+      icon: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      // icon_background_color: "#FF9E67",
+      // photo: "https://maps.google.com/maps/contrib/116630505878958830647"
     }
   ]
+
+  const infoWindow = new google.maps.InfoWindow();
+  
   exampleArray.forEach( (location) => {
-    new google.maps.Marker({
+    const marker = new google.maps.Marker({
       // position: JSON.parse(localStorage.getItem('lastCoords')) || null,
       position: location.coords,
       map,
+      label: location.name,
       title: location.name,
       icon: {
         url: location.icon,
-        scaledSize: new google.maps.Size(38,31)
+        scaledSize: new google.maps.Size(38,31),
+        // fillColor: location.icon_background_color,
+        fillOpacity: 0.6,
       }
     })
+    marker.addListener("click", () => {
+      infoWindow.close();
+      infoWindow.setContent(marker.getTitle());
+      infoWindow.open(marker.getMap(), marker);
+    });
   })
   // useEffect(() => {
   //   // if (loadValue) {
