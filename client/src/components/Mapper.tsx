@@ -19,19 +19,23 @@ let coordValueData = localStorage.getItem('lastCoords') || null;
 console.log(JSON.parse(coordValueData));
 let coordValue = JSON.parse(coordValueData);
 
+// TODO: set style toggle for user
+// let styleToggle = 'full';
+let styleToggle = 'retail';
+
 const mapOptions = {
-  mapId: import.meta.env.VITE_MAPID,
+  mapId: styleToggle === 'full'? import.meta.env.VITE_MAPID_FULL : import.meta.env.VITE_MAPID_RETAIL,
   center: coordValue || {lat: 34.0729297, lng: -118.4401635},
-  // center: {lat: 0, lng: 0},
   // zoom based on secondary search radius
-  zoom: 19,
+  
+  // zoom: 19,
+  // temporary 15 to test markers
+  zoom: 15,
+  
   disableDefaultUI: true,
   heading: 15,
   tilt: 55
 };
-
-// trigger map overlay rerender once secondary search is done
-
 
 export default function Mapper(props) {
   // coordValue = useAtomValue(coordinateAtom);
@@ -84,6 +88,64 @@ function MyMap() {
     moveToLocation(coordValue.lat, coordValue.lng)
   }, [coordValue])
 
+
+// MARKERS BELOW
+// TODO: fetch array of nearby locations with the following: name, coords, icon
+  const exampleArray = [
+    {
+      name: "Alfredo's Pizza",
+      coords: {
+        "lat": 34.1210425,
+        "lng": -117.2885072
+      },
+      icon: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      // icon_background_color: "#FF9E67",
+      // photo: "https://maps.google.com/maps/contrib/116630505878958830647"
+    },
+    {
+      name: "Alfredo's Pasta",
+      coords: {
+        "lat": 34.1379758,
+        "lng": -117.2846497
+      },
+      icon: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      // icon_background_color: "#FF9E67",
+      // photo: "https://maps.google.com/maps/contrib/116630505878958830647"
+    },
+    {
+      name: "Pizza Hut",
+      coords: {
+        "lat": 34.1355842,
+        "lng": -117.2581798
+      },
+      icon: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      // icon_background_color: "#FF9E67",
+      // photo: "https://maps.google.com/maps/contrib/116630505878958830647"
+    }
+  ]
+
+  const infoWindow = new google.maps.InfoWindow();
+  
+  exampleArray.forEach( (location) => {
+    const marker = new google.maps.Marker({
+      // position: JSON.parse(localStorage.getItem('lastCoords')) || null,
+      position: location.coords,
+      map,
+      label: location.name,
+      title: location.name,
+      icon: {
+        url: location.icon,
+        scaledSize: new google.maps.Size(38,31),
+        // fillColor: location.icon_background_color,
+        fillOpacity: 0.6,
+      }
+    })
+    marker.addListener("click", () => {
+      infoWindow.close();
+      infoWindow.setContent(marker.getTitle());
+      infoWindow.open(marker.getMap(), marker);
+    });
+  })
   // useEffect(() => {
   //   // if (loadValue) {
   //   //   overlay.onRemove = () => {
@@ -120,6 +182,15 @@ function createOverlay(map) {
     camera = new PerspectiveCamera();
     const light = new AmbientLight(0xffffff, 0.9);
     scene.add(light);
+    // const search results array [{}]
+    // for (all search results) {
+      // const matrix = transformer.fromLatLngAltitude({
+      //   lat: results[i].center.lat,
+      //   lng: results[i].center.lng,
+      //   altitude: 120,
+      // });
+      // 
+    // }
 
     // TODO: add DRACO loader to use compressed models
     loader = new GLTFLoader();
@@ -178,6 +249,9 @@ function createOverlay(map) {
         lng: mapOptions.center.lng,
         altitude: 120,
       });
+    // console.log(matrix)
+    // returns array with 16 points
+    // Matrix4 is a 16 point matrix
     camera.projectionMatrix = new Matrix4().fromArray(matrix);
     // constantly redraw whats in the camera view
     overlay.requestRedraw();
