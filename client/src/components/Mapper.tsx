@@ -20,11 +20,14 @@ const mapOptions = {
   mapId: import.meta.env.VITE_MAPID,
   center: {lat: 34.0729297, lng: -118.4401635},
   // center: {lat: 0, lng: 0},
+  // zoom based on secondary search radius
   zoom: 19,
   disableDefaultUI: true,
   heading: 15,
   tilt: 55
 };
+
+// trigger map overlay rerender once secondary search is done
 
 
 export default function Mapper(props) {
@@ -97,10 +100,19 @@ function createOverlay(map) {
     const light = new AmbientLight(0xffffff, 0.9);
     scene.add(light);
 
+    // TODO: add DRACO loader to use compressed models
     loader = new GLTFLoader();
     loader.loadAsync("./scooter/scene.gltf").then((object) => {
       const group = object.scene;
       group.scale.setScalar(25);
+      group.rotation.set(Math.PI / 2, Math.PI / 2.4, 0);
+      group.position.setX(20);
+      group.position.setZ(-120);
+      scene.add(group);
+    });
+    loader.loadAsync("./flag.gltf").then((object) => {
+      const group = object.scene;
+      group.scale.setScalar(20);
       group.rotation.set(Math.PI / 2, 0, 0);
       group.position.setZ(-120);
       scene.add(group);
