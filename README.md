@@ -84,7 +84,7 @@
 
   ### About
 
-  This project was the product of 4 highly ambitious and creative full stack developers to showcase our capabilities to develop stunning web applications. Feel free to email us with any questions, suggestions, or business inquiries!
+  This project was the product of 4 highly ambitious and creative full stack developers to showcase our ability to develop stunning web applications. Feel free to email us with any questions, suggestions, or business inquiries!
 
   ## Acknowledgements 👨‍💻👨‍💻
 
