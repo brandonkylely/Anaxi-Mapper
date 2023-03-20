@@ -30,9 +30,6 @@ const mapOptions = {
   tilt: 55
 };
 
-// trigger map overlay rerender once secondary search is done
-
-
 export default function Mapper(props) {
   // coordValue = useAtomValue(coordinateAtom);
   // mapOptions.center = coordValue;
@@ -84,6 +81,46 @@ function MyMap() {
     moveToLocation(coordValue.lat, coordValue.lng)
   }, [coordValue])
 
+
+
+  const exampleArray = [
+    {
+      name: "Alfredo's Pizza & Pasta",
+      coords: {
+        "lat": 34.1210425,
+        "lng": -117.2885072
+      },
+      icon: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png"
+    },
+    {
+      name: "Alfredo's Pizza & Pasta",
+      coords: {
+        "lat": 34.1379758,
+        "lng": -117.2846497
+      },
+      icon: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png"
+    },
+    {
+      name: "Alfredo's Pizza & Pasta",
+      coords: {
+        "lat": 34.1355842,
+        "lng": -117.2581798
+      },
+      icon: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png"
+    }
+  ]
+  exampleArray.forEach( (location) => {
+    new google.maps.Marker({
+      // position: JSON.parse(localStorage.getItem('lastCoords')) || null,
+      position: location.coords,
+      map,
+      title: location.name,
+      icon: {
+        url: location.icon,
+        scaledSize: new google.maps.Size(38,31)
+      }
+    })
+  })
   // useEffect(() => {
   //   // if (loadValue) {
   //   //   overlay.onRemove = () => {
