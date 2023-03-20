@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAtomValue } from 'jotai';
-import { favoriteAtom, addressAtom } from '../../state';
+import { favoriteAtom, addressAtom } from '../state';
   // @ts-ignore
 
 
 function FavoritePage(props) {
-    const favList = useAtomValue(favoriteAtom);
-    console.log('favList',favList)
+    //const favList = useAtomValue(favoriteAtom);
+    //console.log('favList',favList)
     
     const [FavoritePlaces, setFavoritePlaces] = useState([])
+
     
     const variable = { 
-                _id: localStorage.getItem('_id'),
+                id: props._id,
                 place_id: props.place_id,
                 address: props.address,
         }
@@ -27,7 +28,7 @@ function FavoritePage(props) {
         axios.post('/api/favorite/getFavoritePlaces', variable)
             .then(response => {
                 if (response.data.success) {
-                    setFavoritePlaces(response.data.favoritePlaces)
+                    setFavoritePlaces(response.data.favorites)
                 } else {
                     alert('Failed to get list')
                 }
@@ -49,7 +50,13 @@ function FavoritePage(props) {
             })
     }
 
-
+    const renderTableBody = FavoritePlaces.map((result) => {
+        return <tr key={result.id}>
+            <td>{result.place_id}</td>
+            <td>{result.address}</td>
+        </tr>
+    })
+            
     // favList.map((address, index) => (
     //     console.log('address', address)
     //     console.log('index', index)
@@ -77,16 +84,7 @@ function FavoritePage(props) {
                     </thead>
                     <tbody>
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            {favList.map((address, index) => (
-                                <tr key={index}>
-                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {address}
-                                    </th>
-                                    <td className="px-6 py-4">
-                                        {/* {place_id} */}
-                                    </td>
-                                </tr>
-                            ))}
+                            {renderTableBody}
 
                         </tr>
                         

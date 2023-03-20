@@ -6,7 +6,7 @@ import Dropdown from "../components/Dropdown";
 import Favorite from "../components/FavoriteList/Favorite";
 import Categories from "../components/Categories";
 import Title from "../components/Title";
-import FavoritePage from "../components/FavoriteList/FavoritePage";
+
 import SecondarySearchBar from "../components/SecondarySearch";
 
 // import Slidebar from "../components/slidebar";
@@ -29,7 +29,7 @@ export default function MainPage() {
       {/* <Categories /> */}
 
       {/* <Slidebar /> */}
-      <FavoritePage />
+      {/* <FavoritePage /> */}
       
 
     </div>

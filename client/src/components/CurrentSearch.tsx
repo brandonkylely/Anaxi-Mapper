@@ -1,7 +1,7 @@
 
 import React from "react";
 import Favorite from "./FavoriteList/Favorite";
-import FavoritePage from "./FavoriteList/FavoritePage";
+import FavoritePage from "../pages/FavoritePage";
 import Comments from "./CommentForm/Comments";
 import CommentsList from "./CommentForm/CommentsList";
 import { useAtomValue } from "jotai";
@@ -12,12 +12,13 @@ export default function CurrentSearch() {
     const searchResults = useAtomValue(currentSearchAtom);
     const address = useAtomValue(addressAtom);
 
-    //const place_id = searchResults[0].place_id;
+    const place_id = searchResults[0].place_id;
+    const id = searchResults[0]._id;
     return (
         <>
     <div className="container flex justify-between">      
             <div className="m-4 bg-white border border-gray-200 rounded-lg shadow p-4">
-               
+               <Favorite id={id} place_id={place_id} address={address} />
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{address}</h5>
                 <h6 className="mb-4 text-lg font-light tracking-tight text-gray-900 dark:text-white">Nearby Results</h6>
                 <div className="flex flex-wrap columns-3 font-normal text-gray-700 dark:text-gray-400">
@@ -42,8 +43,8 @@ export default function CurrentSearch() {
                             <li key={result.id}>
                                 Pricing Level: {result.price_level}
                             </li>
-                            <Favorite />
-                            {/* <Favorite userFrom={localStorage.getItem('_id')} place_id={place_id} address={address} /> */}
+                            
+                            
                         </ul>
                     </div>
                         ))}
@@ -53,7 +54,7 @@ export default function CurrentSearch() {
 
             </div>
 
-            <FavoritePage />
+            
     </div>
         </>
     );

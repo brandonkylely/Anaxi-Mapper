@@ -1,22 +1,23 @@
 import  React, { useEffect, useState } from  'react' ;
 import axios from 'axios';
-import { useAtomValue, useSetAtom } from 'jotai';
-import { favoriteAtom, addressAtom } from '../../state';
+// import { useAtomValue, useSetAtom } from 'jotai';
+// import { favoriteAtom, addressAtom } from '../../state';
 
   // @ts-ignore
-let dataArray = [];
+// let dataArray = [];
 
 function Favorite(props) {
     const [FavoriteNumber, setFavoriteNumber] = useState(0)
     const [Favorited, setFavorited] = useState(false)
-    const setFavList = useSetAtom(favoriteAtom);
-    const favList = useAtomValue(favoriteAtom)
+    // const setFavList = useSetAtom(favoriteAtom);
+    // const favList = useAtomValue(favoriteAtom)
 
     const variable = {
                 //TODO: need to fill in the variable
-                // _id: localStorage.getItem('_id'),
+                _id: localStorage.getItem('_id'),
                 place_id: props.place_id,
                 address: props.address,
+
             }
 
     useEffect(() => {
@@ -25,6 +26,7 @@ function Favorite(props) {
             .then(response => {
                 if (response.data.success) {
                     setFavoriteNumber(response.data.favoriteNumber)
+                    console.log('favoriteNumber', response.data.favoriteNumber)
                 } else {
                     alert('Failed to get favorite Number')
                 }
@@ -34,14 +36,15 @@ function Favorite(props) {
             .then(response => {
                 if (response.data.success) {
                     setFavorited( response.data.favorited)
+                    console.log('it is favorited');
                 } else {
                     alert('Failed to get favorite info')
                 }
             })
 
-        dataArray.push(variable)
-        setFavList(dataArray)
-        console.log(favList)
+        // dataArray.push(variable)
+        // setFavList(dataArray)
+        // console.log(favList)
         }, [])
 
         const onClickFavorite = () => {

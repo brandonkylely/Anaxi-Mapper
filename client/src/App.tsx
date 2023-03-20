@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import FavoritePage from "./pages/FavoritePage";
 import token from "./utils/token";
 import { useSetAtom } from "jotai/react";
 import { userAtom } from "./state";
@@ -29,7 +30,7 @@ function App() {
       <Link className="mx-2 font-light tracking-wide text-stone-800" to="/">
         home
       </Link>
-      <Link className= "mx-2 font-light tracking-wide text-stone-800" to="/">
+      <Link className= "mx-2 font-light tracking-wide text-stone-800" to="/favorite">
         favorites
       </Link>
 
@@ -38,6 +39,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="favorite" element={<FavoritePage />} />
 
       </Routes>
     </Router>
