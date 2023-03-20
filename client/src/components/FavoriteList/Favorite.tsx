@@ -1,22 +1,23 @@
 import  React, { useEffect, useState } from  'react' ;
 import axios from 'axios';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { favoriteAtom, addressAtom } from '../../state';
+
   // @ts-ignore
-import Comments from '../CommentForm/Comments';
-import FavoriteList from './FavoriteList';
-  // @ts-ignore
+let dataArray = [];
 
 function Favorite(props) {
     const [FavoriteNumber, setFavoriteNumber] = useState(0)
     const [Favorited, setFavorited] = useState(false)
-    
-    // const variable = {
-    //             //TODO: need to fill in the variable
-    //             userFrom: props.userFrom,
-    //             locationId: props.locationId,
-    //             locationName: props.locationName,
-    //             locationType: props.locationType,
-    //             locationImage: props.locationImage,
-    //         }
+    const setFavList = useSetAtom(favoriteAtom);
+    const favList = useAtomValue(favoriteAtom)
+
+    const variable = {
+                //TODO: need to fill in the variable
+                // _id: localStorage.getItem('_id'),
+                place_id: props.place_id,
+                address: props.address,
+            }
 
     useEffect(() => {
         console.log('variable', variable)
@@ -29,16 +30,19 @@ function Favorite(props) {
                 }
             })
 
-    //     axios.post('/api/favorite/favorited', variable)
-    //         .then(response => {
-    //             if (response.data.success) {
-    //                 setFavorited( response.data.favorited)
-    //             } else {
-    //                 alert('Failed to get favorite info')
-    //             }
-    //         })
+        axios.post('/api/favorite/favorited', variable)
+            .then(response => {
+                if (response.data.success) {
+                    setFavorited( response.data.favorited)
+                } else {
+                    alert('Failed to get favorite info')
+                }
+            })
 
-    //     }, [])
+        dataArray.push(variable)
+        setFavList(dataArray)
+        console.log(favList)
+        }, [])
 
         const onClickFavorite = () => {
             if (Favorited) {
@@ -53,12 +57,14 @@ function Favorite(props) {
                         }
                     })
             } else {
+                
                 // When it's not added to favorite, we need to add it
                 axios.post('/api/favorite/addToFavorite', variable)
                     .then(response => {
                         if (response.data.success) {
                             setFavoriteNumber(FavoriteNumber + 1)
                             setFavorited(!Favorited)
+                            console.log('response', response)
                         } else {
                             alert('Failed to add to favorite')
                         }
@@ -68,36 +74,14 @@ function Favorite(props) {
     
 
     return (
-        <>
-    <div className="columns-2 flex">      
-            <div className="w-full m-4 bg-white border border-gray-200 rounded-lg shadow p-4">
-                
+    
                 <button onClick={onClickFavorite} type="button" className="text-gray-900 bg-white border float-right border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
                     {Favorited ? " remove from Favorite " : " Add to Favorite "}{FavoriteNumber}
                 </button>
                 
-                <a href="#">
-                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Lorem Ipsum</h5>
-                </a>
-                
-
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc finibus venenatis odio, commodo laoreet ex blandit eu. </p>
-                
-                
-                
-                <Comments />
-                
-                
-                
-            </div>
-
-            
-            <FavoriteList />
-             
-       
-    </div>
-        </>
+        
     );
 }
+
 
 export default Favorite;

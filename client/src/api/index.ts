@@ -15,10 +15,15 @@ export const test = async () => {
 //export const addFav = () => does some fav stuff
 //@ts-ignore
 export const addFav = async () => {
-  const res = await axios.get(`/api/favorite`);
+  try {
+  const res = await axios.post(`/api/favorite`);
   console.log("res.data", res.data);
   return res.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
+
 //@ts-ignore
 export const nearbySearch = async (url) => {
   const res = await axios.get(url);

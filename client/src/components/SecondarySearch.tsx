@@ -31,7 +31,7 @@ export default function SecondarySearchBar() {
     }
     getNearby(userParams).then((result) => {
       localStorage.setItem('lastCoords', JSON.stringify(coordValue));
-      window.location.reload()
+      //window.location.reload()
       // console.log('getNearby Result', result)
       // setSearch(result);
       // console.log(result);
