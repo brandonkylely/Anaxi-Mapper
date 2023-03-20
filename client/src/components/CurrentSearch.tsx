@@ -12,13 +12,14 @@ export default function CurrentSearch() {
     const searchResults = useAtomValue(currentSearchAtom);
     const address = useAtomValue(addressAtom);
 
-    const place_id = searchResults[0].place_id;
-    const id = searchResults[0]._id;
+    const place_id = searchResults.place_id;
+    const id = searchResults._id;
     return (
         <>
     <div className="container flex justify-between">      
             <div className="m-4 bg-white border border-gray-200 rounded-lg shadow p-4">
                <Favorite id={id} place_id={place_id} address={address} />
+               {/* <Favorite id={result.id} place_id={result.place_id} address={result.address} /> */}
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{address}</h5>
                 <h6 className="mb-4 text-lg font-light tracking-tight text-gray-900 dark:text-white">Nearby Results</h6>
                 <div className="flex flex-wrap columns-3 font-normal text-gray-700 dark:text-gray-400">
