@@ -2,7 +2,7 @@
 
 import { MouseEventHandler, useState, useContext } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { coordinateAtom, userAtom } from "../state";
+import { coordinateAtom, userAtom, addressAtom } from "../state";
 import Categories from "./Categories";
 // import coordState from "../state";
 import { nearbySearch, post } from "../api";
@@ -46,6 +46,7 @@ export default function SearchBar() {
   // const { currentCoords, setCurrentCoords } = useContext(coordState);
   const coordValue = useAtomValue(coordinateAtom);
   const setCoord = useSetAtom(coordinateAtom);
+  const setAddress = useSetAtom(addressAtom);
   
   const [loaded, setLoaded] = useState(false)
 
@@ -56,7 +57,7 @@ export default function SearchBar() {
   // const { currentCoords, setCurrentCoords } = localCoordState;
 
   const cityList: City[] = [];
-
+  
   const [userAddress, setUserAddress] = useState<string>("");
 
   const handleSetUserAddress = (event: any) => {
@@ -80,13 +81,16 @@ export default function SearchBar() {
 
     console.log("RES", addressData);
     //if addressData.validAddress - if the geocode api search does not return a result, this will be false
-    if (addressData.validAddress) setCoord(addressData.newAddress.coords);
+    if (addressData.validAddress) {
+      setCoord(addressData.newAddress.coords);
+      setAddress(addressData.newAddress.address);
+    }
     if (!addressData.validAddress) console.log('that is not a valid address')
     // setCoord(addressData.newAddress.coords);
     console.log('coordValue', coordValue);
 
     //TODO HERE ---
-    console.log('address lat and lng', addressData.lat, addressData.lng)
+    console.log('address', addressData)
     
   }
 
