@@ -24,7 +24,7 @@ let coordValue = JSON.parse(coordValueData);
 let styleToggle = 'retail';
 
 const mapOptions = {
-  mapId: styleToggle === 'full'? import.meta.env.VITE_MAPID_FULL : import.meta.env.VITE_MAPID_RETAIL,
+  mapId: styleToggle === 'full'? '605e131c3939f175' : 'f5d27befd916db8c',
   center: coordValue || {lat: 34.0729297, lng: -118.4401635},
   // zoom based on secondary search radius
   
@@ -124,9 +124,10 @@ function MyMap() {
     }
   ]
 
-  const infoWindow = new google.maps.InfoWindow();
+
   
   exampleArray.forEach( (location) => {
+    const infoWindow = new google.maps.InfoWindow();
     const marker = new google.maps.Marker({
       // position: JSON.parse(localStorage.getItem('lastCoords')) || null,
       position: location.coords,
