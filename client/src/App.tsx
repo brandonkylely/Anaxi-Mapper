@@ -11,6 +11,7 @@ import { test } from "./api";
 
 function App() {
   const setUser = useSetAtom(userAtom);
+  console.count("APP UPDATE")
   useEffect(() => {
     const tokenData = token.getToken();
     tokenData && setUser(tokenData.data);
