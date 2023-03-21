@@ -2,7 +2,7 @@
 
 import { MouseEventHandler, useState, useContext } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { coordinateAtom, userAtom, addressAtom } from "../state";
+import { coordinateAtom, userAtom, addressAtom, categoryAtom } from "../state";
 import Categories from "./Categories";
 // import coordState from "../state";
 import { nearbySearch, post } from "../api";
@@ -138,6 +138,7 @@ type GeoLocationResult = {
   results: GeoLocation[];
 };
 
+
 // https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=1500&type=${type}&keyword=${keyword}&key=import.meta.env.VITE_APIKEY
 
 export default function SearchBar() {
@@ -210,27 +211,24 @@ export default function SearchBar() {
         {/* JUST POC , THIS IS HOW TO CONSUME */}
 
         {/* <h1> {user?.email}</h1> */}
-        <h2>{coordValue?.lat} {coordValue?.lng}</h2>
-        <input
-          className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
-          value={userAddress}
-          name="userAddress"
-          onChange={handleSetUserAddress}
-          type="text"
-          placeholder="Enter an address"
-        />
-        <button
-          className="bg-white text-gray-600 px-2 py-1 rounded-lg mt-2 hover:bg-stone-200 ml-2"
-          onClick={handleFormSubmit}
-        >
-          submit
-        </button>
-        <div className=" w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600 float-right">
-          <Categories
-            setQuery={setQuery}
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
-            filteredCategory={filteredCategory}
+       
+          <input
+            className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
+            value={userAddress}
+            name="userAddress"
+            onChange={handleSetUserAddress}
+            type="text"
+            placeholder="Enter an address"
+          />
+          <button
+            className="bg-white text-gray-600 px-2 py-1 rounded-lg mt-2 hover:bg-stone-200 ml-2"
+            onClick={handleFormSubmit}
+          >
+            submit
+          </button>
+          <div className=" ]w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600 float-right">
+          <Categories setQuery={setQuery} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory}
+          filteredCategory={filteredCategory}
           />
         </div>
       </form>

@@ -1,29 +1,19 @@
 const { Schema, Types, model } = require("mongoose");
 
-const favoriteSchema = new Schema(
-{
-    userFrom: {
-        type: Schema.Types.ObjectId,
-        ref: 'user'
+const favoriteSchema = new Schema({
+    place_id: {
+        type: String,
+        ref: "address"
+        
     },
-    locationId: {
+    address: {
         type: String,
     },
-    locationName: {
-        type: String,
-    },
-    locationType: {
-        type: String,
-    },
-    locationImage: {
-        type: String,
-    },
-    // addresses: [list]
-
-}
-);
+});
 
 const Favorite = model('favorite', favoriteSchema);
-
+Favorite.createCollection().then(function (collection) {
+    console.log("Favorite Collection is created!");
+  });
 module.exports = Favorite;
 

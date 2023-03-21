@@ -14,6 +14,17 @@ export const test = async () => {
 // add additional api calls here
 //export const addFav = () => does some fav stuff
 //@ts-ignore
+export const addFav = async () => {
+  try {
+  const res = await axios.post(`/api/favorite`);
+  console.log("res.data", res.data);
+  return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//@ts-ignore
 export const nearbySearch = async (url) => {
   const res = await axios.get(url);
   console.log("res.data", res.data);

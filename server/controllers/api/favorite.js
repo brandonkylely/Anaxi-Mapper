@@ -1,65 +1,99 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const { Favorite } = require("../../models/index");
 const auth = require("../../middleware/auth");
 
-//=================================
-//             Favorite
-//=================================
-
-router.post("/favoriteNumber", auth, (req, res) => {
-   
-    //Find Favorite information inside Favorite Collection by Movie ID 
-
-    Favorite.find({"locationId":  req.body.locationId })
-        .exec(( err, favorite ) => {
-            if(err) return res.status(400).send(err)
-            res.status(200).json({ success: true, favoriteNumber: favorite.length })
-        })
-
-
+router.post("/", auth, async (req, res) => {
+  try {
+    const googleData = await googleRes.json();
+    const data = googleData.results[0];
+    const favorite = await Favorite.create({
+      post_id: data.post_id,
+      address: data.formatted_address,
+    //category: data.types[0],
+    });
+    res.status(200).json({ success: true, favorite });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ success: false, err });
+  }
 });
 
-
-router.post("/favorited", auth, (req, res) => {
-   
-   // Find Favorite Information inside Favorite Collection by Movie Id , userFrom 
-   Favorite.find({"locationId":  req.body.locationId , "userFrom": req.body.userFrom })
-    .exec(( err, favorite) => {
-        if(err) return res.status(400).send(err)
-
-        //How can we know if I already favorite this movie or not ? 
-        let result = false;
-        if(favorite.length !== 0) {
-            result = true
-        }
-
-        res.status(200).json({ success: true, favorited: result});
-
-    })
-
+router.post("/favoriteNumber", auth, async (req, res) => {
+  try {
+    const favNumber = await Favorite.find();
+    res.status(200).json({ success: true, favoriteNumber: favNumber.length });
+    console.log(favNumber);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ success: false, err });
+  }
 });
 
-router.post("/addToFavorite", auth, (req, res) => {
-    
-   // Save the information about the movie or Location Id in the Favorite Collection
-    const favorite = new Favorite(req.body)
-    
-    favorite.save((err, doc) => {
-        if(err) return res.json({ success: false, err})
-        return res.status(200).json({ success: true })
-    })
+router.post("/favorited", auth, async (req, res) => {
+  try {
+    const favorited = await Favorite.find({
+      post_id: req.body.post_id,
+      _id: req.body._id,
+    });
+    let result = false;
+    if (favorited.length !== 0) {
+      result = true;
+    }
+    res.status(200).json({ success: true, favorited: result });
+    console.log(favorited);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ success: false, err });
+  }
 });
 
+router.post("/addToFavorite", auth, async (req, res) => {
+  try {
+    // Save the information about the location in the Favorite Collection
+    // const favorite = await Favorite.find();
+    const favorite = await Favorite.create({
+      ...req.body,
+    });
+    res.status(200).json({ success: true, favorite });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ success: false, err });
+  }
+});
 
-router.post("/removeFromFavorite", auth, (req, res) => {
-    
-    Favorite.findOneAndDelete({locationId: req.body.locationId, userFrom: req.body.userFrom})
-    .exec((err, doc) => {
-        if(err) return res.status(400).json({ success: false, err})
-        res.status(200).json({ success: true, doc})
-    })
+// router.post("/updateFavorite", auth, async (req, res) => {
+//     try {
+//         const updateFav = await Favorite.findAndUpdate({post_id: req.body.post_id, _id: req.body._id });
+//         res.status(200).json({ success: true, updateFav });
+//         console.log(updateFav);
+//     } catch (err) {
+//         console.log(err);
+//         res.status(500).json({ success: false, err });
+//     }
+// });
 
+router.post("/removeFromFavorite", auth, async (req, res) => {
+  try {
+    const deleteFav = await Favorite.findOneAndDelete({
+      ...req.body});
+    res.status(200).json({ success: true });
+    console.log(deleteFav);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ success: false, err });
+  }
+});
+
+router.post("/getFavoritePlaces", auth, async (req, res) => {
+  try {
+    const favorites = await Favorite.find();
+    res.status(200).json({ success: true, favorites });
+    console.log(favorites);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ success: false, error: error });
+  }
 });
 
 module.exports = router;

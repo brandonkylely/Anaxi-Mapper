@@ -9,23 +9,28 @@ const CommentForm = () => {
   // @ts-ignore
   const onSubmit = (event) => {
     event.preventDefault();
-    const variables = {
-      content: commentText,
-      // @ts-ignore
-      writer: user_id,
-      // @ts-ignore
-      postId: props.placeId,
-    };
-    // @ts-ignore
-    axios
-      .post("/api/comment/saveComment", variables)
-      // @ts-ignore
-      .then((response) => {
-        if (response.data.success) {
-        } else {
-          alert("Failed to save Comment");
-        }
-      });
+    // const variables = {
+    //   content: commentText,
+    //   // @ts-ignore
+    //   writer: user_id,
+    //   // @ts-ignore
+    //   postId: props.placeId,
+    // };
+    // // @ts-ignore
+    // axios
+    //   .post("/api/comment/saveComment", variables)
+    //   // @ts-ignore
+    //   .then((response) => {
+    //     if (response.data.success) {
+    //     } else {
+    //       alert("Failed to save Comment");
+    //     }
+    //   });
+
+    alert(`Comment submitted: ${commentText}`);
+      console.log(commentText);
+      setCommentText([]);
+  
   };
 
   return (

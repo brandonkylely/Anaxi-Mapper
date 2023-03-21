@@ -13,6 +13,8 @@ app.use(express.json());
 app.use(auth);
 app.use(routes);
 
+app.use('/api/favorite', require('./controllers/api/favorite'));
+
 // test route
 app.get("/api/test", (req, res) => {
   console.log("test route hit");
