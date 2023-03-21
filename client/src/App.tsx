@@ -35,8 +35,8 @@ function App() {
       <Link className= "mx-2 font-light tracking-wide text-stone-800" to="/favorite">
         Favorites
       </Link>
-      <Link className= "mx-2 font-light tracking-wide text-stone-800" to="/Logout">
-        Logout
+      <Link className= "mx-2 font-md tracking-wide text-stone-800 float-right" to="/Logout">
+        LOGOUT
       </Link>
 
       {/* quick links for better dev exp, make look nice or remove later */}

@@ -18,23 +18,26 @@ export default function Logout() {
     }
   return (
     <>
-        <div className="form-outline space-y-4 rounded-lg tracking-wide">
-          <div className="font-bold text-xl justify-center font-semibold tracking-widest">
+        <div className="card-body p-10 m-5">
+          
+          <div className=" flex justify-center font-bold text-xl justify-center font-semibold tracking-widest">
             <h2>Are you sure you want to logout?</h2>
           </div>
+          <div className="flex justify-center space-x-4 m-4 " >
           <button
             onClick={logout} 
-            className="btn btn-primary pl-4 pr-4 px-2 py-2 text-gray-600 hover:text-gray-700 hover:bg-gray-50 shadow-sm appearance-none rounded-md bg-white"
+            className=" btn-primary pl-4 pr-4 px-2 py-2 text-gray-600 hover:text-gray-700 hover:bg-gray-50 shadow-sm appearance-none rounded-md bg-white"
           >
-            Logout
+            LOGOUT
           </button>
 
           <button
             onClick={returnHome}
-            className="btn btn-primary pl-4 pr-4 px-2 py-2 text-gray-600 hover:text-gray-700 hover:bg-gray-50 shadow-sm appearance-none rounded-md bg-white"
+            className=" btn btn-primary pl-4 pr-4 px-2 py-2 text-gray-600 hover:text-gray-700 hover:bg-gray-50 shadow-sm appearance-none rounded-md bg-white"
           >
-            Go Back
+            go back
           </button>
+          </div>
         </div>
 
     </>
