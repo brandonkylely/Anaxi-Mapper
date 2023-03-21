@@ -16,7 +16,9 @@ export const userAtom = atom<MapperUser>(null);
 export const coordinateAtom = atom<CoordinateObject>({ lat: 40.7484, lng: 73.9857 });
 export const currentSearchAtom = atom<unknown>([]);
 export const addressAtom = atom<string>("");
-export const loadingAtom = atom<boolean>(false)
+export const loadingAtom = atom<boolean>(false);
+
+export const mapReloadAtom = atom<boolean>(false);
 
 
 // type CoordContextType = {

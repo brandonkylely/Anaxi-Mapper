@@ -116,7 +116,6 @@ const category = [
   { id: 95, name: "Zoo" },
 ];
 
-
 // address: cityData.results[0].formatted_address,
 // coords: {
 //   lat: cityData.results[0].geometry.location.lat,
@@ -147,8 +146,7 @@ export default function SearchBar() {
   const coordValue = useAtomValue(coordinateAtom);
   const setCoord = useSetAtom(coordinateAtom);
   const setAddress = useSetAtom(addressAtom);
-  
-  const [loaded, setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState(false);
 
   const [selectedCategory, setSelectedCategory] = useState(category[0]);
   const [query, setQuery] = useState("");
@@ -170,7 +168,7 @@ export default function SearchBar() {
   // const { currentCoords, setCurrentCoords } = localCoordState;
 
   const cityList: City[] = [];
-  
+
   const [userAddress, setUserAddress] = useState<string>("");
 
   const handleSetUserAddress = (event: any) => {
@@ -180,7 +178,7 @@ export default function SearchBar() {
   };
 
   const handleFormSubmit = (event: any) => {
-    setLoaded(true)
+    setLoaded(true);
     event.preventDefault();
     console.log(query);
     console.log(selectedCategory);
@@ -188,8 +186,6 @@ export default function SearchBar() {
       //TODO: Add error handing after form submit
     });
   };
-
-
 
   async function getCoords(userAddress: string) {
     const addressData = await post("/api/address/search", { userAddress });
@@ -200,13 +196,12 @@ export default function SearchBar() {
       setCoord(addressData.newAddress.coords);
       setAddress(addressData.newAddress.address);
     }
-    if (!addressData.validAddress) console.log('that is not a valid address')
+    if (!addressData.validAddress) console.log("that is not a valid address");
     // setCoord(addressData.newAddress.coords);
-    console.log('coordValue', coordValue);
+    console.log("coordValue", coordValue);
 
     //TODO HERE ---
-    console.log('address', addressData)
-    
+    console.log("address", addressData);
   }
 
   return (
@@ -215,37 +210,31 @@ export default function SearchBar() {
         {/* JUST POC , THIS IS HOW TO CONSUME */}
 
         {/* <h1> {user?.email}</h1> */}
-       
-          <input
-            className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
-            value={userAddress}
-            name="userAddress"
-            onChange={handleSetUserAddress}
-            type="text"
-            placeholder="Enter an address"
+
+        <input
+          className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
+          value={userAddress}
+          name="userAddress"
+          onChange={handleSetUserAddress}
+          type="text"
+          placeholder="Enter an address"
+        />
+        <button
+          className="bg-white text-gray-600 px-2 py-1 rounded-lg mt-2 hover:bg-stone-200 ml-2"
+          onClick={handleFormSubmit}
+        >
+          submit
+        </button>
+        <div className=" w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600 float-right">
+          <Categories
+            setQuery={setQuery}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            filteredCategory={filteredCategory}
           />
-          <button
-            className="bg-white text-gray-600 px-2 py-1 rounded-lg mt-2 hover:bg-stone-200 ml-2"
-            onClick={handleFormSubmit}
-          >
-            submit
-          </button>
-          <div className=" w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600 float-right">
-          <Categories setQuery={setQuery} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory}
-          filteredCategory={filteredCategory}
-          />
-          
-          </div>
-        
+        </div>
       </form>
-      {loaded?
-      <SecondarySearchBar></SecondarySearchBar>
-      :
-      <div></div>
-      }
-      
+      {loaded ? <SecondarySearchBar></SecondarySearchBar> : <div></div>}
     </>
-    
-    
   );
 }
