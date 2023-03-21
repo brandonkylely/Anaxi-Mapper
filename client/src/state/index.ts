@@ -27,9 +27,10 @@ export const nearbyPlacesAtom = atom<unknown>([{name: "default name", coords: {l
 
 export const mapReloadAtom = atom<boolean>(false);
 export const favoriteAtom = atom<array>([]);
-// type CoordContextType = {
-// type CoordContextType = {
 export const categoryAtom = atom<Category[]>([]);
+
+
+// type CoordContextType = {
   //   currentCoords: CoordinateObject;
   //   setCurrentCoords?: (coords: CoordinateObject) => void;
   // };
