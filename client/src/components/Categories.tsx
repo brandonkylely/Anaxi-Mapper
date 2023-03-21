@@ -148,7 +148,7 @@ function MyCombobox({
           >
             {({ active, selected }) => (
               <li
-                className={`${active ? "text-black" : "bg-white text-black"}`}
+                className={`${active ? "bg-indigo-600 text-white" : "bg-white text-black"}`}
               >
                 <div className="flex gap-2">
                   <div>{oneCategory.name}</div>
