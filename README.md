@@ -76,11 +76,11 @@
 
   Brandon Ly 🫠 : [Github](https://github.com/brandonkylely) & [LinkedIn](https://www.linkedin.com/in/brandon-ly-7300b1205/) & [Email](mailto:brandonkly@ucla.edu)
 
-  Logan Senn 😎 : [Github](https://github.com/lsenn404) & [LinkedIn]() & [Email](mailto:)
+  Logan Senn 😎 : [Github](https://github.com/lsenn404) & [LinkedIn](https://www.linkedin.com/in/logansenn/) & [Email](mailto:logsenn2@gmail.com)
 
   Mirjana Dukic 🥹 : [Github](https://github.com/mjdukic) & [LinkedIn](https://www.linkedin.com/in/mirjanadukic/) & [Email](mailto:mirjanadukicc@gmail.com)
 
-  Hannah Kim 🥰 : [Github](https://github.com/hannahsykim) & [LinkedIn]() & [Email](mailto:)
+  Hannah Kim 🥰 : [Github](https://github.com/hannahsykim) & [LinkedIn](https://www.linkedin.com/in/kimhannah1/) & [Email](mailto:hanhannah839@gmail.com)
 
   ### About
 
