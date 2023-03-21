@@ -129,11 +129,13 @@ function MyCombobox({
   // }
 
   return (
-    <Combobox value={selectedCategory} onChange={setSelectedCategory} multiple>
+    <Combobox value={selectedCategory} onChange={setSelectedCategory} multiple >
       <Combobox.Input
         onChange={(event) => setQuery(event.target.value)}
         // @ts-ignore
         displayValue={(oneCategory) => oneCategory.name}
+        type="text"
+        placeholder="category options"
       />
       <Combobox.Options>
         {filteredCategory.map((oneCategory) => (
@@ -148,7 +150,7 @@ function MyCombobox({
           >
             {({ active, selected }) => (
               <li
-                className={`${active ? "text-black" : "bg-white text-black"}`}
+                className={`${active ? "bg-indigo-600 text-white" : "bg-white text-black"}`}
               >
                 <div className="flex gap-2">
                   <div>{oneCategory.name}</div>
