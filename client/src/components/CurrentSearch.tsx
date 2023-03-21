@@ -41,7 +41,7 @@ export default function CurrentSearch() {
     let userEmail = user.email;
     console.log("logging user email", userEmail);
     event.preventDefault();
-    console.log("logging current params", currentParams);
+    //currentParams comes from an atom set at secondarysearch bar line 180
     axios.post("/api/favorite/addToFavorite", {
       searchResults,
       currentParams,
