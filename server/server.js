@@ -23,7 +23,7 @@ app.get("/api/test", (req, res) => {
 });
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+  res.sendFile(path.join(__dirname, "../client/index.html"));
 });
 
 db.once("open", () => {
