@@ -1,7 +1,7 @@
 import { useState, Fragment } from "react";
 import { Combobox } from "@headlessui/react";
 // import Select from "react-select";
-import { CheckIcon } from '@heroicons/react/20/solid'
+import { CheckIcon } from "@heroicons/react/20/solid";
 
 //https://headlessui.com/react/combobox
 
@@ -104,58 +104,61 @@ import { CheckIcon } from '@heroicons/react/20/solid'
 //   { id: 95, name: "Zoo" },
 // ];
 
-function MyCombobox({setQuery, selectedCategory, setSelectedCategory, filteredCategory}) {
-//   const [selectedCategory, setSelectedCategory] = useState(category[0]);
-//   const [query, setQuery] = useState("");
+function MyCombobox({
+  setQuery,
+  selectedCategory,
+  setSelectedCategory,
+  filteredCategory,
+}) {
+  //   const [selectedCategory, setSelectedCategory] = useState(category[0]);
+  //   const [query, setQuery] = useState("");
 
-//   const filteredCategory =
-//     query === ""
-//       ? category
-//       : category.filter((oneCategory) => {
-//           return oneCategory.name.toLowerCase().includes(query.toLowerCase());
-//         });
+  //   const filteredCategory =
+  //     query === ""
+  //       ? category
+  //       : category.filter((oneCategory) => {
+  //           return oneCategory.name.toLowerCase().includes(query.toLowerCase());
+  //         });
 
-//   console.log(selectedCategory);
-//   console.log(query);
+  //   console.log(selectedCategory);
+  //   console.log(query);
   // const handlechange = (event) => {
   //   console.log("In the handlechange function");
   //   console.log(event.target.value);
   //   setQuery(event.target.value);
   // }
 
-
   return (
-    <Combobox value={selectedCategory} onChange={setSelectedCategory}>
-        <Combobox.Input
-          onChange={(event) => setQuery(event.target.value)}
+    <Combobox value={selectedCategory} onChange={setSelectedCategory} multiple>
+      <Combobox.Input
+        onChange={(event) => setQuery(event.target.value)}
+        // @ts-ignore
+        displayValue={(oneCategory) => oneCategory.name}
+      />
+      <Combobox.Options>
+        {filteredCategory.map((oneCategory) => (
+          /* Use the `active` state to conditionally style the active option. */
+          /* Use the `selected` state to conditionally style the selected option. */
           // @ts-ignore
-          displayValue={(oneCategory) => oneCategory.name}
-        />
-        <Combobox.Options>
-          {filteredCategory.map((oneCategory) => (
-            /* Use the `active` state to conditionally style the active option. */
-            /* Use the `selected` state to conditionally style the selected option. */
-            // @ts-ignore
-            <Combobox.Option className="text-sm font-medium text-gray-500"
-              key={oneCategory.id}
-              value={oneCategory}
-              as={Fragment}
-              // isMulti={true}
-              
-            >
-              {({ active, selected }) => (
-                <li
-                  className={`${
-                    active ? "sm-blue-500 text-white" : "bg-white text-black"
-                  }`}
-                >
-                  {selected && <CheckIcon />}
-                  {oneCategory.name}
-                </li>
-              )}
-            </Combobox.Option>
-          ))}
-        </Combobox.Options>
+          <Combobox.Option
+            className="text-sm font-medium text-gray-500"
+            key={oneCategory.id}
+            value={oneCategory}
+            as={Fragment}
+          >
+            {({ active, selected }) => (
+              <li
+                className={`${active ? "text-black" : "bg-white text-black"}`}
+              >
+                <div className="flex gap-2">
+                  <div>{oneCategory.name}</div>
+                  {selected && <CheckIcon className="w-4 h-4" />}
+                </div>
+              </li>
+            )}
+          </Combobox.Option>
+        ))}
+      </Combobox.Options>
     </Combobox>
   );
 }

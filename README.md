@@ -78,7 +78,7 @@
 
   Logan Senn 😎 : [Github](https://github.com/lsenn404) & [LinkedIn]() & [Email](mailto:)
 
-  Mirjana Dukic 🥹 : [Github](https://github.com/mjdukic) & [LinkedIn]() & [Email](mailto:)
+  Mirjana Dukic 🥹 : [Github](https://github.com/mjdukic) & [LinkedIn](https://www.linkedin.com/in/mirjanadukic/) & [Email](mailto:mirjanadukicc@gmail.com)
 
   Hannah Kim 🥰 : [Github](https://github.com/hannahsykim) & [LinkedIn]() & [Email](mailto:)
 
