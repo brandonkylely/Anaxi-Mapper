@@ -31,12 +31,12 @@ export default function Logout() {
             LOGOUT
           </button>
 
-          <button
+          {/* <button
             onClick={returnHome}
             className=" btn btn-primary pl-4 pr-4 px-2 py-2 text-gray-600 hover:text-gray-700 hover:bg-gray-50 shadow-sm appearance-none rounded-md bg-white"
           >
             go back
-          </button>
+          </button> */}
           </div>
         </div>
 
