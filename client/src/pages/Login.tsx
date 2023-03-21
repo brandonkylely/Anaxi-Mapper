@@ -1,12 +1,25 @@
 import React from "react";
 
 export default function Login() {
+  const handleFormSubmit = (event: any) => {
+    event.preventDefault();
+    console.log("form submitted");
+  };
+
+  const handleFormChange = ({
+    target: { name, value },
+  }: {
+    target: { name: string; value: string };
+  }) => {
+    setFormData({ ...formData, [name]: value });
+  };
+  
   return (
     <>
       <form
         id="login-form"
         className="card-body flex justify-center p-10 m-5 "
-        //   onSubmit={handleFormSubmit}
+        onSubmit={handleFormSubmit}
       >
         <div className="form-outline space-y-4 rounded-lg tracking-wide">
           <div className="font-bold text-xl justify-center font-semibold tracking-widest">
@@ -16,7 +29,7 @@ export default function Login() {
             name:
           </label>
           <input
-            //   onChange={handleFormChange}
+              onChange={handleFormChange}
             name="name"
             type="text"
             id="username-input-login"
@@ -27,7 +40,7 @@ export default function Login() {
               email:
             </label>
             <input
-              //   onChange={handleFormChange}
+                onChange={handleFormChange}
               name="email"
               type="text"
               id="username-input-login"
@@ -39,7 +52,7 @@ export default function Login() {
               password:
             </label>
             <input
-              //   onChange={handleFormChange}
+                onChange={handleFormChange}
               name="password"
               type="password"
               id="password-input-login"
