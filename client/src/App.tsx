@@ -44,6 +44,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        {/* @ts-ignore */}
         <Route path="/favorite" element={<FavoritePage />} />
         <Route path="/logout" element={<Logout />} />
 

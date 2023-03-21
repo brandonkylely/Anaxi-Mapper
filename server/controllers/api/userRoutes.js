@@ -11,8 +11,8 @@ router.post("/", async (req, res) => {
       email: req.body.email,
       password: req.body.password,
     });
-    console.log("newUser", newUser)
-    console.log("newUser password", newUser.password)
+    console.log("newUser", newUser);
+    console.log("newUser password", newUser.password);
     //create a jwt, and send back to FE
     const token = signToken(newUser);
     userId = newUser._id;
@@ -41,13 +41,17 @@ router.post("/login", async (req, res) => {
     }
 
     // const validPassword = user.checkPassword(req.body.password);
-    console.log('req.body.password',req.body.password)
-    console.log('password validation',(!signUser.isCorrectPassword(req.body.password)))
-    if (signUser.isCorrectPassword(req.body.password)) {
-      console.log('password was false');
-      res
-        .status(500)
-        .json({ success: false, token: null, message: "Incorrect password!", userId: null });
+    console.log("req.body.password", req.body.password);
+
+    const validPassword = signUser.isCorrectPassword(req.body.password);
+    if (!validPassword) {
+      console.log("password was false");
+      res.status(500).json({
+        success: false,
+        token: null,
+        message: "Incorrect password!",
+        userId: null,
+      });
       return;
     }
 

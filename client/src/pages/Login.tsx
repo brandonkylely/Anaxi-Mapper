@@ -23,7 +23,10 @@ export default function Login() {
     event.preventDefault();
     try {
       console.log(formData);
-      const data = await axios.post("/api/user/login", formData);
+      const data = (await axios.post("/api/user/login", formData)) as {
+        token: string;
+        userId: string;
+      };
       console.log("DATA FROM BACKEND", data);
       token.login(data.token);
       // got token, what do?
@@ -31,17 +34,15 @@ export default function Login() {
       localStorage.setItem("userId", data.userId);
       setUser(user.data);
       navigate("/");
-    } catch (err) {
+    } catch (err: unknown) {
       //this will either be Username not found!
       //or Incorrect password!
       //not sure how best to display
-      console.log(err.response.data.message);
+      console.log(err);
       //maybe some error handling? display to user?
     }
   };
   const [user, setUser] = useAtom(userAtom);
-  
-
 
   return (
     <>

@@ -1,40 +1,36 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const CommentForm = (props) => {
+const CommentForm = () => {
   const [CommentText, setCommentText] = useState("");
   const [Comments, setComments] = useState([]);
-  
+
   // @ts-ignore
 
   useEffect(() => {
-    
     fetchComments();
-
   }, []);
-    
-    let variable = {
-      post_id: Date.now(),
-      commentText: CommentText,
-    };
 
-    const fetchComments = () => {
-      axios.post("/api/comment/getComments", variable)
-        .then(response => {
-          if (response.data.success) {
-            setComments(response.data.comments);
-          } else {
-            alert("Failed to get comments");
-          }
-      })
-    }
-  
+  let variable = {
+    post_id: Date.now(),
+    commentText: CommentText,
+  };
+
+  const fetchComments = () => {
+    axios.post("/api/comment/getComments", variable).then((response) => {
+      if (response.data.success) {
+        setComments(response.data.comments);
+      } else {
+        alert("Failed to get comments");
+      }
+    });
+  };
 
   // @ts-ignore
   const onSubmit = (event) => {
     //set the variable
     event.preventDefault();
-    
+
     let commentPost = {
       post_id: Date.now(),
       commentText: CommentText,
@@ -55,36 +51,27 @@ const CommentForm = (props) => {
     }
   };
 
-
   return (
     <div className="container">
       <br />
       <h3>Comments</h3>
       <br />
-      {Comments.map((comment, index) => {
-        return Comments < 0 ? 
-        (
+      {Comments.map((comment: { commentText: string | string[] }, index) => {
+        return comment?.commentText.length ? (
           <div key={index} className="my-4">
             <ul className="w-100 text-sm font-medium text-gray-900 bg-white border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-  
-            <li className="m-4">{comment.commentText[0]}</li>
+              <li className="m-4">{comment.commentText[0]}</li>
             </ul>
           </div>
-      ) : (
-      
+        ) : (
           <div key={index} className="my-4">
             <ul className="w-100 text-sm font-medium text-gray-900 bg-white border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-  
-            <li className="m-4">{comment.commentText}</li>
+              <li className="m-4">{comment.commentText}</li>
             </ul>
           </div>
-        ) 
-        })}
-  
-  
+        );
+      })}
 
-
-      
       <form onSubmit={onSubmit}>
         <div className="w-200 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
           <div className="px-4 py-2 bg-dark rounded-t-lg dark:bg-gray-800">
