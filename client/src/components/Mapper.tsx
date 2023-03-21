@@ -69,7 +69,8 @@ function MyMap() {
   const [map, setMap] = useState();
   const ref = useRef();
   const coordValue = useAtomValue(coordinateAtom)
-  const nearbyPlacesArray = useAtomValue(nearbyPlacesAtom)
+  // const nearbyPlacesArray = useAtomValue(nearbyPlacesAtom)
+  const nearbyPlacesArray = useAtomValue(currentSearchAtom) 
 
 
   const [loaded, setLoaded] = useState(false);
@@ -130,11 +131,24 @@ function MyMap() {
 
   nearbyPlacesArray.forEach((location) => {
     const infoWindow = new google.maps.InfoWindow();
+    // const marker = new google.maps.Marker({
+    //   // position: JSON.parse(localStorage.getItem('lastCoords')) || null,
+    //   position: location.coords,
+    //   map,
+    //   label: location.name,
+    //   title: location.name,
+    //   icon: {
+    //     url: location.icon,
+    //     scaledSize: new google.maps.Size(38, 31),
+    //     // fillColor: location.icon_background_color,
+    //     fillOpacity: 0.6,
+    //   },
+    // });
     const marker = new google.maps.Marker({
       // position: JSON.parse(localStorage.getItem('lastCoords')) || null,
-      position: location.coords,
+      position: location.geometry.location,
       map,
-      label: location.name,
+      // label: location.name,
       title: location.name,
       icon: {
         url: location.icon,
