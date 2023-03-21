@@ -100,8 +100,8 @@ const place_types = {
   93: "travel_agency",
   94: "university",
   95: "veterinary_care",
-  96: "zoo"
-}
+  96: "zoo",
+};
 
 router.post("/search", auth, async (req, res) => {
   const returnValue = {
@@ -133,7 +133,6 @@ router.post("/search", auth, async (req, res) => {
           lng: data.geometry.location.lng,
         },
         place_id: data.place_id,
-        comments: req.body.comments,
       });
       returnValue.newAddress = newAddress;
 
@@ -149,25 +148,46 @@ router.post("/search", auth, async (req, res) => {
 
 router.post("/nearby", auth, async (req, res) => {
   const returnValue = {
-    validAddress: false,
-    newAddress: [],
+    validParams: false,
+    moreResults: false,
+    searchResults: "",
   };
   try {
     const parameters = req.body.userParams;
     const coords = parameters.coordinate;
     console.log("reqbody", req.body);
-    // const type = parameters.type;
-    // const radius = parameters.radius;
-    // const keyword = parameters.keyword;
+    const typeIds = parameters.type;
+    //reqbody {
+    //userParams: {
+    //type: '',
+    //radius: '5000',
+    //keyword: '',
+    //coordinate: { lat: 33.8820632, lng: -78.5183816 }
+    //}
 
     const nearbyUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coords.lat},${coords.lng}&radius=${parameters.radius}&type=${parameters.type}&keyword=${parameters.keyword}&key=${process.env.apiKey}`;
     const nearbyRes = await fetch(nearbyUrl);
     const nearbyData = await nearbyRes.json();
 
-    console.log("nearbyData.results", nearbyData.results);
-    //put here what we want to log in the database:
-    // const newPlace = await Place.create(nearbyData.results);
-    res.json(nearbyData.results);
+
+    //checks to see if given parameters returns anything
+    if (nearbyData.results.length > 0) {
+      returnValue.validParams = true;
+    }
+
+    //sort out type [locality, political] from nearbyData.results
+    const filteredResults = nearbyData.results.filter((result) => {
+      return result.types[0] !== "locality" && result.types[0] !== "political";
+    });
+    
+    if (nearbyData.next_page_token) {
+      returnValue.moreResults = nearbyData.next_page_token;
+      // const nearbyUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coords.lat},${coords.lng}&radius=${parameters.radius}&type=${parameters.type}&keyword=${parameters.keyword}&key=${process.env.apiKey}`;
+    }
+    returnValue.searchResults = filteredResults;
+
+    //filtered results take out any political / locality results, these are cities
+    res.json(returnValue);
   } catch (err) {
     console.log(err);
     res.json({ success: false, data: null });

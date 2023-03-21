@@ -28,8 +28,10 @@ export default function Signup() {
       console.log(formData);
       const { data } = await axios.post("/api/user", formData);
       console.log("DATA FROM BACKEND", data);
+      localStorage.setItem("userId", data.userId);
+      console.log(data.userId)
 
-      // got token, what do?
+      // got token, what do?s
 
       //store token in local storage;
       token.login(data.token);
