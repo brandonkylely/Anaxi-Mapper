@@ -1,24 +1,16 @@
 const { Schema, Types, model } = require("mongoose");
 
 const commentSchema =  new Schema({
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'user'
-    }, 
-    postId: {
-        type: String,
-    },
-    responseTo: {
-        type: Schema.Types.ObjectId,
-        ref: 'user'
-    },
-    content: {
-        type: String
-    }
-
+    commentText: String,
+    post_id: String,
 });
 
 
 const Comment = model('comment', commentSchema);
+
+Comment.createCollection().then(function (collection) {
+    console.log("Comment Collection is created!");
+    });
+
 
 module.exports = Comment;

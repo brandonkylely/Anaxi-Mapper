@@ -37,7 +37,7 @@ function FavoritePage(props) {
     
     const onClickRemove = (place_id) => {
         const variable = {
-            placee_id: place_id,
+            place_id: place_id,
             address: props.address,
         }
         axios.post('/api/favorite/removeFromFavorite', variable)

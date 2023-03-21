@@ -1,29 +1,34 @@
 const express = require('express');
 const router = express.Router();
 const auth = require("../../middleware/auth");
+const { Comment } = require("../../models/index");
 
-router.post("/createComment", auth, (req, res) => {
+router.post("/createComment", auth, async (req, res) => {
     try {
-        const comment = new Comment({
-            user: req.user._id,
-            commentText: req.body.text,
+        const newComment = await Comment.create({
+            commentText: req.body.commentText,
+            post_id: Date.now(),
         });
-        comment.save();
-        res.json({ success: true, data: comment });
+        res.json({ success: true, newComment});
+        console.log("i made a comment", newComment);
     }
-    catch (err) {
-        res.status(500).json({ success: false, message: err.message });
+    catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+        console.error(error);
     }
 });
 
-router.get("/getComments", auth, (req, res) => {
+router.post("/getComments", auth, async (req, res) => {
     try {
-        const comments = new Comment.find({ user: req.user._id });
-        res.json({ success: true, data: comments });
+        const comments = await Comment.find();
+        res.json({ success: true, comments});
+        console.log("i got comments", comments);
     }
-    catch (err) {
-        res.status(500).json({ success: false, message: err.message });
+    catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+        console.error(error);
     }
 });
+
 
 module.exports = router;
