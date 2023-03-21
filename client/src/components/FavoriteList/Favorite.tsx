@@ -9,6 +9,7 @@ import axios from 'axios';
 function Favorite(props) {
     const [FavoriteNumber, setFavoriteNumber] = useState(0)
     const [Favorited, setFavorited] = useState(false)
+    
     // const setFavList = useSetAtom(favoriteAtom);
     // const favList = useAtomValue(favoriteAtom)
 
@@ -17,6 +18,7 @@ function Favorite(props) {
                 _id: localStorage.getItem('_id'),
                 place_id: props.place_id,
                 address: props.address,
+                category: props.category,
 
             }
 
@@ -67,7 +69,9 @@ function Favorite(props) {
                         if (response.data.success) {
                             setFavoriteNumber(FavoriteNumber + 1)
                             setFavorited(!Favorited)
-                            console.log('response', response)
+                            //Add data to favorite list
+                            
+                            console.log('location added', response)
                         } else {
                             alert('Failed to add to favorite')
                         }
@@ -79,7 +83,7 @@ function Favorite(props) {
     return (
     
                 <button onClick={onClickFavorite} type="button" className="text-gray-900 bg-white border float-right border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
-                    {Favorited ? " remove from Favorite " : " Add to Favorite "}{FavoriteNumber}
+                    Add to Favorite
                 </button>
                 
         

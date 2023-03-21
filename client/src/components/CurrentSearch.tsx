@@ -12,8 +12,8 @@ export default function CurrentSearch() {
     const searchResults = useAtomValue(currentSearchAtom);
     const address = useAtomValue(addressAtom);
 
-    const place_id = searchResults.place_id;
-    const id = searchResults._id;
+    const place_id = searchResults[0].place_id;
+    const id = searchResults[0]._id;
     return (
         <>
     <div className="container flex justify-between">      
@@ -31,7 +31,7 @@ export default function CurrentSearch() {
                                 <div className="py-4">
                                     {result.photos && (
                                     <img
-                                        src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${result.photos[0].photo_reference}&key=import.meta.env.VITE_APIKEY`}
+                                        src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${result.photos[0].photo_reference}&key=${import.meta.env.VITE_APIKEY}`}
                                         alt="restaurant"
                                     />
                                 )}
