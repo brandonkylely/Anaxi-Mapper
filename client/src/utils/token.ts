@@ -3,7 +3,11 @@ import { MapperUser } from "../state";
 
 const tokenUtil = {
   login: (token: string) => localStorage.setItem("id_token", token),
-  logout: () => localStorage.removeItem("id_token"),
+  logout: () => {
+    console.log("Logging Out")
+    console.log(localStorage.getItem("id_token"));
+    localStorage.removeItem("id_token");
+  },
   getToken: () => {
     const idToken = localStorage.getItem("id_token");
     if (idToken) {
@@ -13,7 +17,7 @@ const tokenUtil = {
       }
       return tokenUtil.decode(idToken);
     }
-    return null
+    return null;
   },
   decode: (
     token: string

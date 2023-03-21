@@ -1,4 +1,3 @@
-
 import Mapper from "../components/Mapper";
 import NavBar from "../components/NavBar";
 import SearchBar from "../components/SearchBar";
@@ -10,22 +9,22 @@ import Title from "../components/Title";
 import SecondarySearchBar from "../components/SecondarySearch";
 
 // import Slidebar from "../components/slidebar";
-
-
+import { useAtomValue } from "jotai";
+import { mapReloadAtom } from "../state";
 export default function MainPage() {
-
+  const isReloading = useAtomValue(mapReloadAtom);
   return (
     <div>
       <Title />
 
-      <Mapper />
+      {!isReloading && <Mapper />}
 
       {/* <Dropdown /> */}
 
       <NavBar />
 
       <SearchBar />
-      
+
       {/* <Categories /> */}
 
       {/* <Slidebar /> */}
