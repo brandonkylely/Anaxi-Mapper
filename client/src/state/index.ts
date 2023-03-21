@@ -17,7 +17,7 @@ export const coordinateAtom = atom<CoordinateObject>({ lat: 40.7484, lng: 73.985
 export const currentSearchAtom = atom<unknown>([]);
 export const addressAtom = atom<string>("");
 export const loadingAtom = atom<boolean>(false)
-
+export const favoriteAtom = atom<array>([]);
 
 // type CoordContextType = {
   //   currentCoords: CoordinateObject;
