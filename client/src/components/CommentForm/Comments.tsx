@@ -1,47 +1,90 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-const CommentForm = () => {
-  const [commentText, setCommentText] = useState("");
+const CommentForm = (props) => {
+  const [CommentText, setCommentText] = useState("");
+  const [Comments, setComments] = useState([]);
+  
   // @ts-ignore
-  const handleChange = (event) => {
-    setCommentText(event.target.value);
-  };
+
+  useEffect(() => {
+    
+    fetchComments();
+
+  }, []);
+    
+    let variable = {
+      post_id: Date.now(),
+      commentText: CommentText,
+    };
+
+    const fetchComments = () => {
+      axios.post("/api/comment/getComments", variable)
+        .then(response => {
+          if (response.data.success) {
+            setComments(response.data.comments);
+          } else {
+            alert("Failed to get comments");
+          }
+      })
+    }
+  
+
   // @ts-ignore
   const onSubmit = (event) => {
+    //set the variable
     event.preventDefault();
-    // const variables = {
-    //   content: commentText,
-    //   // @ts-ignore
-    //   writer: user_id,
-    //   // @ts-ignore
-    //   postId: props.placeId,
-    // };
-    // // @ts-ignore
-    // axios
-    //   .post("/api/comment/saveComment", variables)
-    //   // @ts-ignore
-    //   .then((response) => {
-    //     if (response.data.success) {
-    //     } else {
-    //       alert("Failed to save Comment");
-    //     }
-    //   });
+    
+    let commentPost = {
+      post_id: Date.now(),
+      commentText: CommentText,
+    };
 
-    alert(`Comment submitted: ${commentText}`);
-      console.log(commentText);
-      setCommentText([]);
-  
+    try {
+      console.log("commentPost", commentPost);
+      axios.post("/api/comment/createComment", commentPost).then((response) => {
+        if (response.data.success) {
+          setComments(response.data.comments);
+          setCommentText("");
+        } else {
+          alert("Failed to save Comment");
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
+
 
   return (
     <div className="container">
       <br />
       <h3>Comments</h3>
       <br />
-      {/* Comment Lists */}
+      {Comments.map((comment, index) => {
+        return Comments < 0 ? 
+        (
+          <div key={index} className="my-4">
+            <ul className="w-100 text-sm font-medium text-gray-900 bg-white border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+  
+            <li className="m-4">{comment.commentText[0]}</li>
+            </ul>
+          </div>
+      ) : (
+      
+          <div key={index} className="my-4">
+            <ul className="w-100 text-sm font-medium text-gray-900 bg-white border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+  
+            <li className="m-4">{comment.commentText}</li>
+            </ul>
+          </div>
+        ) 
+        })}
+  
+  
 
-      {/* Comment Form */}
 
+      
       <form onSubmit={onSubmit}>
         <div className="w-200 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
           <div className="px-4 py-2 bg-dark rounded-t-lg dark:bg-gray-800">
@@ -51,10 +94,9 @@ const CommentForm = () => {
             <textarea
               id="comment"
               rows={4}
-              onChange={handleChange}
-              // value={Comment}
               className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
               placeholder="Write a comment..."
+              onChange={(e) => setCommentText(e.target.value)}
               required
             ></textarea>
           </div>

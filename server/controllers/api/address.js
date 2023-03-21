@@ -133,6 +133,7 @@ router.post("/search", auth, async (req, res) => {
           lng: data.geometry.location.lng,
         },
         place_id: data.place_id,
+        comments: req.body.comments,
       });
       returnValue.newAddress = newAddress;
 

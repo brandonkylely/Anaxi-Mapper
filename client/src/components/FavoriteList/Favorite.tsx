@@ -18,7 +18,7 @@ function Favorite(props) {
                 _id: localStorage.getItem('_id'),
                 place_id: props.place_id,
                 address: props.address,
-                category: props.category,
+                //category: props.category,
 
             }
 
