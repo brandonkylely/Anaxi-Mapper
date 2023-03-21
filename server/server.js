@@ -7,7 +7,7 @@ const auth = require("./middleware/auth");
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-app.use(express.static("../client/dist"));
+app.use(express.static(path.join(__dirname, "../client/dist")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(auth);
@@ -17,10 +17,10 @@ app.use("/api/favorite", require("./controllers/api/favorite"));
 app.use("/api/comment", require("./controllers/api/comment"));
 
 // test route
-app.get("/api/test", (req, res) => {
-  console.log("test route hit");
-  res.json({ message: "Hello from server!" });
-});
+// app.get("/api/test", (req, res) => {
+//   console.log("test route hit");
+//   res.json({ message: "Hello from server!" });
+// });
 
 app.get("*", (req,res) => {
   res.sendFile(path.join(__dirname, "../client/dist/index.html"));
