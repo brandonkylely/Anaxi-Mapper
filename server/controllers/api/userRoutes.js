@@ -6,8 +6,9 @@ const auth = require("../../middleware/auth");
 // POST /api/users is a registration route for creating a new user
 router.post("/", async (req, res) => {
   try {
+    console.log("signup req.body", req.body);
     const newUser = await User.create({
-      name: req.body.name,
+      userName: req.body.userName,
       email: req.body.email,
       password: req.body.password,
     });
@@ -26,11 +27,15 @@ router.post("/", async (req, res) => {
 // POST /api/users/login is a login route for an existing user
 router.post("/login", async (req, res) => {
   console.log("hit the login route!!!!", req.body);
+  let userFound = true;
   try {
-    const signUser = await User.findOne({ email: req.body.email });
+    const signUser = await User.findOne({ userName: req.body.userName });
 
     console.log("found user!", signUser);
-    if (!signUser) {
+    console.log("signUser", signUser);
+    if (signUser === null) {
+      console.log("user was null");
+      userFound = false;
       res.status(500).json({
         success: false,
         token: null,
@@ -41,22 +46,24 @@ router.post("/login", async (req, res) => {
     }
 
     // const validPassword = user.checkPassword(req.body.password);
-    console.log("req.body.password", req.body.password);
+    console.log("userFound", userFound);
+    if (userFound) {
+      const validPassword = signUser.isCorrectPassword(req.body.password);
+      if (!validPassword) {
+        console.log("password was false");
+        res.status(500).json({
+          success: false,
+          token: null,
+          message: "Incorrect password!",
+          userId: null,
+        });
+        return;
+      }
 
-    const validPassword = signUser.isCorrectPassword(req.body.password);
-    if (!validPassword) {
-      console.log("password was false");
-      res.status(500).json({
-        success: false,
-        token: null,
-        message: "Incorrect password!",
-        userId: null,
-      });
-      return;
+      const token = signToken(signUser);
+      res.status(200).json({ success: true, token, userId: signUser._id });
     }
 
-    const token = signToken(signUser);
-    res.status(200).json({ success: true, token, userId: signUser._id });
     // req.session.save(() => {
     //   req.session.userId = user.id;
     //   req.session.username = user.username;
