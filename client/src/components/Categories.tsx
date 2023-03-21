@@ -2,15 +2,21 @@ import { useState, Fragment } from "react";
 import { Combobox } from "@headlessui/react";
 // import Select from "react-select";
 import { CheckIcon } from "@heroicons/react/20/solid";
+import { Category } from "../state";
 
+type ComboboxProps = {
+  setQuery: (query: string) => void;
+  selectedCategory: Category[];
+  setSelectedCategory: (category: Category[]) => void;
+  filteredCategory: Category[];
+};
 
 function MyCombobox({
   setQuery,
   selectedCategory,
   setSelectedCategory,
   filteredCategory,
-}) {
-
+}: ComboboxProps) {
   return (
     <Combobox value={selectedCategory} onChange={setSelectedCategory} multiple>
       <Combobox.Input
@@ -28,14 +34,13 @@ function MyCombobox({
           /* Use the `selected` state to conditionally style the selected option. */
           // @ts-ignore
           <Combobox.Option
-            className="text-sm font-medium text-gray-500"
             key={oneCategory.id}
             value={oneCategory}
             as={Fragment}
           >
             {({ active, selected }) => (
               <li
-                className={`${
+                className={`text-sm font-medium text-gray-500 ${
                   active ? "bg-indigo-600 text-white" : "bg-white text-black"
                 }`}
               >
