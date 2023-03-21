@@ -210,7 +210,7 @@ export default function SearchBar() {
         {/* JUST POC , THIS IS HOW TO CONSUME */}
 
         {/* <h1> {user?.email}</h1> */}
-        <h2>{coordValue.lat} {coordValue.lng}</h2>
+        <h2>{coordValue?.lat} {coordValue?.lng}</h2>
         <input
           className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
           value={userAddress}

@@ -12,7 +12,7 @@ import {
   Matrix4,
 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { currentSearchAtom, coordinateAtom, loadingAtom } from "../state";
+import { currentSearchAtom, coordinateAtom, loadingAtom, nearbyPlacesAtom } from "../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 // let coordValueData = localStorage.getItem("lastCoords") || null;
@@ -69,6 +69,7 @@ function MyMap() {
   const [map, setMap] = useState();
   const ref = useRef();
   const coordValue = useAtomValue(coordinateAtom)
+  const nearbyPlacesArray = useAtomValue(nearbyPlacesAtom)
 
 
   const [loaded, setLoaded] = useState(false);
@@ -127,7 +128,7 @@ function MyMap() {
     },
   ];
 
-  exampleArray.forEach((location) => {
+  nearbyPlacesArray.forEach((location) => {
     const infoWindow = new google.maps.InfoWindow();
     const marker = new google.maps.Marker({
       // position: JSON.parse(localStorage.getItem('lastCoords')) || null,
