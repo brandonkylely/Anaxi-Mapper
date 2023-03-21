@@ -146,7 +146,7 @@ function MyCombobox({setQuery, selectedCategory, setSelectedCategory, filteredCa
               {({ active, selected }) => (
                 <li
                   className={`${
-                    active ? "sm-blue-500 text-white" : "bg-white text-black"
+                    active ? "bg-blue-500 text-white" : "bg-white text-black"
                   }`}
                 >
                   {selected && <CheckIcon />}
