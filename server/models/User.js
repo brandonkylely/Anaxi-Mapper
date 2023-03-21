@@ -7,6 +7,7 @@ const schemaSavedSearch = new Schema({
   address: { type: String },
   radius: { type: Number },
   type: { type: String },
+  keyWord: { type: String },
 });
 
 const userSchema = new Schema({
@@ -61,6 +62,8 @@ userSchema.methods.addSearchToFavorites = async function (
     coords: currentParams.coords,
     address: currentParams.address,
     radius: currentParams.radius,
+    type: currentParams.type,
+    keyWord: currentParams.keyWord,
   };
   console.log("LOGGING newSearch", newSearch);
   this.favorites.push(newSearch);

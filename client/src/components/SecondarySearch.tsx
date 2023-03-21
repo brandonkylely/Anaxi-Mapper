@@ -159,22 +159,28 @@ export default function SecondarySearchBar() {
     event.preventDefault();
     console.log("query", query);
 
+    console.log("selectedCategory",selectedCategory)
+    let paramType = "";
+    if (selectedCategory.length > 0) {
+      paramType = selectedCategory[0].name;
+      paramType = paramType.toLocaleLowerCase().replace(/\s/g, "_");
+    }
+
     const userParams = {
       //maps the id's corresponding to the selected categories, will convert to type and concat in end
-      type: selectedCategory[0], //quick fix, will only select the first index of selected category
+      type: paramType, //quick fix, will only select the first index of selected category
       radius: radius,
       keyword: keyword,
       coordinate: coordValue,
       //loadNextPage is a state that defaults to false, becomes true when the user clicks the next page button
       useNextPage: loadNextPage,
     };
-    let paramType = "";
-    if (userParams.type) {
-      paramType = userParams.type.name;
-    }
+    console.log("userParams",userParams)
+    console.log("keyword",keyword)
     setCurrentParams({
       coords: coordValue,
       address: formattedAddress,
+      keyword: keyword,
       radius: userParams.radius,
       type: paramType,
     });

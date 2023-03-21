@@ -21,6 +21,7 @@ export type Category = {
 export type SearchParam = {
   coords: CoordinateObject;
   address: string;
+  keyword: string;
   type: string;
   radius: string;
 }| null;
