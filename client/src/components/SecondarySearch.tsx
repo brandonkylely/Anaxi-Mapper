@@ -13,8 +13,8 @@ import CurrentSearch from "./CurrentSearch";
 
 export default function SecondarySearchBar() {
   const coordValue = useAtomValue(coordinateAtom);
-  const currentSearch = useAtomValue(currentSearchAtom);
-  const setSearch = useSetAtom(currentSearchAtom);
+  const nearbySearchValue = useAtomValue(currentSearchAtom);
+  const setNearbySearch = useSetAtom(currentSearchAtom);
   const setReloading = useSetAtom(mapReloadAtom);
   // const setLoadValue = useSetAtom(loadingAtom)
 
@@ -46,7 +46,7 @@ export default function SecondarySearchBar() {
       localStorage.setItem("lastCoords", JSON.stringify(coordValue));
       
       // setReloading(true);
-      // setTimeout(() => setReloading(false), 500);
+      // setTimeout(() => setReloading(false), 300);
 
       // console.log('getNearby Result', result)
       // setSearch(result);
@@ -58,12 +58,14 @@ export default function SecondarySearchBar() {
 
   async function getNearby(userParams: object) {
     const nearbyData = await post("/api/address/nearby", { userParams });
-    if (!currentSearch) {
+    console.log(!nearbySearch)
+    if (!nearbySearch) {
       //do something when no nearbysearch results are found
       console.log("your nearbySearch api did not return any results");
     } else {
       localStorage.setItem("lastSearch", JSON.stringify(nearbyData));
-      setSearch(nearbyData);
+      setNearbySearch(nearbyData);
+      console.log(nearbyData);
       setLoaded(true);
     }
 
