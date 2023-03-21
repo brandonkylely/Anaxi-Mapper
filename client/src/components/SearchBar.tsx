@@ -176,11 +176,8 @@ export default function SearchBar() {
   const handleSetUserAddress = (event: any) => {
     
     //I want to create an object with keys 1 through 103 with the value as the place type
-    const placeTypes = place_types.reduce((acc, type, i) => {
-      acc[i + 1] = type;
-      return acc;
-    }, {});
-    console.log(placeTypes)
+    
+    
     const newAddress = event.target.value;
     console.log("address " + newAddress);
     setUserAddress(newAddress);

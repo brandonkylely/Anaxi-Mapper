@@ -28,6 +28,7 @@ export default function Login() {
       token.login(data.token);
       // got token, what do?
       const user = token.decode(data.token);
+      localStorage.setItem("userId", data.userId);
       setUser(user.data);
       navigate("/");
     } catch (err) {

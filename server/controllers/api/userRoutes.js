@@ -15,7 +15,8 @@ router.post("/", async (req, res) => {
     console.log("newUser password", newUser.password)
     //create a jwt, and send back to FE
     const token = signToken(newUser);
-    res.status(200).json({ success: true, token });
+    userId = newUser._id;
+    res.status(200).json({ success: true, token, userId });
   } catch (err) {
     console.log("error1", err);
     res.status(500).json({ success: false, token: null });
@@ -34,6 +35,7 @@ router.post("/login", async (req, res) => {
         success: false,
         token: null,
         message: "No user account found!",
+        userId: null,
       });
       return;
     }
@@ -45,12 +47,12 @@ router.post("/login", async (req, res) => {
       console.log('password was false');
       res
         .status(500)
-        .json({ success: false, token: null, message: "Incorrect password!" });
+        .json({ success: false, token: null, message: "Incorrect password!", userId: null });
       return;
     }
 
     const token = signToken(signUser);
-    res.status(200).json({ success: true, token });
+    res.status(200).json({ success: true, token, userId: signUser._id });
     // req.session.save(() => {
     //   req.session.userId = user.id;
     //   req.session.username = user.username;
