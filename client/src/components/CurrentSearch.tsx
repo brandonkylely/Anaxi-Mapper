@@ -4,8 +4,14 @@ import FavoritePage from "../pages/FavoritePage";
 import Comments from "./CommentForm/Comments";
 import CommentsList from "./CommentForm/CommentsList";
 import { useAtomValue, useAtom } from "jotai";
-import { currentSearchAtom, addressAtom, nextPageAtom, userAtom, currentParamsAtom } from "../state";
-import axios from 'axios';
+import {
+  currentSearchAtom,
+  addressAtom,
+  nextPageAtom,
+  userAtom,
+  currentParamsAtom,
+} from "../state";
+import axios from "axios";
 
 export default function CurrentSearch() {
   const searchResults = useAtomValue(currentSearchAtom);
@@ -24,8 +30,8 @@ export default function CurrentSearch() {
   //     console.log("button should be loading")
   //   }
   //is set in the secondary search bar, if true, load a button that will make an api call and then set to false
-    console.log("searchResults", searchResults)
-    //@ts-ignore
+  console.log("searchResults", searchResults);
+  //@ts-ignore
   const place_id = searchResults[0].place_id;
   //@ts-ignore
   const id = searchResults[0]._id;
@@ -33,11 +39,15 @@ export default function CurrentSearch() {
   const handleFormSubmit = (event: any) => {
     //@ts-ignore
     let userEmail = user.email;
-    console.log('logging user email', userEmail)
+    console.log("logging user email", userEmail);
     event.preventDefault();
-    console.log('logging current params',currentParams)
-    axios.post("/api/favorite/addToFavorite", {searchResults, currentParams, userEmail})
-  }
+    console.log("logging current params", currentParams);
+    axios.post("/api/favorite/addToFavorite", {
+      searchResults,
+      currentParams,
+      userEmail,
+    });
+  };
   return (
     <>
       <div className="container flex justify-between">
@@ -74,8 +84,10 @@ export default function CurrentSearch() {
             ))}
           </div>
           <form className="flex flex-col">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={handleFormSubmit}>
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              onClick={handleFormSubmit}
+            >
               Save Search to Favorites?
             </button>
           </form>

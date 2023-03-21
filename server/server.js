@@ -13,7 +13,6 @@ const database = module.exports = () => {
     // useUnifiedTopology: true,
   };
 
-  console.log(`${process.env.DB}`);
   try {
     mongoose.connect(`mongodb+srv://Anaxi-Mapper:${process.env.DB}@cluster0.aov6xcm.mongodb.net/?retryWrites=true&w=majority`)
   }
