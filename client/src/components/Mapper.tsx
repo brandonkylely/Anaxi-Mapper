@@ -15,29 +15,18 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { currentSearchAtom, coordinateAtom, loadingAtom } from "../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
-let coordValueData = localStorage.getItem("lastCoords") || null;
-console.log(JSON.parse(coordValueData));
-let coordValue = JSON.parse(coordValueData);
+// let coordValueData = localStorage.getItem("lastCoords") || null;
+// console.log(JSON.parse(coordValueData));
+// let coordValue = JSON.parse(coordValueData);
 
 // TODO: set style toggle for user
 // let styleToggle = 'full';
 let styleToggle = "retail";
 
-const mapOptions = {
-  mapId: styleToggle === "full" ? "605e131c3939f175" : "f5d27befd916db8c",
-  center: coordValue || { lat: 34.0729297, lng: -118.4401635 },
-  // zoom based on secondary search radius
-
-  // zoom: 19,
-  // temporary 15 to test markers
-  zoom: 15,
-
-  disableDefaultUI: true,
-  heading: 15,
-  tilt: 55,
-};
+let mapOptions;
 
 export default function Mapper(props) {
+  const coordValue = useAtomValue(coordinateAtom);
   // coordValue = useAtomValue(coordinateAtom);
   // mapOptions.center = coordValue;
 
@@ -45,6 +34,21 @@ export default function Mapper(props) {
   // useEffect(() => {
   //   fetch('/api/test').then(r => r.json()).then(d => console.log(d))
   // }, [])
+
+  mapOptions = {
+    mapId: styleToggle === "full" ? "605e131c3939f175" : "f5d27befd916db8c",
+    center: coordValue || { lat: 34.0729297, lng: -118.4401635 },
+    // zoom based on secondary search radius
+  
+    // zoom: 19,
+    // temporary 15 to test markers
+    zoom: 19,
+  
+    disableDefaultUI: true,
+    heading: 15,
+    tilt: 55,
+  };
+  
 
   return (
     <>
@@ -64,7 +68,9 @@ function MyMap() {
   const overlayRef = useRef();
   const [map, setMap] = useState();
   const ref = useRef();
-  coordValue = useAtomValue(coordinateAtom);
+  const coordValue = useAtomValue(coordinateAtom)
+
+
   const [loaded, setLoaded] = useState(false);
   loadValue = useAtomValue(loadingAtom);
 
@@ -92,8 +98,8 @@ function MyMap() {
     {
       name: "Alfredo's Pizza",
       coords: {
-        lat: 34.1210425,
-        lng: -117.2885072,
+        lat: coordValue.lat,
+        lng: coordValue.lng,
       },
       icon: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
       // icon_background_color: "#FF9E67",

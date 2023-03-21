@@ -13,7 +13,7 @@ export type MapperUser = {
 } | null;
 
 export const userAtom = atom<MapperUser>(null);
-export const coordinateAtom = atom<CoordinateObject>({ lat: 40.7484, lng: 73.9857 });
+export const coordinateAtom = atom<CoordinateObject>({ lat: 34.0729297, lng: -118.4401635 });
 export const currentSearchAtom = atom<unknown>([]);
 export const addressAtom = atom<string>("");
 export const loadingAtom = atom<boolean>(false);
