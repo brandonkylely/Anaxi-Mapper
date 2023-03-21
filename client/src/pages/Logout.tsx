@@ -6,16 +6,19 @@ import token from "../utils/token";
 import { userAtom, MapperUser } from "../state";
 import tokenUtil from "../utils/token";
 
+
 export default function Logout() {
+    const navigate = useNavigate();
     const [user, setUser] = useAtom(userAtom);
     
     const logout = function(){
         tokenUtil.logout();
         setUser(null);
         console.log('on click logout!')
+        //navigates back to home page, maybe change to login page?
+        navigate("/login");
     }
-    const returnHome = function(){
-    }
+
   return (
     <>
         <div className="card-body p-10 m-5">
