@@ -12,8 +12,8 @@ export default function CurrentSearch() {
     const searchResults = useAtomValue(currentSearchAtom);
     const address = useAtomValue(addressAtom);
 
-    const place_id = searchResults.place_id;
-    const id = searchResults._id;
+    const place_id = searchResults[0].place_id;
+    const id = searchResults[0]._id;
     return (
         <>
     <div className="container flex justify-between">      

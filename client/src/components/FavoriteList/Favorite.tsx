@@ -9,6 +9,7 @@ import axios from 'axios';
 function Favorite(props) {
     const [FavoriteNumber, setFavoriteNumber] = useState(0)
     const [Favorited, setFavorited] = useState(false)
+    
     // const setFavList = useSetAtom(favoriteAtom);
     // const favList = useAtomValue(favoriteAtom)
 
@@ -17,6 +18,7 @@ function Favorite(props) {
                 _id: localStorage.getItem('_id'),
                 place_id: props.place_id,
                 address: props.address,
+                category: props.category,
 
             }
 
@@ -67,7 +69,9 @@ function Favorite(props) {
                         if (response.data.success) {
                             setFavoriteNumber(FavoriteNumber + 1)
                             setFavorited(!Favorited)
-                            console.log('response', response)
+                            //Add data to favorite list
+                            
+                            console.log('location added', response)
                         } else {
                             alert('Failed to add to favorite')
                         }
