@@ -3,6 +3,7 @@ const { Schema, Types, model } = require("mongoose");
 const favoriteSchema = new Schema({
     place_id: {
         type: String,
+        ref: "address"
         
     },
     address: {
