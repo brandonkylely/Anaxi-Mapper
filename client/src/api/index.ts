@@ -25,6 +25,18 @@ export const addFav = async () => {
 };
 
 //@ts-ignore
+export const addComment = async () => {
+  try {
+  const res = await axios.post(`/api/comment`);
+  console.log("res.data", res.data);
+  return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+//@ts-ignore
 export const nearbySearch = async (url) => {
   const res = await axios.get(url);
   console.log("res.data", res.data);
