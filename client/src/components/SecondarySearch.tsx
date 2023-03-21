@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { nearbySearch, post } from "../api";
 import Categories from "./Categories";
 
-
-
 import {
   coordinateAtom,
   userAtom,
@@ -12,6 +10,8 @@ import {
   addressAtom,
   mapReloadAtom,
   categoryAtom,
+  nextPageAtom,
+  currentParamsAtom,
 } from "../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import CurrentSearch from "./CurrentSearch";
@@ -114,33 +114,35 @@ const category = [
   { id: 95, name: "Zoo" },
 ];
 
-
-
 export default function SecondarySearchBar() {
   const coordValue = useAtomValue(coordinateAtom);
   const nearbySearchValue = useAtomValue(currentSearchAtom);
   const setNearbySearch = useSetAtom(currentSearchAtom);
   const setReloading = useSetAtom(mapReloadAtom);
+  const formattedAddress = useAtomValue(addressAtom);
   // const setLoadValue = useSetAtom(loadingAtom)
 
+  //if search result comes back with more than 20 results, will be called
+  const setNextPage = useSetAtom(nextPageAtom);
+  const [currentParms, setCurrentParams] = useAtom(currentParamsAtom);
   const [loaded, setLoaded] = useState(false);
+  const [loadNextPage, setLoadNextPage] = useState(false);
   const [radius, setRadius] = useState<string>("");
   const [type, setType] = useState<string>("");
   const [keyword, setKeyword] = useState<string>("");
 
   const nav = useNavigate();
 
-  
-    //for categories
-    const [selectedCategory, setSelectedCategory] = useAtom(categoryAtom);
-    const [query, setQuery] = useState("");
-  
-    const filteredCategory =
-      query === ""
-        ? category
-        : category.filter((oneCategory) => {
-            return oneCategory.name.toLowerCase().includes(query.toLowerCase());
-          });
+  //for categories
+  const [selectedCategory, setSelectedCategory] = useAtom(categoryAtom);
+  const [query, setQuery] = useState("");
+
+  const filteredCategory =
+    query === ""
+      ? category
+      : category.filter((oneCategory) => {
+          return oneCategory.name.toLowerCase().includes(query.toLowerCase());
+        });
 
   const handleSetUserParams = (event: any) => {
     const { name, value } = event.target;
@@ -151,19 +153,41 @@ export default function SecondarySearchBar() {
       : setKeyword(value);
   };
 
+  const testing = (event: any) => {};
+
   const handleFormSubmit = (event: any) => {
     event.preventDefault();
-    console.log(query);
-    console.log(selectedCategory);
+    console.log("query", query);
+
+    console.log("selectedCategory",selectedCategory)
+    let paramType = "";
+    if (selectedCategory.length > 0) {
+      paramType = selectedCategory[0].name;
+      paramType = paramType.toLocaleLowerCase().replace(/\s/g, "_");
+    }
+
     const userParams = {
-      type: type,
+      //maps the id's corresponding to the selected categories, will convert to type and concat in end
+      type: paramType, //quick fix, will only select the first index of selected category
       radius: radius,
       keyword: keyword,
       coordinate: coordValue,
+      //loadNextPage is a state that defaults to false, becomes true when the user clicks the next page button
+      useNextPage: loadNextPage,
     };
+    console.log("userParams",userParams)
+    console.log("keyword",keyword)
+    setCurrentParams({
+      coords: coordValue,
+      address: formattedAddress,
+      keyword: keyword,
+      radius: userParams.radius,
+      type: paramType,
+    });
+
     getNearby(userParams).then((result) => {
       localStorage.setItem("lastCoords", JSON.stringify(coordValue));
-      
+
       // setReloading(true);
       // setTimeout(() => setReloading(false), 300);
 
@@ -177,18 +201,32 @@ export default function SecondarySearchBar() {
 
   async function getNearby(userParams: object) {
     const nearbyData = await post("/api/address/nearby", { userParams });
-    console.log(!nearbySearch)
-    if (!nearbySearch) {
+    //nearbyData
+    //  searchResults: the result of the nearbySearch API call
+    //  validParams: true if the given parameters return results in the nearbySearch Call
+    //  moreResults: will either return as False, or as a next page token, which can be used to get the next 20 results
+    console.log("validParams", nearbyData.validParams);
+    console.log("moreResults", nearbyData.moreResults);
+    if (nearbyData.moreResults) {
+      setNextPage(true);
+    }
+    //valdiParams is true when given parameters return results in the nearbySearch Call
+    if (!nearbyData.validParams) {
       //do something when no nearbysearch results are found
       console.log("your nearbySearch api did not return any results");
     } else {
       localStorage.setItem("lastSearch", JSON.stringify(nearbyData));
-      setNearbySearch(nearbyData);
+      //nearbyData.searchResults is the result of the NearbySearch API call
+      setNearbySearch(nearbyData.searchResults);
       console.log(nearbyData);
+      console.log("setting Loaded");
       setLoaded(true);
     }
 
-    console.log("currentSearch Log");
+    //TODO: if moreResults is true, generate a button that can make another API call to get the next 20 results
+    // This could be a button that calls getNearby while passing in the next page token
+    // if (nearbyData.moreResults) {
+    // console.log("currentSearch Log");
   }
 
   return (
@@ -212,13 +250,12 @@ export default function SecondarySearchBar() {
           placeholder="type"
         
         /> */}
-          <Categories
-            setQuery={setQuery}
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
-            filteredCategory={filteredCategory}
-            
-          />
+        <Categories
+          setQuery={setQuery}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+          filteredCategory={filteredCategory}
+        />
         <input
           className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
           value={keyword}

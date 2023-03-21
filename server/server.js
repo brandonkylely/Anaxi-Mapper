@@ -3,8 +3,6 @@ const express = require("express");
 const db = require("./config/connection");
 const routes = require("./controllers");
 const auth = require("./middleware/auth");
-// require('./src')();
-
 const PORT = process.env.PORT || 3001;
 const app = express();
 
@@ -13,8 +11,8 @@ app.use(express.json());
 app.use(auth);
 app.use(routes);
 
-app.use('/api/favorite', require('./controllers/api/favorite'));
-app.use('/api/comment', require('./controllers/api/comment'));
+app.use("/api/favorite", require("./controllers/api/favorite"));
+app.use("/api/comment", require("./controllers/api/comment"));
 
 // test route
 app.get("/api/test", (req, res) => {

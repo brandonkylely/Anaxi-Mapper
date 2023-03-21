@@ -11,48 +11,58 @@ router.post("/", async (req, res) => {
       email: req.body.email,
       password: req.body.password,
     });
+    console.log("newUser", newUser)
+    console.log("newUser password", newUser.password)
     //create a jwt, and send back to FE
-    const token = signToken(newUser); 
-    res.status(200).json({ success: true, token });
+    const token = signToken(newUser);
+    userId = newUser._id;
+    res.status(200).json({ success: true, token, userId });
   } catch (err) {
-    console.log(err);
-    console.log('error1', err);
+    console.log("error1", err);
     res.status(500).json({ success: false, token: null });
   }
 });
 
 // POST /api/users/login is a login route for an existing user
 router.post("/login", async (req, res) => {
+  console.log("hit the login route!!!!", req.body);
   try {
-    const user = await User.findOne({
-      where: {
-        username: req.body.username,
-      },
-    });
+    const signUser = await User.findOne({ email: req.body.email });
 
-    if (!user) {
-      // res.status(400).json({ message: 'No user account found!' });
-      res.redirect("/game");
+    console.log("found user!", signUser);
+    if (!signUser) {
+      res.status(500).json({
+        success: false,
+        token: null,
+        message: "No user account found!",
+        userId: null,
+      });
       return;
     }
 
-    const validPassword = user.checkPassword(req.body.password);
-
-    if (!validPassword) {
-      // res.status(400).json({ message: 'No user account found!' });
-      res.redirect("/game");
+    // const validPassword = user.checkPassword(req.body.password);
+    console.log('req.body.password',req.body.password)
+    console.log('password validation',(!signUser.isCorrectPassword(req.body.password)))
+    if (signUser.isCorrectPassword(req.body.password)) {
+      console.log('password was false');
+      res
+        .status(500)
+        .json({ success: false, token: null, message: "Incorrect password!", userId: null });
       return;
     }
 
-    req.session.save(() => {
-      req.session.userId = user.id;
-      req.session.username = user.username;
-      req.session.loggedIn = true;
+    const token = signToken(signUser);
+    res.status(200).json({ success: true, token, userId: signUser._id });
+    // req.session.save(() => {
+    //   req.session.userId = user.id;
+    //   req.session.username = user.username;
+    //   req.session.loggedIn = true;
 
-      res.redirect("/game");
-    });
+    //   res.redirect("/game");
+    // });
   } catch (err) {
-    res.status(400).json({ message: "No user account found!" });
+    console.log("err", err);
+    res.status(400).json({ message: "Username not found!" });
   }
 });
 

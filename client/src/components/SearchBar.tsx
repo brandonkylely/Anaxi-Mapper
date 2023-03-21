@@ -107,12 +107,13 @@ const category = [
   { id: 87, name: "Supermarket" },
   { id: 88, name: "Synagogue" },
   { id: 89, name: "Taxi stand" },
-  { id: 90, name: "Train station" },
-  { id: 91, name: "Transit station" },
-  { id: 92, name: "Travel agency" },
-  { id: 93, name: "University" },
-  { id: 94, name: "Veterinary care" },
-  { id: 95, name: "Zoo" },
+  { id: 90, name: "Tourist Attraction"},
+  { id: 91, name: "Train station" },
+  { id: 92, name: "Transit station" },
+  { id: 93, name: "Travel agency" },
+  { id: 94, name: "University" },
+  { id: 95, name: "Veterinary care" },
+  { id: 96, name: "Zoo" },
 ];
 
 // address: cityData.results[0].formatted_address,
@@ -173,13 +174,16 @@ export default function SearchBar() {
   const [userAddress, setUserAddress] = useState<string>("");
 
   const handleSetUserAddress = (event: any) => {
+    
+    //I want to create an object with keys 1 through 103 with the value as the place type
+    
+    
     const newAddress = event.target.value;
     console.log("address " + newAddress);
     setUserAddress(newAddress);
   };
 
   const handleFormSubmit = (event: any) => {
-    setLoaded(true);
     event.preventDefault();
     console.log(query);
     console.log(selectedCategory);
@@ -194,6 +198,7 @@ export default function SearchBar() {
     console.log("RES", addressData);
     //if addressData.validAddress - if the geocode api search does not return a result, this will be false
     if (addressData.validAddress) {
+      setLoaded(true);
       setCoord(addressData.newAddress.coords);
       setAddress(addressData.newAddress.address);
     }
