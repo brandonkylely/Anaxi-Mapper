@@ -74,13 +74,13 @@
 
   ## Creators 🤓🤓🤓🤓
 
-  Brandon Ly 🫠 : [Github](https://github.com/brandonkylely) & [Email](mailto:brandonkly@ucla.edu)
+  Brandon Ly 🫠 : [Github](https://github.com/brandonkylely) & [LinkedIn](https://www.linkedin.com/in/brandon-ly-7300b1205/) & [Email](mailto:brandonkly@ucla.edu)
 
-  Logan Senn 😎 : [Github](https://github.com/lsenn404) & [Email](mailto:)
+  Logan Senn 😎 : [Github](https://github.com/lsenn404) & [LinkedIn]() & [Email](mailto:)
 
-  Mirjana Dukic 🥹 : [Github](https://github.com/mjdukic) & [Email](mailto:)
+  Mirjana Dukic 🥹 : [Github](https://github.com/mjdukic) & [LinkedIn]() & [Email](mailto:)
 
-  Hannah Kim 🥰 : [Github](https://github.com/hannahsykim) & [Email](mailto:)
+  Hannah Kim 🥰 : [Github](https://github.com/hannahsykim) & [LinkedIn]() & [Email](mailto:)
 
   ### About
 
