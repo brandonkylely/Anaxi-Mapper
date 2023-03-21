@@ -129,6 +129,8 @@ function MyCombobox({
   // }
 
   return (
+    <div>
+      <p>category options:</p>
     <Combobox value={selectedCategory} onChange={setSelectedCategory} multiple>
       <Combobox.Input
         onChange={(event) => setQuery(event.target.value)}
@@ -160,6 +162,7 @@ function MyCombobox({
         ))}
       </Combobox.Options>
     </Combobox>
+    </div>
   );
 }
 // @ts-ignore
