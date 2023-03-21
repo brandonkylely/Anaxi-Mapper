@@ -129,13 +129,13 @@ function MyCombobox({
   // }
 
   return (
-    <div>
-      <p>category options:</p>
-    <Combobox value={selectedCategory} onChange={setSelectedCategory} multiple>
+    <Combobox value={selectedCategory} onChange={setSelectedCategory} multiple >
       <Combobox.Input
         onChange={(event) => setQuery(event.target.value)}
         // @ts-ignore
         displayValue={(oneCategory) => oneCategory.name}
+        type="text"
+        placeholder="category options"
       />
       <Combobox.Options>
         {filteredCategory.map((oneCategory) => (
@@ -162,7 +162,6 @@ function MyCombobox({
         ))}
       </Combobox.Options>
     </Combobox>
-    </div>
   );
 }
 // @ts-ignore
