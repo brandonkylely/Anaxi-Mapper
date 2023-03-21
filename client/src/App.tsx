@@ -4,6 +4,7 @@ import MainPage from "./pages/MainPage";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import FavoritePage from "./pages/FavoritePage";
+import Logout from "./pages/Logout";
 import token from "./utils/token";
 import { useSetAtom } from "jotai/react";
 import { userAtom } from "./state";
@@ -22,16 +23,19 @@ function App() {
     <Router>
       {/* quick links for better dev exp, make look nice or remove later */}
       <Link className="mx-2 font-light tracking-wide text-stone-800" to="/signup">
-        signup
+        Signup
       </Link>
       <Link className="mx-2 font-light tracking-wide text-stone-800 " to="/login">
-        login
+        Login
       </Link>
       <Link className="mx-2 font-light tracking-wide text-stone-800" to="/">
-        home
+        Home
       </Link>
       <Link className= "mx-2 font-light tracking-wide text-stone-800" to="/favorite">
-        favorites
+        Favorites
+      </Link>
+      <Link className= "mx-2 font-light tracking-wide text-stone-800" to="/Logout">
+        Logout
       </Link>
 
       {/* quick links for better dev exp, make look nice or remove later */}
@@ -39,7 +43,8 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="favorite" element={<FavoritePage />} />
+        <Route path="/favorite" element={<FavoritePage />} />
+        <Route path="/logout" element={<Logout />} />
 
       </Routes>
     </Router>
