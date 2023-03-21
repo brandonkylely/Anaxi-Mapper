@@ -129,7 +129,7 @@ function MyCombobox({
   // }
 
   return (
-    <Combobox value={selectedCategory} onChange={setSelectedCategory} multiple >
+    <Combobox value={selectedCategory} onChange={setSelectedCategory} multiple>
       <Combobox.Input
         className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
         onChange={(event) => setQuery(event.target.value)}
@@ -138,6 +138,7 @@ function MyCombobox({
         type="text"
         placeholder="category options"
       />
+
       <Combobox.Options>
         {filteredCategory.map((oneCategory) => (
           /* Use the `active` state to conditionally style the active option. */
@@ -151,7 +152,9 @@ function MyCombobox({
           >
             {({ active, selected }) => (
               <li
-                className={`${active ? "bg-indigo-600 text-white" : "bg-white text-black"}`}
+                className={`${
+                  active ? "bg-indigo-600 text-white" : "bg-white text-black"
+                }`}
               >
                 <div className="flex gap-2">
                   <div>{oneCategory.name}</div>
