@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Favorite, User } = require("../../models/index");
+const { Favorite } = require("../../models/index");
 const auth = require("../../middleware/auth");
 
 router.post("/", auth, async (req, res) => {
@@ -10,7 +10,7 @@ router.post("/", auth, async (req, res) => {
     const favorite = await Favorite.create({
       post_id: data.post_id,
       address: data.formatted_address,
-      //category: data.types[0],
+    //category: data.types[0],
     });
     res.status(200).json({ success: true, favorite });
   } catch (err) {
@@ -50,28 +50,12 @@ router.post("/favorited", auth, async (req, res) => {
 
 router.post("/addToFavorite", auth, async (req, res) => {
   try {
-    const findUser = await User.findOne({ email: req.body.userEmail });
-    console.log("findUser", findUser);
-    console.log("req.body.email", req.body.userEmail);
-    console.log("req.body.currentParams", req.body.currentParams);
-    const searchResults = req.body.searchResults;
-    const currentParams = req.body.currentParams;
-    findUser.addSearchToFavorites(searchResults, currentParams);
-
-    res.status(200).json({ success: true });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ success: false, err });
-  }
-});
-
-router.get("/getFavoritePlaces/:UserId", auth, async (req, res) => {
-  try {
-    const findUser = await User.findOne({ _id: req.params.UserId });
-    const favorites = await findUser.getFavorites();
-    console.log("favorites", favorites);
-    console.log("findUser", findUser);
-    res.status(200).json({ success: true, favorites });
+    // Save the information about the location in the Favorite Collection
+    // const favorite = await Favorite.find();
+    const favorite = await Favorite.create({
+      ...req.body,
+    });
+    res.status(200).json({ success: true, favorite });
   } catch (err) {
     console.log(err);
     res.status(500).json({ success: false, err });
@@ -92,8 +76,7 @@ router.get("/getFavoritePlaces/:UserId", auth, async (req, res) => {
 router.post("/removeFromFavorite", auth, async (req, res) => {
   try {
     const deleteFav = await Favorite.findOneAndDelete({
-      ...req.body,
-    });
+      ...req.body});
     res.status(200).json({ success: true });
     console.log(deleteFav);
   } catch (err) {
