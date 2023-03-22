@@ -32,6 +32,18 @@ export const coordinateAtom = atom<CoordinateObject>({
 export const currentSearchAtom = atom<Place[]>([]);
 export const addressAtom = atom<string>("");
 export const loadingAtom = atom<boolean>(false);
+export const matrixInputsAtom = atom<[CoordinateObject[], CoordinateObject]>([
+  [
+    {
+      lat: 34.0729297,
+      lng: -118.4401635,
+    },
+  ],
+  {
+    lat: 34.0729297,
+    lng: -118.4401635,
+  },
+]);
 // export const nearbyPlacesAtom = atom<unknown>([
 //   {name: "default name", coords: {lat: 34.0829297, lng: -118.4401635}, icon: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png"},
 //   {name: "default name", coords: {lat: 34.0629297, lng: -118.4401635}, icon: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png"}

@@ -21,7 +21,7 @@ export default function Login() {
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      console.log(formData);
+      console.log("formData",formData);
       const data = (await axios.post("/api/user/login", formData))
       console.log("DATA FROM BACKEND", data.data);
       token.login(data.data.token);

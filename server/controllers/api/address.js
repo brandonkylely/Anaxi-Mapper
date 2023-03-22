@@ -1,4 +1,4 @@
-require("dotenv").config();
+// require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 const fetch = require("node-fetch");
@@ -54,11 +54,13 @@ router.post("/nearby", auth, async (req, res) => {
     validParams: false,
     moreResults: false,
     searchResults: "",
+    locationArray: [],
+    feedMatrix: [],
   };
   try {
     const parameters = req.body.userParams;
     const coords = parameters.coordinate;
-    console.log("reqbody", req.body);
+    console.log("nearbySearchParams", req.body.userParams);
     const typeIds = parameters.type;
     //reqbody {
     //userParams: {
@@ -72,9 +74,9 @@ router.post("/nearby", auth, async (req, res) => {
     const nearbyRes = await fetch(nearbyUrl);
     const nearbyData = await nearbyRes.json();
 
-
     //checks to see if given parameters returns anything
     if (nearbyData.results.length > 0) {
+      console.log("search has results, Params are valid");
       returnValue.validParams = true;
     }
 
@@ -82,13 +84,21 @@ router.post("/nearby", auth, async (req, res) => {
     const filteredResults = nearbyData.results.filter((result) => {
       return result.types[0] !== "locality" && result.types[0] !== "political";
     });
-    
+
     if (nearbyData.next_page_token) {
+      console.log("search has exceeded 20 results");
       returnValue.moreResults = nearbyData.next_page_token;
       // const nearbyUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coords.lat},${coords.lng}&radius=${parameters.radius}&type=${parameters.type}&keyword=${parameters.keyword}&key=${process.env.apiKey}`;
     }
     returnValue.searchResults = filteredResults;
+    
 
+    returnValue.searchResults.map((result) => {
+      returnValue.locationArray.push(result.geometry.location);
+    });
+    
+    returnValue.feedMatrix = [returnValue.locationArray, coords]
+    console.log(returnValue.feedMatrix, "feedMatrix")
     //filtered results take out any political / locality results, these are cities
     res.json(returnValue);
   } catch (err) {
@@ -96,4 +106,5 @@ router.post("/nearby", auth, async (req, res) => {
     res.json({ success: false, data: null });
   }
 });
+
 module.exports = router;

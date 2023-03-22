@@ -1,9 +1,14 @@
+import axios from "axios";
 import { MouseEventHandler, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { nearbySearch, post } from "../api";
 import Categories from "./Categories";
+import AsyncButton from "./AsyncButton";
+import { Loader } from "@googlemaps/js-api-loader";
+import GoogleMapReact from "google-map-react";
 
 import {
+  matrixInputsAtom,
   coordinateAtom,
   userAtom,
   currentSearchAtom,
@@ -125,6 +130,7 @@ export default function SecondarySearchBar() {
   //if search result comes back with more than 20 results, will be called
   const setNextPage = useSetAtom(nextPageAtom);
   const [currentParms, setCurrentParams] = useAtom(currentParamsAtom);
+  const [matrixAtom, setMatrixInputs] = useAtom(matrixInputsAtom);
   const [loaded, setLoaded] = useState(false);
   const [loadNextPage, setLoadNextPage] = useState(false);
   const [radius, setRadius] = useState<string>("");
@@ -159,7 +165,7 @@ export default function SecondarySearchBar() {
     event.preventDefault();
     console.log("query", query);
 
-    console.log("selectedCategory",selectedCategory)
+    console.log("selectedCategory", selectedCategory);
     let paramType = "";
     if (selectedCategory.length > 0) {
       paramType = selectedCategory[0].name;
@@ -175,8 +181,8 @@ export default function SecondarySearchBar() {
       //loadNextPage is a state that defaults to false, becomes true when the user clicks the next page button
       useNextPage: loadNextPage,
     };
-    console.log("userParams",userParams)
-    console.log("keyword",keyword)
+    console.log("userParams", userParams);
+    console.log("keyword", keyword);
     setCurrentParams({
       coords: coordValue,
       address: formattedAddress,
@@ -199,6 +205,62 @@ export default function SecondarySearchBar() {
     });
   };
 
+  const distanceMatrixCaller = async (matrixInputs: Array<[null]>) => {
+    // interface Coordinate {
+    //   lat: number;
+    //   lng: number;
+    // }
+
+    //@ts-ignore
+    matrixInputs = matrixAtom;
+    console.log("matrixAtom", matrixAtom);
+    // let locationDestinations = matrixInputs[0];
+    // let origin = matrixInputs[1];
+    // function formatMatrixInputs(
+    //   locationDestinations: Array<Coordinate>,
+    //   origin: Coordinate
+    // ) {
+    //   let locationOrigin = `${origin.lat}|${origin.lng}`;
+    //   let destinationRequest = locationDestinations
+    //     .map((location) => {
+    //       return `${location.lat},${location.lng}`;
+    //     })
+    //     .join("|");
+    //     console.log("destinationRequest", destinationRequest)
+    //   return `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${locationOrigin}&destinations=${destinationRequest}&key=${
+    //     import.meta.env.VITE_APIKEY
+    //   }`;
+    // }
+    // console.log("URL", formatMatrixInputs(matrixAtom[0], matrixAtom[1]));
+    // async function getStoreDistance(
+    //   locationDestinations: Array<Coordinate>,
+    //   origin: Coordinate
+    // ) {
+    //   return await axios
+    //     .get(formatMatrixInputs(locationDestinations, origin))
+    //     .then((response) => {
+    //       console.log("response", response);
+    //       return response;
+    //     })
+    //     .catch((error) => {
+    //       console.log("response", error);
+    //       return error;
+    //     });
+    // }
+    let service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix(
+      {
+        origins: [matrixAtom[1]],
+        destinations: [matrixAtom[0]],
+      },
+      callback
+    );
+    function callback(response: object, status: object) {
+      console.log(response, status, "response, status");
+      return response;
+    }
+  };
+
   async function getNearby(userParams: object) {
     const nearbyData = await post("/api/address/nearby", { userParams });
     //nearbyData
@@ -210,6 +272,13 @@ export default function SecondarySearchBar() {
     if (nearbyData.moreResults) {
       setNextPage(true);
     }
+
+    interface Coordinate {
+      lat: number;
+      lng: number;
+    }
+
+    console.log("feedMatrix", nearbyData.feedMatrix);
     //valdiParams is true when given parameters return results in the nearbySearch Call
     if (!nearbyData.validParams) {
       //do something when no nearbysearch results are found
@@ -270,6 +339,17 @@ export default function SecondarySearchBar() {
         >
           submit
         </button>
+
+        {loaded ? (
+          <AsyncButton
+            className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+            onClick={distanceMatrixCaller}
+          >
+            Call Distance Matrix
+          </AsyncButton>
+        ) : (
+          <div></div>
+        )}
         <div className="float-right"></div>
       </form>
       {loaded ? <CurrentSearch></CurrentSearch> : <div></div>}

@@ -88,7 +88,7 @@ export default function CurrentSearch() {
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               onClick={handleFormSubmit}
             >
-              Save Search to Favorites?
+              Save to Favorites
             </button>
           </form>
           {/* {loadNextPage ? <NextPageButton></NextPageButton>} */}

@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const User = require("../../models/User.js");
 const { signToken } = require("../../utils/auth.js");
-const auth = require("../../middleware/auth");
+// const auth = require("../../middleware/auth");
 
 // POST /api/users is a registration route for creating a new user
 router.post("/", async (req, res) => {
