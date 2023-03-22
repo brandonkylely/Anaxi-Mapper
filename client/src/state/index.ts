@@ -7,7 +7,7 @@ export type CoordinateObject = {
 };
 
 export type MapperUser = {
-  userName: string;
+  name: string;
   email: string;
 } | null;
 

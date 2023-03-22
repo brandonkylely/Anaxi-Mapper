@@ -11,10 +11,10 @@ const schemaSavedSearch = new Schema({
 });
 
 const userSchema = new Schema({
-  userName: {
+  name: {
     type: String,
     required: true,
-    unique: true,
+    // unique: true,
     trim: true,
   },
   email: {
