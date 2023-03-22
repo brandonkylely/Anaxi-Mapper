@@ -51,13 +51,13 @@ router.post("/favorited", auth, async (req, res) => {
 router.post("/addToFavorite", auth, async (req, res) => {
   try {
     const findUser = await User.findOne({ email: req.body.userEmail });
-    console.log('findUser', findUser)
-    console.log('req.body.email', req.body.userEmail)
-    console.log('req.body.currentParams', req.body.currentParams)
+    console.log("findUser", findUser);
+    console.log("req.body.email", req.body.userEmail);
+    console.log("req.body.currentParams", req.body.currentParams);
     const searchResults = req.body.searchResults;
     const currentParams = req.body.currentParams;
     findUser.addSearchToFavorites(searchResults, currentParams);
-    
+
     res.status(200).json({ success: true });
   } catch (err) {
     console.log(err);
@@ -67,19 +67,16 @@ router.post("/addToFavorite", auth, async (req, res) => {
 
 router.get("/getFavoritePlaces/:UserId", auth, async (req, res) => {
   try {
-  const findUser = await User.findOne({ _id: req.params.UserId });
-  const favorites = await findUser.getFavorites();
-  console.log('favorites', favorites)
-  console.log('findUser', findUser)
-  res.status(200).json({ success: true, favorites });
-  }
-  catch (err) {
+    const findUser = await User.findOne({ _id: req.params.UserId });
+    const favorites = await findUser.getFavorites();
+    console.log("favorites", favorites);
+    console.log("findUser", findUser);
+    res.status(200).json({ success: true, favorites });
+  } catch (err) {
     console.log(err);
     res.status(500).json({ success: false, err });
   }
 });
-
-
 
 // router.post("/updateFavorite", auth, async (req, res) => {
 //     try {

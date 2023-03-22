@@ -8,9 +8,8 @@ import { userAtom, MapperUser } from "../state";
 export default function Login() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
+    userName: "",
+    password: "", 
   });
   const handleFormChange = ({
     target: { name, value },
@@ -23,15 +22,12 @@ export default function Login() {
     event.preventDefault();
     try {
       console.log(formData);
-      const data = (await axios.post("/api/user/login", formData)) as {
-        token: string;
-        userId: string;
-      };
-      console.log("DATA FROM BACKEND", data);
-      token.login(data.token);
+      const data = (await axios.post("/api/user/login", formData))
+      console.log("DATA FROM BACKEND", data.data);
+      token.login(data.data.token);
       // got token, what do?
-      const user = token.decode(data.token);
-      localStorage.setItem("userId", data.userId);
+      const user = token.decode(data.data.token);
+      localStorage.setItem("userId", data.data.userId);
       setUser(user.data);
       navigate("/");
     } catch (err: unknown) {
@@ -56,30 +52,18 @@ export default function Login() {
             <h2>LOGIN: </h2>
           </div>
           <label htmlFor="username-input-signup" className="form-label">
-            name:
+            Username:
           </label>
           <input
             onChange={handleFormChange}
-            name="name"
+            name="userName"
             type="text"
             id="username-input-signup"
             className="form-control rounded-lg"
           />
-          <div className="">
-            <label htmlFor="username-input-signup" className="form-label">
-              email:
-            </label>
-            <input
-              onChange={handleFormChange}
-              name="email"
-              type="text"
-              id="username-input-signup"
-              className="form-control rounded-lg"
-            />
-          </div>
           <div>
             <label htmlFor="password-input-signup" className="form-label ">
-              password:
+              Password:
             </label>
             <input
               onChange={handleFormChange}

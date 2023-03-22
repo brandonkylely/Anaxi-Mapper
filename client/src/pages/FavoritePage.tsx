@@ -1,34 +1,40 @@
+//@ts-nocheck
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useAtomValue } from "jotai";
+import { useAtomValue, useAtom, useSetAtom } from "jotai";
 import { favoriteAtom, addressAtom } from "../state";
 // @ts-ignore
 
-type FavoritePlace = {
-  place_id: string;
-  // ...add more later
-};
+// type FavoritePlace = {
+//   place_id: string;
+//   // ...add more later
+// };
 
-type FavoriteProps = {
-  _id: string;
-  place_id: string;
-  address: string;
-};
+// type FavoriteProps = {
+//   _id: string;
+//   place_id: string;
+//   address: string;
+// };
 
-function FavoritePage(props: FavoriteProps) {
+// props: FavoriteProps
+export default function FavoritePage() {
+  const [favorite, setFavorite] = useAtom(favoriteAtom);
+
   //const favList = useAtomValue(favoriteAtom);
   //console.log('favList',favList)
 
-  const [FavoritePlaces, setFavoritePlaces] = useState<FavoritePlace[]>([]);
+  // const [FavoritePlaces, setFavoritePlaces] = useState([]);
 
-  const variable = {
-    id: props._id,
-    place_id: props.place_id,
-    address: props.address,
-  };
+  // const variable = {
+  //   id: props._id,
+  //   place_id: props.place_id,
+  //   address: props.address,
+  // };
 
   useEffect(() => {
-    fetchFavoritePlaces();
+    const returnVal = fetchFavoritePlaces();
+
+    console.log("FAVORITE", favorite);
   }, []);
 
   // const fetchFavoritePlaces = () => {
@@ -42,11 +48,14 @@ function FavoritePage(props: FavoriteProps) {
   //         })
   // }
 
-  const fetchFavoritePlaces = async () => {
+  const fetchFavoritePlaces = () => {
     const userId = localStorage.getItem("userId");
-    await axios.get(`/api/favorite/getFavoritePlaces/${userId}`).then((res) => {
-      console.log("res", res);
-      setFavoritePlaces(res.data);
+    axios.get(`/api/favorite/getFavoritePlaces/${userId}`).then((response) => {
+      if (response.data.success) {
+        setFavorite(response.data.favorites);
+      } else {
+        alert("Failed to get list");
+      }
     });
   };
 
@@ -67,30 +76,32 @@ function FavoritePage(props: FavoriteProps) {
         }
       });
   };
-
-  //   const renderTableBody = FavoritePlaces.map((result) => {
-  //     return (
-  //       <tr key={result.id}>
-  //         <th
-  //           scope="row"
-  //           className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-  //         >
-  //           {result.address}
-  //         </th>
-  //         {/* <td className="px-6 py-4">
-  //                     {result.category}
-  //                 </td> */}
-  //         <td className="px-6 py-4">
-  //           <button
-  //             onClick={() => onClickRemove(result.place_id)}
-  //             className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-  //           >
-  //             Remove
-  //           </button>
-  //         </td>
-  //       </tr>
-  //     );
-  //   });
+  
+  const renderTableBody = favorite.map((res) => {
+    result.map((result) => {
+      return (
+        <tr key={result.id}>
+          <th
+            scope="row"
+            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {result.address}
+          </th>
+          {/* <td className="px-6 py-4">
+                      {result.category}
+                  </td> */}
+          <td className="px-6 py-4">
+            <button
+              onClick={() => onClickRemove(result.place_id)}
+              className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+            >
+              Remove
+            </button>
+          </td>
+        </tr>
+      );
+    });
+  });
 
   return (
     <div className="container flex place-content-center xy-40">
@@ -110,10 +121,14 @@ function FavoritePage(props: FavoriteProps) {
             </tr>
           </thead>
           {/* <tbody>{renderTableBody}</tbody> */}
+          {/* {favorite.map((f) => (
+            <div>
+              <div>{f.address}</div>
+              <div>{f.type}</div>
+            </div>
+          ))} */}
         </table>
       </div>
     </div>
   );
 }
-
-export default FavoritePage;

@@ -15,6 +15,7 @@ export default function Logout() {
         tokenUtil.logout();
         setUser(null);
         console.log('on click logout!')
+        localStorage.removeItem("userId");
         //navigates back to home page, maybe change to login page?
         navigate("/login");
     }
