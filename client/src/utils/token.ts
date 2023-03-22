@@ -19,9 +19,7 @@ const tokenUtil = {
     }
     return null;
   },
-  decode: (
-    token: string
-  ): {
+  decode: (token: string): {
     data: MapperUser;
     exp: number;
     iat: number;
