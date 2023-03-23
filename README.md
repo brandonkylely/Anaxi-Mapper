@@ -4,35 +4,37 @@
 
   🗺️ ```Anaxi Mapper```, or ```Anaxi``` for short, is a web application utilizing Google's map and WebGL map API's to provide an interactive, 3d user experience. 🗺️
   
-  Users can navigate to addresses or cities and create search parameters to locate places of interest nearby, which will generate an overlay of 3d models and markers for ease of viewing. Once a full search has been made, users can comment on and/or favorite their search results to share with others or simply review again in future visits. 
+  Users can navigate to addresses or cities and create search parameters to locate places of interest nearby, which will generate an overlay of 3d models and markers for ease of viewing! From there, users can also comment on and/or favorite their search results to share with others or simply review again in future visits!
+
+  ![Anaxi App](./client/public/anaxi-app.jpg)
 
   ## Site Link 💡
-
-  ⚠️⚠️⚠️Deployment in progress.⚠️⚠️⚠️
 
   [anaxi.app](https://www.anaxi.app)
 
   ## Table of Contents 📃
 
-  [Usage](#usage)
+  [Usage 🤔](#usage-🤔)
 
-  [Local Installation](#local-installation)
+  [Technologies Used ⚙️](#technologies-used-⚙️)
 
-  [Technologies Used](#technologies-used)
+  [Local Installation 🖥️](#local-installation-🖥️)
 
-  [Contribution Guidelines](#contribution-guidelines)
+  [Contribution Guidelines 🤝](#contribution-guidelines-🤝)
 
-  [Creators](#creators)
+  [Developer Roadmap 🛣️](#developer-roadmap-🛣️)
 
-  [Acknowledgements](#acknowledgements)
+  [Developers 🤓🤓🤓🤓](#developers-🤓🤓🤓🤓)
 
-  [Credits](#Credits)
+  [Acknowledgements 👨‍💻👨‍💻](#acknowledgements-👨‍💻👨‍💻)
+
+  [Credits 🪙](#credits-🪙)
 
   ## Usage 🤔
 
   First time users need to sign up with an account to access the application; existing users may login using their credentials from the login page. 
   
-  A default location and overlay will appear on the map. Under the map, there are two rows of search bars. The upper search bar is an address or city search, which will navigate the map to the desired location. The lower 3 search bars are a set of parameters for the nearby search, with the parameters being radius (in km), type (restaurants, gyms, etc), and keyword (eg. type: restaurant, keyword: sushi ). Once a nearby search is submitted in the desired starting address, the map will rerender with a new overlay containing markers and information on locations fulfilling the search parameters. Under the search section, there is a list display of these locations as well, where users can add comments and favorite these results. To revisit past favorites, users can use the favorites list on the bottom right, which will hold all of the favorites saved onto their account.
+  A default location and overlay will appear on the map. Under the map, there are two rows of search bars. The upper search bar is an address or city search, which will navigate the map to the desired location ✈️. The lower 3 search bars are a set of parameters for the nearby search, with the parameters being radius (in km), type (restaurants, gyms, etc), and keyword (eg. type: restaurant, keyword: sushi ). Once a nearby search is submitted in the desired starting address, the map will rerender with a new overlay containing markers and information on locations fulfilling the search parameters 📍! Under the search section, there is a list display of these locations as well, where users can add comments and favorite these results ❤️. To revisit past favorites, users can use the favorites list on the bottom right, which will hold all of the favorites saved onto their account.
 
   ## Technologies Used ⚙️
 
@@ -72,7 +74,15 @@
 
   To request contributor status, please contact one of the creators below:
 
-  ## Creators 🤓🤓🤓🤓
+  ## Developer Roadmap 🛣️
+
+  - Routing Matrix
+
+  - Travel Animations
+
+  - User QOL improvements
+
+  ## Developers 🤓🤓🤓🤓
 
   Brandon Ly 🫠 : [Github](https://github.com/brandonkylely) & [LinkedIn](https://www.linkedin.com/in/brandon-ly-7300b1205/) & [Email](mailto:brandonkly@ucla.edu)
 
