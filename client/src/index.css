@@ -9,8 +9,6 @@ body {
   background-color: rgb(244, 242, 237);
 }
 
-
-
 .directions {
   position: absolute;
   background: black;
@@ -22,7 +20,7 @@ body {
 
 #map {
   width: 100%;
-  height: 70vh;
+  height: 75vh;
 }
 
 .marker {

@@ -1,12 +1,12 @@
 // https://developers.google.com/maps/documentation/javascript/places#place_searches
-
+// @ts-nocheck
 import { MouseEventHandler, useState, useContext } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { coordinateAtom, userAtom, addressAtom, categoryAtom } from "../state";
-import Categories from "./Categories";
+import { coordinateAtom, userAtom, addressAtom, categoryAtom } from "../../state";
+import Categories from "../archived-components/Categories";
 // import coordState from "../state";
-import { nearbySearch, post } from "../api";
-import SecondarySearchBar from "./SecondarySearch";
+import { nearbySearchData, post } from "../../api";
+import NearbySearchBar from "./NearbySearchBar";
 
 type City = {
   address: string;
@@ -185,9 +185,10 @@ export default function SearchBar() {
 
   const handleFormSubmit = (event: any) => {
     event.preventDefault();
-    console.log(query);
-    console.log(selectedCategory);
+    // console.log(query);
+    // console.log(selectedCategory);
     getCoords(userAddress).then((result) => {
+      console.log('invalid search')
       //TODO: Add error handing after form submit
     });
   };
@@ -218,7 +219,7 @@ export default function SearchBar() {
         {/* <h1> {user?.email}</h1> */}
 
         <input
-          className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
+          className="font-fuzzy-bubbles w-1/3 h-12 text-2xl py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
           value={userAddress}
           name="userAddress"
           onChange={handleSetUserAddress}
@@ -226,7 +227,7 @@ export default function SearchBar() {
           placeholder="Enter an address"
         />
         <button
-          className="bg-white text-gray-600 px-2 py-1 rounded-lg mt-2 hover:bg-stone-200 ml-2"
+          className="font-fuzzy-bubbles w-1/12 h-12 text-2xl bg-white text-gray-600 py-auto rounded-lg mt-2 transition-all ease-out duration-300 hover:scale-110 hover:bg-black hover:bg-opacity-10 ml-2"
           onClick={handleFormSubmit}
         >
           submit
@@ -240,7 +241,7 @@ export default function SearchBar() {
           />
         </div> */}
       </form>
-      {loaded ? <SecondarySearchBar></SecondarySearchBar> : <div></div>}
+      {loaded ? <NearbySearchBar></NearbySearchBar> : <div></div>}
     </>
   );
 }

@@ -1,20 +1,20 @@
-import { MouseEventHandler, useState } from "react";
+import { MouseEventHandler, ChangeEventHandler, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { nearbySearch, post } from "../api";
-import Categories from "./Categories";
+import { nearbySearchData, post } from "../../api";
+import Categories from "../archived-components/Categories";
 
 import {
   coordinateAtom,
   userAtom,
-  currentSearchAtom,
+  nearbyPlacesAtom,
   addressAtom,
   mapReloadAtom,
   categoryAtom,
   nextPageAtom,
   currentParamsAtom,
-} from "../state";
+} from "../../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import CurrentSearch from "./CurrentSearch";
+import NearbySearchResults from "../results/NearbySearchResults";
 
 const category = [
   { id: 1, name: "Accounting" },
@@ -114,10 +114,10 @@ const category = [
   { id: 95, name: "Zoo" },
 ];
 
-export default function SecondarySearchBar() {
+export default function NearbySearchBar() {
   const coordValue = useAtomValue(coordinateAtom);
-  const nearbySearchValue = useAtomValue(currentSearchAtom);
-  const setNearbySearch = useSetAtom(currentSearchAtom);
+  const nearbySearchValue = useAtomValue(nearbyPlacesAtom);
+  const setNearbySearch = useSetAtom(nearbyPlacesAtom);
   const setReloading = useSetAtom(mapReloadAtom);
   const formattedAddress = useAtomValue(addressAtom);
   // const setLoadValue = useSetAtom(loadingAtom)
@@ -144,12 +144,16 @@ export default function SecondarySearchBar() {
           return oneCategory.name.toLowerCase().includes(query.toLowerCase());
         });
 
-  const handleSetUserParams = (event: any) => {
+  const handleTypeSelect = (event: ChangeEventHandler) => {
+    setType(event.target.value)
+  }
+
+  const handleSetUserParams = (event: ChangeEventHandler) => {
     const { name, value } = event.target;
     return name === "radius"
       ? setRadius(value)
-      : name === "type"
-      ? setType(value)
+      // : name === "type"
+      // ? setType(value)
       : setKeyword(value);
   };
 
@@ -202,8 +206,8 @@ export default function SecondarySearchBar() {
   async function getNearby(userParams: object) {
     const nearbyData = await post("/api/address/nearby", { userParams });
     //nearbyData
-    //  searchResults: the result of the nearbySearch API call
-    //  validParams: true if the given parameters return results in the nearbySearch Call
+    //  searchResults: the result of the nearbySearchData API call
+    //  validParams: true if the given parameters return results in the nearbySearchData Call
     //  moreResults: will either return as False, or as a next page token, which can be used to get the next 20 results
     console.log("validParams", nearbyData.validParams);
     console.log("moreResults", nearbyData.moreResults);
@@ -213,10 +217,10 @@ export default function SecondarySearchBar() {
     //valdiParams is true when given parameters return results in the nearbySearch Call
     if (!nearbyData.validParams) {
       //do something when no nearbysearch results are found
-      console.log("your nearbySearch api did not return any results");
+      console.log("your nearbySearchData api did not return any results");
     } else {
       localStorage.setItem("lastSearch", JSON.stringify(nearbyData));
-      //nearbyData.searchResults is the result of the NearbySearch API call
+      //nearbyData.searchResults is the result of the NearbySearchData API call
       setNearbySearch(nearbyData.searchResults);
       console.log(nearbyData);
       console.log("setting Loaded");
@@ -234,13 +238,14 @@ export default function SecondarySearchBar() {
       {/* <h2>{currentSearch[0].place_id}</h2> */}
       <form className="px-4 form">
         <input
-          className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
+          className="font-fuzzy-bubbles w-1/6 h-12 text-2xl py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
           value={radius}
           name="radius"
           onChange={handleSetUserParams}
           type="text"
           placeholder="radius (km)"
         />
+        {/* deprecated code */}
         {/* <input
           className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
           value={type}
@@ -250,14 +255,22 @@ export default function SecondarySearchBar() {
           placeholder="type"
         
         /> */}
-        <Categories
+        {/* <Categories
           setQuery={setQuery}
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
           filteredCategory={filteredCategory}
-        />
+        /> */}
+        {/* deprecated code */}
+        <select name="type" value={type} 
+        onChange={handleTypeSelect}
+        className="font-fuzzy-bubbles w-1/6 h-12 text-2xl py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600">
+          {category.map((option, index) => (
+            <option value={option.name} key={index}>{option.name}</option>
+          ))}
+        </select>
         <input
-          className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
+          className="font-fuzzy-bubbles w-1/6 h-12 text-2xl py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
           value={keyword}
           name="keyword"
           onChange={handleSetUserParams}
@@ -265,14 +278,14 @@ export default function SecondarySearchBar() {
           placeholder="keyword"
         />
         <button
-          className="bg-white text-gray-600 px-2 py-1 rounded-lg mt-2 hover:bg-stone-200 ml-2"
+          className="font-fuzzy-bubbles w-1/12 h-12 text-2xl bg-white text-gray-600 py-auto rounded-lg mt-2 transition-all ease-out duration-300 hover:scale-110 hover:bg-black hover:bg-opacity-10 ml-2"
           onClick={handleFormSubmit}
         >
           submit
         </button>
         <div className="float-right"></div>
       </form>
-      {loaded ? <CurrentSearch></CurrentSearch> : <div></div>}
+      {loaded ? <NearbySearchResults></NearbySearchResults> : <div></div>}
     </>
   );
 }

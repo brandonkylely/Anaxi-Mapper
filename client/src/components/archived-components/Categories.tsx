@@ -2,7 +2,7 @@ import { useState, Fragment } from "react";
 import { Combobox } from "@headlessui/react";
 // import Select from "react-select";
 import { CheckIcon } from "@heroicons/react/20/solid";
-import { Category } from "../state";
+import { Category } from "../../state";
 
 type ComboboxProps = {
   setQuery: (query: string) => void;

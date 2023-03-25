@@ -10,22 +10,23 @@ import {
   AmbientLight,
   WebGLRenderer,
   Matrix4,
+  Renderer,
+  Camera,
+  Loader,
+  WebGLBufferRenderer,
+  InstancedBufferAttribute,
 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { currentSearchAtom, coordinateAtom, loadingAtom, nearbyPlacesAtom } from "../state";
+import { nearbyPlacesAtom, coordinateAtom, loadingAtom } from "../../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-
-// let coordValueData = localStorage.getItem("lastCoords") || null;
-// console.log(JSON.parse(coordValueData));
-// let coordValue = JSON.parse(coordValueData);
 
 // TODO: set style toggle for user
 // let styleToggle = 'full';
 let styleToggle = "retail";
 
-let mapOptions;
+let mapOptions: unknown;
 
-export default function Mapper(props) {
+export default function Mapper() {
   const coordValue = useAtomValue(coordinateAtom);
   // coordValue = useAtomValue(coordinateAtom);
   // mapOptions.center = coordValue;
@@ -35,15 +36,18 @@ export default function Mapper(props) {
   //   fetch('/api/test').then(r => r.json()).then(d => console.log(d))
   // }, [])
 
+  // useEffect(() => {
+  //   // move map function
+  //   if (loadValue) {
+  //     moveToLocation(coordValue.lat, coordValue.lng);
+  //   }
+  // }, [coordValue]);
+
   mapOptions = {
     mapId: styleToggle === "full" ? "605e131c3939f175" : "f5d27befd916db8c",
     center: coordValue || { lat: 34.0729297, lng: -118.4401635 },
     // zoom based on secondary search radius
-  
-    // zoom: 19,
-    // temporary 15 to test markers
     zoom: 19,
-  
     disableDefaultUI: true,
     heading: 15,
     tilt: 55,
@@ -52,8 +56,6 @@ export default function Mapper(props) {
 
   return (
     <>
-      {/* <div>{coordValue.lat} {coordValue.lng}</div>
-  <div>{mapOptions.center.lat} {mapOptions.center.lng}</div> */}
       <Wrapper apiKey={import.meta.env.VITE_APIKEY}>
         <MyMap />
       </Wrapper>
@@ -62,7 +64,6 @@ export default function Mapper(props) {
 }
 
 let instance: unknown;
-let loadValue;
 
 function MyMap() {
   const overlayRef = useRef();
@@ -70,11 +71,11 @@ function MyMap() {
   const ref = useRef();
   const coordValue = useAtomValue(coordinateAtom)
   // const nearbyPlacesArray = useAtomValue(nearbyPlacesAtom)
-  const nearbyPlacesArray = useAtomValue(currentSearchAtom) 
+  const nearbyPlacesArray = useAtomValue(nearbyPlacesAtom) 
 
 
-  const [loaded, setLoaded] = useState(false);
-  loadValue = useAtomValue(loadingAtom);
+  const loadValue = useAtomValue(loadingAtom);
+  const setLoadValue = useSetAtom(loadingAtom)
 
   // mapOptions.center = coordValue
 
@@ -84,66 +85,22 @@ function MyMap() {
       instance = new window.google.maps.Map(ref.current, mapOptions);
       setMap(instance);
       overlayRef.current = createOverlay(instance);
-      setLoaded(true);
+      setLoadValue(true);
     }
     // moveToLocation(coordValue.lat, coordValue.lng)
   }, []);
 
   useEffect(() => {
     // move map function
-    if (loaded) moveToLocation(coordValue.lat, coordValue.lng);
+    if (loadValue) {
+      moveToLocation(coordValue.lat, coordValue.lng);
+    }
   }, [coordValue]);
 
   // MARKERS BELOW
-  // TODO: fetch array of nearby locations with the following: name, coords, icon
-  const exampleArray = [
-    {
-      name: "Alfredo's Pizza",
-      coords: {
-        lat: coordValue.lat,
-        lng: coordValue.lng,
-      },
-      icon: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
-      // icon_background_color: "#FF9E67",
-      // photo: "https://maps.google.com/maps/contrib/116630505878958830647"
-    },
-    {
-      name: "Alfredo's Pasta",
-      coords: {
-        lat: 34.1379758,
-        lng: -117.2846497,
-      },
-      icon: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
-      // icon_background_color: "#FF9E67",
-      // photo: "https://maps.google.com/maps/contrib/116630505878958830647"
-    },
-    {
-      name: "Pizza Hut",
-      coords: {
-        lat: 34.1355842,
-        lng: -117.2581798,
-      },
-      icon: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
-      // icon_background_color: "#FF9E67",
-      // photo: "https://maps.google.com/maps/contrib/116630505878958830647"
-    },
-  ];
 
   nearbyPlacesArray.forEach((location) => {
     const infoWindow = new google.maps.InfoWindow();
-    // const marker = new google.maps.Marker({
-    //   // position: JSON.parse(localStorage.getItem('lastCoords')) || null,
-    //   position: location.coords,
-    //   map,
-    //   label: location.name,
-    //   title: location.name,
-    //   icon: {
-    //     url: location.icon,
-    //     scaledSize: new google.maps.Size(38, 31),
-    //     // fillColor: location.icon_background_color,
-    //     fillOpacity: 0.6,
-    //   },
-    // });
     const marker = new google.maps.Marker({
       // position: JSON.parse(localStorage.getItem('lastCoords')) || null,
       position: location.geometry.location,
@@ -163,6 +120,7 @@ function MyMap() {
       infoWindow.open(marker.getMap(), marker);
     });
   });
+
   // useEffect(() => {
   //   // if (loadValue) {
   //   //   overlay.onRemove = () => {
@@ -190,7 +148,7 @@ let overlay: unknown;
 
 function createOverlay(map) {
   overlay = new google.maps.WebGLOverlayView();
-  let renderer: unknown, scene: unknown, camera: unknown, loader: unknown;
+  let renderer: WebGLBufferRenderer, scene: Scene, camera: Camera, loader: Loader;
 
   // onAdd happens once when the overlay is created
   // threejs scene setting
@@ -199,6 +157,7 @@ function createOverlay(map) {
     camera = new PerspectiveCamera();
     const light = new AmbientLight(0xffffff, 0.9);
     scene.add(light);
+
     // const search results array [{}]
     // for (all search results) {
     // const matrix = transformer.fromLatLngAltitude({

@@ -1,23 +1,24 @@
+// @ts-nocheck
 import React from "react";
-import Favorite from "./FavoriteList/Favorite";
-import FavoritePage from "../pages/FavoritePage";
-import Comments from "./CommentForm/Comments";
-import CommentsList from "./CommentForm/CommentsList";
+import Favorite from "../favorites/Favorite";
+import FavoritePage from "../../pages/FavoritePage";
+import Comments from "../comments/Comments";
+import CommentsList from "../comments/CommentsList";
 import { useAtomValue, useAtom } from "jotai";
 import {
-  currentSearchAtom,
+  nearbyPlacesAtom,
   addressAtom,
   nextPageAtom,
   userAtom,
   currentParamsAtom,
-} from "../state";
+} from "../../state";
 import axios from "axios";
 
-export default function CurrentSearch() {
-  const searchResults = useAtomValue(currentSearchAtom);
+export default function NearbySearchResults() {
+  const searchResults = useAtomValue(nearbyPlacesAtom);
   const address = useAtomValue(addressAtom);
   const user = useAtomValue(userAtom);
-  const currentParams = useAtomValue(currentParamsAtom);
+  const currentParams = useAtomValue(nearbyPlacesAtom);
   //side project, can't figure out implementation, want to generate a button that will load more results
   //should read the next page atom, and if it is true, the last search has more than 20 results
   //this means we can make a different api search call, with the same parameters, feeding it the next page token at the end
@@ -31,13 +32,10 @@ export default function CurrentSearch() {
   //   }
   //is set in the secondary search bar, if true, load a button that will make an api call and then set to false
   console.log("searchResults", searchResults);
-  //@ts-ignore
   const place_id = searchResults[0].place_id;
-  //@ts-ignore
   const id = searchResults[0]._id;
 
   const handleFormSubmit = (event: any) => {
-    //@ts-ignore
     let userEmail = user.email;
     console.log("logging user email", userEmail);
     event.preventDefault();
@@ -51,20 +49,20 @@ export default function CurrentSearch() {
   return (
     <>
       <div className="container flex justify-between">
-        <div className="m-4 bg-white border border-gray-200 rounded-lg shadow p-4">
+        <div className="font-righteous m-4 bg-white border border-gray-200 rounded-lg shadow p-4">
           <Favorite id={id} place_id={place_id} address={address} />
           {/* <Favorite id={result.id} place_id={result.place_id} address={result.address} /> */}
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          <h5 className="mb-2 text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
             {address}
           </h5>
-          <h6 className="mb-4 text-lg font-light tracking-tight text-gray-900 dark:text-white">
+          <h6 className="mb-4 text-3xl font-light tracking-tight text-gray-900 dark:text-white">
             Nearby Results
           </h6>
-          <div className="flex flex-wrap columns-3 font-normal text-gray-700 dark:text-gray-400">
+          <div className="text-2xl flex flex-wrap columns-3 font-fuzzy-bubbles text-gray-700 dark:text-gray-400">
             {searchResults.map((result) => (
-              <div className=" w-full m-3 p-4 border border-gray-200 rounded-lg shadow">
+              <div className=" w-full m-3 p-4 border border-gray-200 rounded-lg shadow" key={result.place_id}>
                 <ul>
-                  <li key={result.id}>
+                  <li>
                     <h1 className="font-bold">{result.name}</h1>
                     <div className="py-4">
                       {result.photos && (
@@ -73,12 +71,13 @@ export default function CurrentSearch() {
                             result.photos[0].photo_reference
                           }&key=${import.meta.env.VITE_APIKEY}`}
                           alt="restaurant"
+                          className="h-56"
                         />
                       )}
                     </div>
                   </li>
-                  <li key={result.id}>Rating: {result.rating}</li>
-                  <li key={result.id}>Pricing Level: {result.price_level}</li>
+                  <li>Rating: {result.rating? result.rating : "No ratings available!"}</li>
+                  <li>Pricing Level: {result.price_level? result.price_level : "No price level available!"}</li>
                 </ul>
               </div>
             ))}
