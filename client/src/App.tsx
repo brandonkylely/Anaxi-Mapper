@@ -23,7 +23,7 @@ function App() {
   return (
     <Router>
       {/* quick links for better dev exp, make look nice or remove later */}
-      <Link className="mx-2 font-light tracking-wide text-stone-800" to="/signup">
+      {/* <Link className="mx-2 font-light tracking-wide text-stone-800" to="/signup">
         Signup
       </Link>
       <Link className="mx-2 font-light tracking-wide text-stone-800 " to="/login">
@@ -37,7 +37,7 @@ function App() {
       </Link>
       <Link className= "mx-2 font-md tracking-wide text-stone-800 float-right" to="/Logout">
         LOGOUT
-      </Link>
+      </Link> */}
 
       {/* quick links for better dev exp, make look nice or remove later */}
       <Routes>

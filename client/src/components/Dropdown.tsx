@@ -14,18 +14,16 @@ import React from "react";
     //     setNavbar(!navbar);
     // };
 
-
-
 export default function Dropdown() {
     return (
-        <div className="float-right p-4 rounded-md">
+        <div className="col-start-12 pr-4 rounded-md ">
             <select
-                className="px-4 py-2 pr-0 pl-4 text-gray-600 hover:text-gray-700 hover:bg-gray-50 shadow-sm appearance-none"
+                className="font-bold text-center py-2 text-gray-600 hover:text-gray-700 hover:bg-gray-50 shadow-sm appearance-none"
             >
-                <option selected>MENU</option>
+                <option selected >MENU</option>
+                <option value="history"><a href="#">Home</a></option>
                 <option value="favorites"><a href="#">Favorites</a></option>
-                <option value="history"><a href="#History">History</a></option>
-                <option value="home"><a href="#">Home</a></option>
+                <option value="logout"><a href="#">Logout</a></option>
             </select>
         </div>
     );
