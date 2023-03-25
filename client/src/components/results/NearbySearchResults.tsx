@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import Favorite from "../favorites/Favorite";
 import FavoritePage from "../../pages/FavoritePage";
@@ -31,13 +32,10 @@ export default function NearbySearchResults() {
   //   }
   //is set in the secondary search bar, if true, load a button that will make an api call and then set to false
   console.log("searchResults", searchResults);
-  //@ts-ignore
   const place_id = searchResults[0].place_id;
-  //@ts-ignore
   const id = searchResults[0]._id;
 
   const handleFormSubmit = (event: any) => {
-    //@ts-ignore
     let userEmail = user.email;
     console.log("logging user email", userEmail);
     event.preventDefault();
@@ -62,9 +60,9 @@ export default function NearbySearchResults() {
           </h6>
           <div className="flex flex-wrap columns-3 font-normal text-gray-700 dark:text-gray-400">
             {searchResults.map((result) => (
-              <div className=" w-full m-3 p-4 border border-gray-200 rounded-lg shadow">
+              <div className=" w-full m-3 p-4 border border-gray-200 rounded-lg shadow" key={result.place_id}>
                 <ul>
-                  <li key={result.id}>
+                  <li>
                     <h1 className="font-bold">{result.name}</h1>
                     <div className="py-4">
                       {result.photos && (
@@ -77,8 +75,8 @@ export default function NearbySearchResults() {
                       )}
                     </div>
                   </li>
-                  <li key={result.id}>Rating: {result.rating}</li>
-                  <li key={result.id}>Pricing Level: {result.price_level}</li>
+                  <li>Rating: {result.rating}</li>
+                  <li>Pricing Level: {result.price_level}</li>
                 </ul>
               </div>
             ))}

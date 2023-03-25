@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Mapper from "../components/results/Mapper";
 import Catchphrase from "../components/Catchphrase";
 import SearchBar from "../components/searchbars/SearchBar";

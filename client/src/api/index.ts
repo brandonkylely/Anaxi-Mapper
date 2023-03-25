@@ -1,19 +1,18 @@
+// @ts-nocheck
 import axios from "axios";
 
 axios.defaults.headers["Authorization"] = `Bearer ${localStorage.getItem(
   "id_token"
 )}`;
 
-//@ts-ignore
 export const test = async () => {
   const res = await axios.get("/api/test");
-  console.log("res.data", res.data);
+  // console.log("res.data", res.data);
   return res.data;
 };
 
 // add additional api calls here
 //export const addFav = () => does some fav stuff
-//@ts-ignore
 export const addFav = async () => {
   try {
   const res = await axios.post(`/api/favorite`);
@@ -24,7 +23,6 @@ export const addFav = async () => {
   }
 };
 
-//@ts-ignore
 export const addComment = async () => {
   try {
   const res = await axios.post(`/api/comment`);
@@ -36,7 +34,6 @@ export const addComment = async () => {
 };
 
 
-//@ts-ignore
 export const nearbySearchData = async (url) => {
   const res = await axios.get(url);
   console.log("res.data", res.data);

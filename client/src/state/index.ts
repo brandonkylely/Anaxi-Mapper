@@ -25,7 +25,7 @@ export type SearchParam = {
 } | null;
 
 export type Place = {
-  id: string;
+  place_id: string;
   name: string;
   photos: {
     photo_reference: string;

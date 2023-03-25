@@ -12,17 +12,17 @@ import { test } from "./api";
 
 function App() {
   const setUser = useSetAtom(userAtom);
-  console.count("APP UPDATE");
+  // console.count("APP UPDATE");
   useEffect(() => {
     const tokenData = token.getToken();
     tokenData && setUser(tokenData.data);
-    console.log("use effect App");
+    // console.log("use effect App");
     test();
     // optional, if no want on main page, you can redirect if no token or expired token
   }, []);
   return (
     <Router>
-      {/* quick links for better dev exp, make look nice or remove later */}
+      {/* deprecated links */}
       {/* <Link className="mx-2 font-light tracking-wide text-stone-800" to="/signup">
           Signup
           </Link>
@@ -38,8 +38,6 @@ function App() {
           <Link className= "mx-2 font-md tracking-wide text-stone-800 float-right" to="/Logout">
           LOGOUT
         </Link> */}
-
-      {/* quick links for better dev exp, make look nice or remove later */}
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/signup" element={<Signup />} />

@@ -1,5 +1,5 @@
 // https://developers.google.com/maps/documentation/javascript/places#place_searches
-
+// @ts-nocheck
 import { MouseEventHandler, useState, useContext } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { coordinateAtom, userAtom, addressAtom, categoryAtom } from "../../state";
@@ -185,9 +185,10 @@ export default function SearchBar() {
 
   const handleFormSubmit = (event: any) => {
     event.preventDefault();
-    console.log(query);
-    console.log(selectedCategory);
+    // console.log(query);
+    // console.log(selectedCategory);
     getCoords(userAddress).then((result) => {
+      console.log('invalid search')
       //TODO: Add error handing after form submit
     });
   };
