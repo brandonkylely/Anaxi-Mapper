@@ -18,7 +18,7 @@ import React from "react";
 
 export default function Dropdown() {
     return (
-        <div className="inline-flex float-right p-4 rounded-md">
+        <div className="float-right p-4 rounded-md">
             <select
                 className="px-4 py-2 pr-0 pl-4 text-gray-600 hover:text-gray-700 hover:bg-gray-50 shadow-sm appearance-none"
             >

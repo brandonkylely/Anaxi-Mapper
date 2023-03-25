@@ -4,12 +4,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Klee+One:wght@600&display=swap');
 
 body {
   background-color: rgb(244, 242, 237);
 }
 
-
+.cursive {
+  font-family: 'Klee One', cursive;
+}
 
 .directions {
   position: absolute;
