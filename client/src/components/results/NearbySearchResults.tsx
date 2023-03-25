@@ -49,16 +49,16 @@ export default function NearbySearchResults() {
   return (
     <>
       <div className="container flex justify-between">
-        <div className="m-4 bg-white border border-gray-200 rounded-lg shadow p-4">
+        <div className="font-righteous m-4 bg-white border border-gray-200 rounded-lg shadow p-4">
           <Favorite id={id} place_id={place_id} address={address} />
           {/* <Favorite id={result.id} place_id={result.place_id} address={result.address} /> */}
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          <h5 className="mb-2 text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
             {address}
           </h5>
-          <h6 className="mb-4 text-lg font-light tracking-tight text-gray-900 dark:text-white">
+          <h6 className="mb-4 text-3xl font-light tracking-tight text-gray-900 dark:text-white">
             Nearby Results
           </h6>
-          <div className="flex flex-wrap columns-3 font-normal text-gray-700 dark:text-gray-400">
+          <div className="text-2xl flex flex-wrap columns-3 font-fuzzy-bubbles text-gray-700 dark:text-gray-400">
             {searchResults.map((result) => (
               <div className=" w-full m-3 p-4 border border-gray-200 rounded-lg shadow" key={result.place_id}>
                 <ul>
@@ -71,12 +71,13 @@ export default function NearbySearchResults() {
                             result.photos[0].photo_reference
                           }&key=${import.meta.env.VITE_APIKEY}`}
                           alt="restaurant"
+                          className="h-56"
                         />
                       )}
                     </div>
                   </li>
-                  <li>Rating: {result.rating}</li>
-                  <li>Pricing Level: {result.price_level}</li>
+                  <li>Rating: {result.rating? result.rating : "No ratings available!"}</li>
+                  <li>Pricing Level: {result.price_level? result.price_level : "No price level available!"}</li>
                 </ul>
               </div>
             ))}

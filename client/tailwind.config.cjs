@@ -9,6 +9,7 @@ module.exports = {
       fontFamily: {
         'delicious-handrawn': ['Delicious Handrawn', 'cursive'],
         'fuzzy-bubbles': ['Fuzzy Bubbles', 'cursive'],
+        'righteous': ['Righteous', 'cursive']
       },
     },
   },

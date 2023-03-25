@@ -1,4 +1,4 @@
-import { MouseEventHandler, useState } from "react";
+import { MouseEventHandler, ChangeEventHandler, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { nearbySearchData, post } from "../../api";
 import Categories from "../archived-components/Categories";
@@ -144,12 +144,16 @@ export default function NearbySearchBar() {
           return oneCategory.name.toLowerCase().includes(query.toLowerCase());
         });
 
-  const handleSetUserParams = (event: any) => {
+  const handleTypeSelect = (event: ChangeEventHandler) => {
+    setType(event.target.value)
+  }
+
+  const handleSetUserParams = (event: ChangeEventHandler) => {
     const { name, value } = event.target;
     return name === "radius"
       ? setRadius(value)
-      : name === "type"
-      ? setType(value)
+      // : name === "type"
+      // ? setType(value)
       : setKeyword(value);
   };
 
@@ -258,9 +262,11 @@ export default function NearbySearchBar() {
           filteredCategory={filteredCategory}
         /> */}
         {/* deprecated code */}
-        <select name="type" value={type} className="font-fuzzy-bubbles w-1/6 h-12 text-2xl py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600">
-          {category.map(option => (
-            <option value={option.name} key={option.id}>{option.name}</option>
+        <select name="type" value={type} 
+        onChange={handleTypeSelect}
+        className="font-fuzzy-bubbles w-1/6 h-12 text-2xl py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600">
+          {category.map((option, index) => (
+            <option value={option.name} key={index}>{option.name}</option>
           ))}
         </select>
         <input
