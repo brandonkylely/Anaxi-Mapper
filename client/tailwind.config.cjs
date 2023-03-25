@@ -5,7 +5,12 @@ module.exports = {
       "./src/**/*.{js,ts,jsx,tsx}",
     ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'delicious-handrawn': ['Delicious Handrawn', 'cursive'],
+        'fuzzy-bubbles': ['Fuzzy Bubbles', 'cursive'],
+      },
+    },
   },
   plugins: [],
 }

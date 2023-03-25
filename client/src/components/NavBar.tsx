@@ -1,28 +1,22 @@
-import React from 'react';
-import Typewriter from 'typewriter-effect';
+import React from "react";
+import Typewriter from "typewriter-effect";
 
-//https://reactjsexample.com/a-react-component-for-adding-a-nice-typewriter-effect/
-//https://www.npmjs.com/package/typewriter-effect - all the way at the bottom
-
-
-const NavBar = () => {
+const Catchphrase = () => {
   return (
-    <div className='flex justify-center font-medium font-mono tracking-wide'>
-      <p className='md:text-2xl p-2 '>
-        FIND YOUR NEW
+    <div className='pl-4 pt-2 text-5xl col-span-4 flex font-delicious-handrawn tracking-wide'>
+      <p className=' '>
+        find your new
       </p>
-      <div className='md:text-2xl p-2 pl-1 text-lime-700'>
+      <div className='pl-2 text-lime-700'>
         <Typewriter options= {{
-          strings: ['VACATION', 'HOME', 'ACTIVITY', 'DESTINATION'],
+          strings: ['vacation', 'home', 'activity', 'destination'],
           autoStart: true,
           loop: true,
           delay: 75
          }}/>
       </div>
     </div>
-    
   );
-
 };
 
-export default NavBar;
+export default Catchphrase;

@@ -12,11 +12,11 @@ import { test } from "./api";
 
 function App() {
   const setUser = useSetAtom(userAtom);
-  console.count("APP UPDATE")
+  console.count("APP UPDATE");
   useEffect(() => {
     const tokenData = token.getToken();
     tokenData && setUser(tokenData.data);
-    console.log('use effect App')
+    console.log("use effect App");
     test();
     // optional, if no want on main page, you can redirect if no token or expired token
   }, []);
@@ -24,20 +24,20 @@ function App() {
     <Router>
       {/* quick links for better dev exp, make look nice or remove later */}
       {/* <Link className="mx-2 font-light tracking-wide text-stone-800" to="/signup">
-        Signup
-      </Link>
-      <Link className="mx-2 font-light tracking-wide text-stone-800 " to="/login">
-        Login
-      </Link>
-      <Link className="mx-2 font-light tracking-wide text-stone-800" to="/">
-        Home
-      </Link>
-      <Link className= "mx-2 font-light tracking-wide text-stone-800" to="/favorite">
-        Favorites
-      </Link>
-      <Link className= "mx-2 font-md tracking-wide text-stone-800 float-right" to="/Logout">
-        LOGOUT
-      </Link> */}
+          Signup
+          </Link>
+          <Link className="mx-2 font-light tracking-wide text-stone-800 " to="/login">
+          Login
+          </Link>
+          <Link className="mx-2 font-light tracking-wide text-stone-800" to="/">
+          Home
+          </Link>
+          <Link className= "mx-2 font-light tracking-wide text-stone-800" to="/favorite">
+          Favorites
+          </Link>
+          <Link className= "mx-2 font-md tracking-wide text-stone-800 float-right" to="/Logout">
+          LOGOUT
+        </Link> */}
 
       {/* quick links for better dev exp, make look nice or remove later */}
       <Routes>
@@ -47,7 +47,6 @@ function App() {
         {/* @ts-ignore */}
         <Route path="/favorite" element={<FavoritePage />} />
         <Route path="/logout" element={<Logout />} />
-
       </Routes>
     </Router>
   );
