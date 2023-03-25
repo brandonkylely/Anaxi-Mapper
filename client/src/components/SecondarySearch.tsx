@@ -1,12 +1,12 @@
 import { MouseEventHandler, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { nearbySearch, post } from "../api";
+import { nearbySearchData, post } from "../api";
 import Categories from "./Categories";
 
 import {
   coordinateAtom,
   userAtom,
-  currentSearchAtom,
+  nearbyPlacesAtom,
   addressAtom,
   mapReloadAtom,
   categoryAtom,
@@ -14,7 +14,7 @@ import {
   currentParamsAtom,
 } from "../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import CurrentSearch from "./CurrentSearch";
+import NearbySearchResults from "./CurrentSearch";
 
 const category = [
   { id: 1, name: "Accounting" },
@@ -116,8 +116,8 @@ const category = [
 
 export default function SecondarySearchBar() {
   const coordValue = useAtomValue(coordinateAtom);
-  const nearbySearchValue = useAtomValue(currentSearchAtom);
-  const setNearbySearch = useSetAtom(currentSearchAtom);
+  const nearbySearchValue = useAtomValue(nearbyPlacesAtom);
+  const setNearbySearch = useSetAtom(nearbyPlacesAtom);
   const setReloading = useSetAtom(mapReloadAtom);
   const formattedAddress = useAtomValue(addressAtom);
   // const setLoadValue = useSetAtom(loadingAtom)
@@ -202,8 +202,8 @@ export default function SecondarySearchBar() {
   async function getNearby(userParams: object) {
     const nearbyData = await post("/api/address/nearby", { userParams });
     //nearbyData
-    //  searchResults: the result of the nearbySearch API call
-    //  validParams: true if the given parameters return results in the nearbySearch Call
+    //  searchResults: the result of the nearbySearchData API call
+    //  validParams: true if the given parameters return results in the nearbySearchData Call
     //  moreResults: will either return as False, or as a next page token, which can be used to get the next 20 results
     console.log("validParams", nearbyData.validParams);
     console.log("moreResults", nearbyData.moreResults);
@@ -213,10 +213,10 @@ export default function SecondarySearchBar() {
     //valdiParams is true when given parameters return results in the nearbySearch Call
     if (!nearbyData.validParams) {
       //do something when no nearbysearch results are found
-      console.log("your nearbySearch api did not return any results");
+      console.log("your nearbySearchData api did not return any results");
     } else {
       localStorage.setItem("lastSearch", JSON.stringify(nearbyData));
-      //nearbyData.searchResults is the result of the NearbySearch API call
+      //nearbyData.searchResults is the result of the NearbySearchData API call
       setNearbySearch(nearbyData.searchResults);
       console.log(nearbyData);
       console.log("setting Loaded");
@@ -272,7 +272,7 @@ export default function SecondarySearchBar() {
         </button>
         <div className="float-right"></div>
       </form>
-      {loaded ? <CurrentSearch></CurrentSearch> : <div></div>}
+      {loaded ? <NearbySearchResults></NearbySearchResults> : <div></div>}
     </>
   );
 }

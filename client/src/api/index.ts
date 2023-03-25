@@ -37,12 +37,12 @@ export const addComment = async () => {
 
 
 //@ts-ignore
-export const nearbySearch = async (url) => {
+export const nearbySearchData = async (url) => {
   const res = await axios.get(url);
   console.log("res.data", res.data);
   return res.data;
 };
-// export const nearbySearh = async (address) => {
+// export const nearbySearchData = async (address) => {
 //   const res = await axios.get(`/api/nearbysearch/`);
 //   return res.data;
 // };

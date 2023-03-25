@@ -1,7 +1,7 @@
 // references used:
 // https://www.youtube.com/watch?v=1QTnMghzTyA&ab_channel=GoogleMapsPlatform
 // https://github.com/leighhalliday/google-maps-threejs
-// @ts-nocheck
+
 import React, { useState, useRef, useEffect } from "react";
 import { Wrapper } from "@googlemaps/react-wrapper";
 import {
@@ -14,18 +14,19 @@ import {
   Camera,
   Loader,
   WebGLBufferRenderer,
+  InstancedBufferAttribute,
 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { currentSearchAtom, coordinateAtom, loadingAtom, nearbyPlacesAtom } from "../state";
+import { nearbyPlacesAtom, coordinateAtom, loadingAtom } from "../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 // TODO: set style toggle for user
 // let styleToggle = 'full';
 let styleToggle = "retail";
 
-let mapOptions;
+let mapOptions: unknown;
 
-export default function Mapper(props) {
+export default function Mapper() {
   const coordValue = useAtomValue(coordinateAtom);
   // coordValue = useAtomValue(coordinateAtom);
   // mapOptions.center = coordValue;
@@ -34,6 +35,13 @@ export default function Mapper(props) {
   // useEffect(() => {
   //   fetch('/api/test').then(r => r.json()).then(d => console.log(d))
   // }, [])
+
+  // useEffect(() => {
+  //   // move map function
+  //   if (loadValue) {
+  //     moveToLocation(coordValue.lat, coordValue.lng);
+  //   }
+  // }, [coordValue]);
 
   mapOptions = {
     mapId: styleToggle === "full" ? "605e131c3939f175" : "f5d27befd916db8c",
@@ -55,8 +63,7 @@ export default function Mapper(props) {
   );
 }
 
-let instance: InstanceType;
-let loadValue;
+let instance: unknown;
 
 function MyMap() {
   const overlayRef = useRef();
@@ -64,11 +71,11 @@ function MyMap() {
   const ref = useRef();
   const coordValue = useAtomValue(coordinateAtom)
   // const nearbyPlacesArray = useAtomValue(nearbyPlacesAtom)
-  const nearbyPlacesArray = useAtomValue(currentSearchAtom) 
+  const nearbyPlacesArray = useAtomValue(nearbyPlacesAtom) 
 
 
-  const [loaded, setLoaded] = useState(false);
-  loadValue = useAtomValue(loadingAtom);
+  const loadValue = useAtomValue(loadingAtom);
+  const setLoadValue = useSetAtom(loadingAtom)
 
   // mapOptions.center = coordValue
 
@@ -78,14 +85,16 @@ function MyMap() {
       instance = new window.google.maps.Map(ref.current, mapOptions);
       setMap(instance);
       overlayRef.current = createOverlay(instance);
-      setLoaded(true);
+      setLoadValue(true);
     }
     // moveToLocation(coordValue.lat, coordValue.lng)
   }, []);
 
   useEffect(() => {
     // move map function
-    if (loaded) moveToLocation(coordValue.lat, coordValue.lng);
+    if (loadValue) {
+      moveToLocation(coordValue.lat, coordValue.lng);
+    }
   }, [coordValue]);
 
   // MARKERS BELOW
@@ -148,7 +157,7 @@ function createOverlay(map) {
     camera = new PerspectiveCamera();
     const light = new AmbientLight(0xffffff, 0.9);
     scene.add(light);
-    
+
     // const search results array [{}]
     // for (all search results) {
     // const matrix = transformer.fromLatLngAltitude({

@@ -5,7 +5,7 @@ import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { coordinateAtom, userAtom, addressAtom, categoryAtom } from "../state";
 import Categories from "./Categories";
 // import coordState from "../state";
-import { nearbySearch, post } from "../api";
+import { nearbySearchData, post } from "../api";
 import SecondarySearchBar from "./SecondarySearch";
 
 type City = {
