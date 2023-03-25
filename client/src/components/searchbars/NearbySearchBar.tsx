@@ -1,6 +1,6 @@
 import { MouseEventHandler, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { nearbySearchData, post } from "../api";
+import { nearbySearchData, post } from "../../api";
 import Categories from "./Categories";
 
 import {
@@ -12,9 +12,9 @@ import {
   categoryAtom,
   nextPageAtom,
   currentParamsAtom,
-} from "../state";
+} from "../../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import NearbySearchResults from "./CurrentSearch";
+import NearbySearchResults from "../results/NearbySearchResults";
 
 const category = [
   { id: 1, name: "Accounting" },
@@ -114,7 +114,7 @@ const category = [
   { id: 95, name: "Zoo" },
 ];
 
-export default function SecondarySearchBar() {
+export default function NearbySearchBar() {
   const coordValue = useAtomValue(coordinateAtom);
   const nearbySearchValue = useAtomValue(nearbyPlacesAtom);
   const setNearbySearch = useSetAtom(nearbyPlacesAtom);

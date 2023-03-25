@@ -17,7 +17,7 @@ import {
   InstancedBufferAttribute,
 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { nearbyPlacesAtom, coordinateAtom, loadingAtom } from "../state";
+import { nearbyPlacesAtom, coordinateAtom, loadingAtom } from "../../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 // TODO: set style toggle for user

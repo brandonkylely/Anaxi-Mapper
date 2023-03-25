@@ -1,8 +1,8 @@
 import React from "react";
-import Favorite from "./FavoriteList/Favorite";
-import FavoritePage from "../pages/FavoritePage";
-import Comments from "./CommentForm/Comments";
-import CommentsList from "./CommentForm/CommentsList";
+import Favorite from "../favorites/Favorite";
+import FavoritePage from "../../pages/FavoritePage";
+import Comments from "../comments/Comments";
+import CommentsList from "../comments/CommentsList";
 import { useAtomValue, useAtom } from "jotai";
 import {
   nearbyPlacesAtom,
@@ -10,7 +10,7 @@ import {
   nextPageAtom,
   userAtom,
   currentParamsAtom,
-} from "../state";
+} from "../../state";
 import axios from "axios";
 
 export default function NearbySearchResults() {

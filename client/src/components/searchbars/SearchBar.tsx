@@ -2,11 +2,11 @@
 
 import { MouseEventHandler, useState, useContext } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { coordinateAtom, userAtom, addressAtom, categoryAtom } from "../state";
+import { coordinateAtom, userAtom, addressAtom, categoryAtom } from "../../state";
 import Categories from "./Categories";
 // import coordState from "../state";
-import { nearbySearchData, post } from "../api";
-import SecondarySearchBar from "./SecondarySearch";
+import { nearbySearchData, post } from "../../api";
+import NearbySearchBar from "./NearbySearchBar";
 
 type City = {
   address: string;
@@ -240,7 +240,7 @@ export default function SearchBar() {
           />
         </div> */}
       </form>
-      {loaded ? <SecondarySearchBar></SecondarySearchBar> : <div></div>}
+      {loaded ? <NearbySearchBar></NearbySearchBar> : <div></div>}
     </>
   );
 }

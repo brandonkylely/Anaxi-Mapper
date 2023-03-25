@@ -1,10 +1,10 @@
-import Mapper from "../components/Mapper";
-import Catchphrase from "../components/NavBar";
-import SearchBar from "../components/SearchBar";
-import Dropdown from "../components/Dropdown";
-import Favorite from "../components/FavoriteList/Favorite";
-import Categories from "../components/Categories";
-import SecondarySearchBar from "../components/SecondarySearch";
+import Mapper from "../components/results/Mapper";
+import Catchphrase from "../components/Catchphrase";
+import SearchBar from "../components/searchbars/SearchBar";
+import Dropdown from "../components/archived-components/Dropdown";
+import Favorite from "../components/favorites/Favorite";
+import Categories from "../components/searchbars/Categories";
+import NearbySearchBar from "../components/searchbars/NearbySearchBar";
 
 // import Slidebar from "../components/slidebar";
 import { useAtomValue } from "jotai";
