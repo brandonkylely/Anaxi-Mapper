@@ -4,7 +4,7 @@ import Catchphrase from "../components/Catchphrase";
 import SearchBar from "../components/searchbars/SearchBar";
 import Dropdown from "../components/archived-components/Dropdown";
 import Favorite from "../components/favorites/Favorite";
-import Categories from "../components/searchbars/Categories";
+import Categories from "../components/archived-components/Categories";
 import NearbySearchBar from "../components/searchbars/NearbySearchBar";
 
 // import Slidebar from "../components/slidebar";

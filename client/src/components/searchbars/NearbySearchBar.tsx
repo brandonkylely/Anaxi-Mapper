@@ -1,7 +1,7 @@
 import { MouseEventHandler, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { nearbySearchData, post } from "../../api";
-import Categories from "./Categories";
+import Categories from "../archived-components/Categories";
 
 import {
   coordinateAtom,
@@ -234,13 +234,14 @@ export default function NearbySearchBar() {
       {/* <h2>{currentSearch[0].place_id}</h2> */}
       <form className="px-4 form">
         <input
-          className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
+          className="font-fuzzy-bubbles w-1/6 h-12 text-2xl py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
           value={radius}
           name="radius"
           onChange={handleSetUserParams}
           type="text"
           placeholder="radius (km)"
         />
+        {/* deprecated code */}
         {/* <input
           className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
           value={type}
@@ -250,14 +251,20 @@ export default function NearbySearchBar() {
           placeholder="type"
         
         /> */}
-        <Categories
+        {/* <Categories
           setQuery={setQuery}
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
           filteredCategory={filteredCategory}
-        />
+        /> */}
+        {/* deprecated code */}
+        <select name="type" value={type} className="font-fuzzy-bubbles w-1/6 h-12 text-2xl py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600">
+          {category.map(option => (
+            <option value={option.name} key={option.id}>{option.name}</option>
+          ))}
+        </select>
         <input
-          className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
+          className="font-fuzzy-bubbles w-1/6 h-12 text-2xl py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
           value={keyword}
           name="keyword"
           onChange={handleSetUserParams}
@@ -265,7 +272,7 @@ export default function NearbySearchBar() {
           placeholder="keyword"
         />
         <button
-          className="bg-white text-gray-600 px-2 py-1 rounded-lg mt-2 hover:bg-stone-200 ml-2"
+          className="font-fuzzy-bubbles w-1/12 h-12 text-2xl bg-white text-gray-600 py-auto rounded-lg mt-2 transition-all ease-out duration-300 hover:scale-110 hover:bg-black hover:bg-opacity-10 ml-2"
           onClick={handleFormSubmit}
         >
           submit
