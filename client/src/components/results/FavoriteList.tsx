@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAtomValue, useAtom, useSetAtom } from "jotai";
-import { favoriteAtom, addressAtom } from "../state";
+import { favoriteAtom, addressAtom } from "../../state";
 
 // type FavoritePlace = {
 //   place_id: string;
@@ -35,8 +35,6 @@ export default function FavoriteList() {
   useEffect((): void => {
     fetchFavorites();
     console.log(favoriteValue);
-
-    // console.log("FAVORITE", favorite);
   }, [localLoader]);
 
   // const fetchFavorites = () => {
@@ -80,7 +78,6 @@ export default function FavoriteList() {
   //     });
   // };
 
-  // deprecated code?
   // const renderTableBody = favorite.map((res) => {
   //   result.map((result) => {
   //     return (
@@ -123,15 +120,11 @@ export default function FavoriteList() {
           </thead> */}
           {/* <tbody>{renderTableBody}</tbody> */}
 
-          {/* single: {localLoader && favoriteValue[0]._id}, {localLoader && favoriteValue[0].search[0].types[0]}
-          <br/>
-          single: {localLoader && favoriteValue[1]._id}, {localLoader && favoriteValue[1].search[0].types[0]} */}
+
 
           {localLoader && favoriteValue.map((favorite, index) => (
             <div key={favorite._id}>
-              {/* item {index}: {favorite.search[0].name} */}
               {favorite.address} ({index + 1}): {favorite.search[0].types[0]}, {favorite.search[0].types[1]}, and more
-              {/* <div>{favorite.search.types[0]}</div> */}
             </div>))}
         </div>
       </div>

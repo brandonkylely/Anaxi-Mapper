@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import FavoriteList from "./pages/FavoriteList";
+import FavoriteList from "./components/results/FavoriteList";
 import Logout from "./pages/Logout";
 import token from "./utils/token";
 import { useSetAtom } from "jotai/react";
