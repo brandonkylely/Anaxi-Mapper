@@ -130,7 +130,7 @@ export default function FavoriteList() {
           {localLoader && favoriteValue.map((favorite, index) => (
             <div key={favorite._id}>
               {/* item {index}: {favorite.search[0].name} */}
-              Favorite search {index + 1}: {favorite.search[0].types[0]}, {favorite.search[0].types[1]}, and more
+              {favorite.address} ({index + 1}): {favorite.search[0].types[0]}, {favorite.search[0].types[1]}, and more
               {/* <div>{favorite.search.types[0]}</div> */}
             </div>))}
         </div>

@@ -158,8 +158,8 @@ export default function NearbySearchBar() {
     const { name, value } = event.target;
     return name === "radius"
       ? setRadius(value)
-      // : name === "type"
-      // ? setType(value)
+      : name === "type"
+      ? setType(value)
       : setKeyword(value);
   };
 
@@ -252,30 +252,31 @@ export default function NearbySearchBar() {
           type="text"
           placeholder="radius (km)"
         />
-        {/* deprecated code */}
-        {/* <input
-          className="w-small py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
+
+        <input
+          className="font-fuzzy-bubbles w-1/6 h-12 text-2xl py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
           value={type}
           name="type"
           onChange={handleSetUserParams}
           type="text"
           placeholder="type"
         
-        /> */}
+        />
         {/* <Categories
           setQuery={setQuery}
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
           filteredCategory={filteredCategory}
         /> */}
-        {/* deprecated code */}
-        <select name="type"
+
+        {/* needs work */}
+        {/* <select name="type"
         onChange={handleTypeSelect}
         className="font-fuzzy-bubbles w-1/6 h-12 text-2xl py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600">
           {category.map((option, index) => (
             <option value={option.name} key={index}>{option.name}</option>
           ))}
-        </select>
+        </select> */}
         <input
           className="font-fuzzy-bubbles w-1/6 h-12 text-2xl py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
           value={keyword}
