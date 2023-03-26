@@ -2,7 +2,7 @@
 import Mapper from "../components/results/Mapper";
 import Catchphrase from "../components/Catchphrase";
 import SearchBar from "../components/searchbars/SearchBar";
-import FavoriteList from "./FavoriteList";
+import FavoriteList from "../components/results/FavoriteList";
 import { useAtomValue } from "jotai";
 import { mapReloadAtom } from "../state";
 

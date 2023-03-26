@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAtomValue, useAtom, useSetAtom } from "jotai";
-import { favoriteAtom, addressAtom } from "../state";
+import { favoriteAtom, addressAtom } from "../../state";
 
 // type FavoritePlace = {
 //   place_id: string;
@@ -131,6 +131,7 @@ export default function FavoriteList() {
             <div key={favorite._id}>
               {/* item {index}: {favorite.search[0].name} */}
               {favorite.address} ({index + 1}): {favorite.search[0].types[0]}, {favorite.search[0].types[1]}, and more
+              <button onClick={}>Revisit</button>
               {/* <div>{favorite.search.types[0]}</div> */}
             </div>))}
         </div>
