@@ -74,8 +74,9 @@ function MyMap() {
   const nearbyPlacesArray = useAtomValue(nearbyPlacesAtom) 
 
 
-  const loadValue = useAtomValue(loadingAtom);
-  const setLoadValue = useSetAtom(loadingAtom)
+  // const loadValue = useAtomValue(loadingAtom);
+  // const setLoadValue = useSetAtom(loadingAtom);
+  const [loadValue, setLoadValue] = useState(false)
 
   // mapOptions.center = coordValue
 

@@ -30,15 +30,6 @@ export default function FavoriteList() {
   //   place_id: props.place_id,
   //   address: props.address,
   // };
-
-  function ListItems() {
-    favoriteValue.forEach((favorite) => (
-      <div key={favorite._id}>
-        {favorite.search.name}
-        {/* <div>{favorite.search.types[0]}</div> */}
-      </div>
-    ))
-  }
   
 
   useEffect((): void => {
@@ -46,7 +37,7 @@ export default function FavoriteList() {
     console.log(favoriteValue);
 
     // console.log("FAVORITE", favorite);
-  }, []);
+  }, [localLoader]);
 
   // const fetchFavorites = () => {
   //     axios.post('/api/favorite/getFavoritePlaces', variable)
@@ -71,7 +62,7 @@ export default function FavoriteList() {
     });
   };
 
-  // const onClickRemove = (place_id: number) => {
+  // const onClickRemove = (place_id: string) => {
   //   const variable = {
   //     place_id: place_id,
   //     address: props.address,
@@ -119,7 +110,7 @@ export default function FavoriteList() {
   return (
     <div className="container flex place-content-center xy-40">
       <div className="m-4 bg-white border border-gray-200 rounded-lg shadow p-4">
-        <div className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <div className="w-full font-righteous text-lg text-left text-gray-500 dark:text-gray-400">
           {/* <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">
@@ -132,13 +123,16 @@ export default function FavoriteList() {
           </thead> */}
           {/* <tbody>{renderTableBody}</tbody> */}
 
-          {/* {localLoader? <div><ListItems/>{favoriteValue[0]._id}</div> : <>localLoader off</>} */}
-          {localLoader && favoriteValue.forEach((favorite, index) => (
+          {/* single: {localLoader && favoriteValue[0]._id}, {localLoader && favoriteValue[0].search[0].types[0]}
+          <br/>
+          single: {localLoader && favoriteValue[1]._id}, {localLoader && favoriteValue[1].search[0].types[0]} */}
+
+          {localLoader && favoriteValue.map((favorite, index) => (
             <div key={favorite._id}>
-              item {index}: {favorite.search.name}
+              {/* item {index}: {favorite.search[0].name} */}
+              Favorite search {index + 1}: {favorite.search[0].types[0]}, {favorite.search[0].types[1]}, and more
               {/* <div>{favorite.search.types[0]}</div> */}
             </div>))}
-          {/* <div>{favoriteValue[0]._id}</div> */}
         </div>
       </div>
     </div>
