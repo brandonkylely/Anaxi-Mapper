@@ -17,7 +17,8 @@ import { favoriteAtom, addressAtom } from "../state";
 
 // props: FavoriteProps
 export default function FavoriteList() {
-  const [favorite, setFavorite] = useAtom(favoriteAtom);
+  const [favoriteValue, setFavoriteValue] = useAtom(favoriteAtom);
+  const [localLoader, setLocalLoader] = useState(false);
 
   //const favList = useAtomValue(favoriteAtom);
   //console.log('favList',favList)
@@ -30,8 +31,19 @@ export default function FavoriteList() {
   //   address: props.address,
   // };
 
-  useEffect(() : void => {
+  function ListItems() {
+    favoriteValue.forEach((favorite) => (
+      <div key={favorite._id}>
+        {favorite.search.name}
+        {/* <div>{favorite.search.types[0]}</div> */}
+      </div>
+    ))
+  }
+  
+
+  useEffect((): void => {
     fetchFavorites();
+    console.log(favoriteValue);
 
     // console.log("FAVORITE", favorite);
   }, []);
@@ -51,31 +63,33 @@ export default function FavoriteList() {
     const userId = localStorage.getItem("userId");
     axios.get(`/api/favorite/getFavoritePlaces/${userId}`).then((response) => {
       if (response.data.success) {
-        setFavorite(response.data.favorites);
+        setFavoriteValue(response.data.favorites);
+        setLocalLoader(true);
       } else {
         alert("Failed to get list");
       }
     });
   };
 
-  const onClickRemove = (place_id: number) => {
-    const variable = {
-      place_id: place_id,
-      address: props.address,
-    };
-    axios
-      .post("/api/favorite/removeFromFavorite", variable)
-      .then((response) => {
-        if (response.data.success) {
-          setFavoritePlaces(
-            FavoritePlaces.filter((place) => place.place_id !== place_id)
-          );
-        } else {
-          alert("Failed to remove from favorite");
-        }
-      });
-  };
-  
+  // const onClickRemove = (place_id: number) => {
+  //   const variable = {
+  //     place_id: place_id,
+  //     address: props.address,
+  //   };
+  //   axios
+  //     .post("/api/favorite/removeFromFavorite", variable)
+  //     .then((response) => {
+  //       if (response.data.success) {
+  //         setFavoritePlaces(
+  //           FavoritePlaces.filter((place) => place.place_id !== place_id)
+  //         );
+  //       } else {
+  //         alert("Failed to remove from favorite");
+  //       }
+  //     });
+  // };
+
+  // deprecated code?
   // const renderTableBody = favorite.map((res) => {
   //   result.map((result) => {
   //     return (
@@ -105,29 +119,31 @@ export default function FavoriteList() {
   return (
     <div className="container flex place-content-center xy-40">
       <div className="m-4 bg-white border border-gray-200 rounded-lg shadow p-4">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <div className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          {/* <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">
                 Location
               </th>
-              {/* <th scope="col" className="px-6 py-3">
-                            Category
-                        </th> */}
               <th scope="col" className="px-6 py-3">
                 Action
               </th>
             </tr>
-          </thead>
+          </thead> */}
           {/* <tbody>{renderTableBody}</tbody> */}
-          {favorite.map((favorite) => (
-            <div>
-              <div>{favorite.address}</div>
-              <div>{favorite.type}</div>
-            </div>
-          ))}
-        </table>
+
+          {/* {localLoader? <div><ListItems/>{favoriteValue[0]._id}</div> : <>localLoader off</>} */}
+          {localLoader && favoriteValue.forEach((favorite, index) => (
+            <div key={favorite._id}>
+              item {index}: {favorite.search.name}
+              {/* <div>{favorite.search.types[0]}</div> */}
+            </div>))}
+          {/* <div>{favoriteValue[0]._id}</div> */}
+        </div>
       </div>
     </div>
   );
 }
+
+
+
