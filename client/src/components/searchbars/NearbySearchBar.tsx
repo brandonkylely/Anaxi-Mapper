@@ -145,7 +145,8 @@ export default function NearbySearchBar() {
   //       });
 
   const handleTypeSelect = (event: ChangeEventHandler) => {
-    setType(event.target.value.toLowerCase())
+    const selection = event.target.value.toLowerCase()
+    setType(selection.replaceAll(' ', '_'))
     // console.log(event.target.value)
   }
 
@@ -196,7 +197,6 @@ export default function NearbySearchBar() {
     });
 
     getNearby(userParams).then((result) => {
-      console.log(userParams)
       localStorage.setItem("lastCoords", JSON.stringify(coordValue));
 
       // setReloading(true);
