@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from "react";
 import Favorite from "../favorites/Favorite";
-import FavoritePage from "../../pages/FavoritePage";
+
 import Comments from "../comments/Comments";
 import CommentsList from "../comments/CommentsList";
 import { useAtomValue, useAtom } from "jotai";
@@ -51,7 +51,6 @@ export default function NearbySearchResults() {
       <div className="container flex justify-between">
         <div className="font-righteous m-4 bg-white border border-gray-200 rounded-lg shadow p-4">
           <Favorite id={id} place_id={place_id} address={address} />
-          {/* <Favorite id={result.id} place_id={result.place_id} address={result.address} /> */}
           <h5 className="mb-2 text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
             {address}
           </h5>

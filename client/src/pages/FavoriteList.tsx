@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAtomValue, useAtom, useSetAtom } from "jotai";
 import { favoriteAtom, addressAtom } from "../state";
-// @ts-ignore
 
 // type FavoritePlace = {
 //   place_id: string;
@@ -17,7 +16,7 @@ import { favoriteAtom, addressAtom } from "../state";
 // };
 
 // props: FavoriteProps
-export default function FavoritePage() {
+export default function FavoriteList() {
   const [favorite, setFavorite] = useAtom(favoriteAtom);
 
   //const favList = useAtomValue(favoriteAtom);
@@ -31,13 +30,13 @@ export default function FavoritePage() {
   //   address: props.address,
   // };
 
-  useEffect(() => {
-    const returnVal = fetchFavoritePlaces();
+  useEffect(() : void => {
+    fetchFavorites();
 
-    console.log("FAVORITE", favorite);
+    // console.log("FAVORITE", favorite);
   }, []);
 
-  // const fetchFavoritePlaces = () => {
+  // const fetchFavorites = () => {
   //     axios.post('/api/favorite/getFavoritePlaces', variable)
   //         .then(response => {
   //             if (response.data.success) {
@@ -48,7 +47,7 @@ export default function FavoritePage() {
   //         })
   // }
 
-  const fetchFavoritePlaces = () => {
+  const fetchFavorites = () => {
     const userId = localStorage.getItem("userId");
     axios.get(`/api/favorite/getFavoritePlaces/${userId}`).then((response) => {
       if (response.data.success) {
@@ -59,7 +58,7 @@ export default function FavoritePage() {
     });
   };
 
-  const onClickRemove = (place_id: string) => {
+  const onClickRemove = (place_id: number) => {
     const variable = {
       place_id: place_id,
       address: props.address,
@@ -77,31 +76,31 @@ export default function FavoritePage() {
       });
   };
   
-  const renderTableBody = favorite.map((res) => {
-    result.map((result) => {
-      return (
-        <tr key={result.id}>
-          <th
-            scope="row"
-            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-          >
-            {result.address}
-          </th>
-          {/* <td className="px-6 py-4">
-                      {result.category}
-                  </td> */}
-          <td className="px-6 py-4">
-            <button
-              onClick={() => onClickRemove(result.place_id)}
-              className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-            >
-              Remove
-            </button>
-          </td>
-        </tr>
-      );
-    });
-  });
+  // const renderTableBody = favorite.map((res) => {
+  //   result.map((result) => {
+  //     return (
+  //       <tr key={result.id}>
+  //         <th
+  //           scope="row"
+  //           className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+  //         >
+  //           {result.address}
+  //         </th>
+  //         {/* <td className="px-6 py-4">
+  //                     {result.category}
+  //                 </td> */}
+  //         <td className="px-6 py-4">
+  //           <button
+  //             onClick={() => onClickRemove(result.place_id)}
+  //             className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+  //           >
+  //             Remove
+  //           </button>
+  //         </td>
+  //       </tr>
+  //     );
+  //   });
+  // });
 
   return (
     <div className="container flex place-content-center xy-40">
@@ -121,12 +120,12 @@ export default function FavoritePage() {
             </tr>
           </thead>
           {/* <tbody>{renderTableBody}</tbody> */}
-          {/* {favorite.map((f) => (
+          {favorite.map((favorite) => (
             <div>
-              <div>{f.address}</div>
-              <div>{f.type}</div>
+              <div>{favorite.address}</div>
+              <div>{favorite.type}</div>
             </div>
-          ))} */}
+          ))}
         </table>
       </div>
     </div>

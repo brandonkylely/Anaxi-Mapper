@@ -44,24 +44,24 @@ export default function Login() {
     <>
       <form
         id="signup-form"
-        className="card-body flex justify-center p-10 m-5"
+        className="card-body flex justify-center mt-56"
         onSubmit={handleFormSubmit}
       >
-        <div className="form-outline space-y-4 rounded-lg tracking-wide">
-          <div className="font-bold text-xl justify-center font-semibold tracking-widest">
-            <h2>LOGIN: </h2>
+        <div className="text-xl space-y-4 rounded-lg tracking-wide ">
+            <h2 className="font-bold text-3xl font-semibold tracking-widest">LOGIN: </h2>
+          <div className="flex justify-between">
+            <label htmlFor="username-input-signup" className="form-label">
+              Username:
+            </label>
+            <input
+              onChange={handleFormChange}
+              name="userName"
+              type="text"
+              id="username-input-signup"
+              className="form-control rounded-lg px-2 w-56"
+              />
           </div>
-          <label htmlFor="username-input-signup" className="form-label">
-            Username:
-          </label>
-          <input
-            onChange={handleFormChange}
-            name="userName"
-            type="text"
-            id="username-input-signup"
-            className="form-control rounded-lg"
-          />
-          <div>
+          <div className="flex justify-between">
             <label htmlFor="password-input-signup" className="form-label ">
               Password:
             </label>
@@ -70,15 +70,20 @@ export default function Login() {
               name="password"
               type="password"
               id="password-input-signup"
-              className="form-control rounded-lg w-3/5"
+              className="form-control rounded-lg w-56"
             />
           </div>
           <button
             type="submit"
-            className="btn btn-primary pl-4 pr-4 px-2 py-2 text-gray-600 hover:text-gray-700 hover:bg-gray-50 shadow-sm appearance-none rounded-md bg-white"
+            className="pl-4 pr-4 px-2 py-2 text-gray-600 hover:text-gray-700 hover:bg-gray-50 shadow-sm appearance-none rounded-md bg-white"
           >
             login!
           </button>
+          <a href="/signup"
+            className="pl-4 pr-4 px-2 py-2 text-gray-600 hover:text-gray-700 hover:bg-gray-50 shadow-sm appearance-none rounded-md bg-white"
+          >
+            signup
+          </a>
         </div>
       </form>
     </>

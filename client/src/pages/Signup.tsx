@@ -54,9 +54,7 @@ export default function Signup() {
         onSubmit={handleFormSubmit}
       >
         <div className="form-outline space-y-4 rounded-lg tracking-wide">
-          <div className="font-bold text-xl justify-center font-semibold tracking-widest">
-            <h2>REGISTER: </h2>
-          </div>
+            <h2 className="font-bold text-xl justify-center font-semibold tracking-widest">REGISTER: </h2>
           <label htmlFor="username-input-signup" className="form-label">
             Username:
           </label>
