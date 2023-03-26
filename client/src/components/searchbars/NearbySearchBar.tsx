@@ -145,21 +145,21 @@ export default function NearbySearchBar() {
   //       });
 
   const handleTypeSelect = (event: ChangeEventHandler) => {
-    setType(event.target.value)
+    setType(event.target.value.toLowerCase())
     // console.log(event.target.value)
   }
 
-  useEffect(() =>{
-    console.log("type" + type)
-  }, [type])
+  // useEffect(() =>{
+  //   console.log("type" + type)
+  // }, [type])
 
 
   const handleSetUserParams = (event: ChangeEventHandler) => {
     const { name, value } = event.target;
     return name === "radius"
       ? setRadius(value)
-      : name === "type"
-      ? setType(value)
+      // : name === "type"
+      // ? setType(value)
       : setKeyword(value);
   };
 
@@ -211,6 +211,7 @@ export default function NearbySearchBar() {
   };
 
   async function getNearby(userParams: object) {
+    console.log(userParams)
     const nearbyData = await post("/api/address/nearby", { userParams });
     //nearbyData
     //  searchResults: the result of the nearbySearchData API call
@@ -253,15 +254,14 @@ export default function NearbySearchBar() {
           placeholder="radius (km)"
         />
 
-        <input
+        {/* <input
           className="font-fuzzy-bubbles w-1/6 h-12 text-2xl py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
           value={type}
           name="type"
           onChange={handleSetUserParams}
           type="text"
           placeholder="type"
-        
-        />
+        /> */}
         {/* <Categories
           setQuery={setQuery}
           selectedCategory={selectedCategory}
@@ -270,13 +270,13 @@ export default function NearbySearchBar() {
         /> */}
 
         {/* needs work */}
-        {/* <select name="type"
+        <select name="type" 
         onChange={handleTypeSelect}
         className="font-fuzzy-bubbles w-1/6 h-12 text-2xl py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600">
           {category.map((option, index) => (
             <option value={option.name} key={index}>{option.name}</option>
           ))}
-        </select> */}
+        </select>
         <input
           className="font-fuzzy-bubbles w-1/6 h-12 text-2xl py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
           value={keyword}
@@ -291,7 +291,6 @@ export default function NearbySearchBar() {
         >
           submit
         </button>
-        <div className="float-right"></div>
       </form>
       {loaded ? <NearbySearchResults></NearbySearchResults> : <div></div>}
     </>

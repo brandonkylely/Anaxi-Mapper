@@ -188,7 +188,7 @@ export default function SearchBar() {
     // console.log(query);
     // console.log(selectedCategory);
     getCoords(userAddress).then((result) => {
-      console.log('invalid search')
+      // console.log('invalid search')
       //TODO: Add error handing after form submit
     });
   };
