@@ -50,7 +50,7 @@
 
   Then, install the necessary dependencies.
 
-      npm i
+    npm i
 
   Add a .env file in ```client``` with your credentials.
 

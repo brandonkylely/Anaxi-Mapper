@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import FavoritePage from "./pages/FavoritePage";
+import FavoriteList from "./pages/FavoriteList";
 import Logout from "./pages/Logout";
 import token from "./utils/token";
 import { useSetAtom } from "jotai/react";
@@ -42,8 +42,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        {/* @ts-ignore */}
-        <Route path="/favorite" element={<FavoritePage />} />
+        <Route path="/favorite" element={<FavoriteList />} />
         <Route path="/logout" element={<Logout />} />
       </Routes>
     </Router>
