@@ -18,7 +18,7 @@ export default function NearbySearchResults() {
   const searchResults = useAtomValue(nearbyPlacesAtom);
   const address = useAtomValue(addressAtom);
   const user = useAtomValue(userAtom);
-  const currentParams = useAtomValue(nearbyPlacesAtom);
+  const currentParams = useAtomValue(currentParamsAtom);
   //side project, can't figure out implementation, want to generate a button that will load more results
   //should read the next page atom, and if it is true, the last search has more than 20 results
   //this means we can make a different api search call, with the same parameters, feeding it the next page token at the end

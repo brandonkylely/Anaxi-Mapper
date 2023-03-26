@@ -1,4 +1,4 @@
-import { MouseEventHandler, ChangeEventHandler, useState } from "react";
+import { MouseEventHandler, ChangeEventHandler, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { nearbySearchData, post } from "../../api";
 import Categories from "../archived-components/Categories";
@@ -134,19 +134,25 @@ export default function NearbySearchBar() {
   const nav = useNavigate();
 
   //for categories
-  const [selectedCategory, setSelectedCategory] = useAtom(categoryAtom);
-  const [query, setQuery] = useState("");
+  // const [selectedCategory, setSelectedCategory] = useAtom(categoryAtom);
+  // const [query, setQuery] = useState("");
 
-  const filteredCategory =
-    query === ""
-      ? category
-      : category.filter((oneCategory) => {
-          return oneCategory.name.toLowerCase().includes(query.toLowerCase());
-        });
+  // const filteredCategory =
+  //   query === ""
+  //     ? category
+  //     : category.filter((oneCategory) => {
+  //         return oneCategory.name.toLowerCase().includes(query.toLowerCase());
+  //       });
 
   const handleTypeSelect = (event: ChangeEventHandler) => {
     setType(event.target.value)
+    // console.log(event.target.value)
   }
+
+  useEffect(() =>{
+    console.log("type" + type)
+  }, [type])
+
 
   const handleSetUserParams = (event: ChangeEventHandler) => {
     const { name, value } = event.target;
@@ -161,18 +167,18 @@ export default function NearbySearchBar() {
 
   const handleFormSubmit = (event: any) => {
     event.preventDefault();
-    console.log("query", query);
+    // console.log("query", query);
 
-    console.log("selectedCategory",selectedCategory)
-    let paramType = "";
-    if (selectedCategory.length > 0) {
-      paramType = selectedCategory[0].name;
-      paramType = paramType.toLocaleLowerCase().replace(/\s/g, "_");
-    }
+    // console.log("selectedCategory",selectedCategory)
+    // let paramType = "";
+    // if (selectedCategory.length > 0) {
+    //   paramType = selectedCategory[0].name;
+    //   paramType = paramType.toLocaleLowerCase().replace(/\s/g, "_");
+    // }
 
     const userParams = {
       //maps the id's corresponding to the selected categories, will convert to type and concat in end
-      type: paramType, //quick fix, will only select the first index of selected category
+      type: type, //quick fix, will only select the first index of selected category
       radius: radius,
       keyword: keyword,
       coordinate: coordValue,
@@ -180,16 +186,17 @@ export default function NearbySearchBar() {
       useNextPage: loadNextPage,
     };
     console.log("userParams",userParams)
-    console.log("keyword",keyword)
+    // console.log("keyword",keyword)
     setCurrentParams({
       coords: coordValue,
       address: formattedAddress,
       keyword: keyword,
-      radius: userParams.radius,
-      type: paramType,
+      radius: radius,
+      type: type,
     });
 
     getNearby(userParams).then((result) => {
+      console.log(userParams)
       localStorage.setItem("lastCoords", JSON.stringify(coordValue));
 
       // setReloading(true);
@@ -209,8 +216,8 @@ export default function NearbySearchBar() {
     //  searchResults: the result of the nearbySearchData API call
     //  validParams: true if the given parameters return results in the nearbySearchData Call
     //  moreResults: will either return as False, or as a next page token, which can be used to get the next 20 results
-    console.log("validParams", nearbyData.validParams);
-    console.log("moreResults", nearbyData.moreResults);
+    // console.log("validParams", nearbyData.validParams);
+    // console.log("moreResults", nearbyData.moreResults);
     if (nearbyData.moreResults) {
       setNextPage(true);
     }
@@ -222,8 +229,8 @@ export default function NearbySearchBar() {
       localStorage.setItem("lastSearch", JSON.stringify(nearbyData));
       //nearbyData.searchResults is the result of the NearbySearchData API call
       setNearbySearch(nearbyData.searchResults);
-      console.log(nearbyData);
-      console.log("setting Loaded");
+      // console.log(nearbyData);
+      // console.log("setting Loaded");
       setLoaded(true);
     }
 
@@ -262,7 +269,7 @@ export default function NearbySearchBar() {
           filteredCategory={filteredCategory}
         /> */}
         {/* deprecated code */}
-        <select name="type" value={type} 
+        <select name="type"
         onChange={handleTypeSelect}
         className="font-fuzzy-bubbles w-1/6 h-12 text-2xl py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600">
           {category.map((option, index) => (
