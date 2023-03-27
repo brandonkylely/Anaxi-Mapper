@@ -64,7 +64,7 @@ export default function NearbySearchResults() {
                   <li>
                     <h1 className="font-bold">{result.name}</h1>
                     <div className="py-4">
-                      {result.photos && (
+                      {result.photos ? (
                         <img
                           src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${
                             result.photos[0].photo_reference
@@ -72,7 +72,8 @@ export default function NearbySearchResults() {
                           alt="restaurant"
                           className="h-56"
                         />
-                      )}
+                      ) : <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" alt="No Image Available" className="h-56" />}
+
                     </div>
                   </li>
                   <li>Rating: {result.rating? result.rating : "No ratings available!"}</li>

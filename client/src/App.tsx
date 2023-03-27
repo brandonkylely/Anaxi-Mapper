@@ -9,6 +9,7 @@ import token from "./utils/token";
 import { useSetAtom } from "jotai/react";
 import { userAtom } from "./state";
 import { test } from "./api";
+import SearchList from "./pages/FavoritesPage";
 
 function App() {
   const setUser = useSetAtom(userAtom);
@@ -17,7 +18,7 @@ function App() {
     const tokenData = token.getToken();
     tokenData && setUser(tokenData.data);
     // console.log("use effect App");
-    test();
+    // test();
     // optional, if no want on main page, you can redirect if no token or expired token
   }, []);
   return (
@@ -42,7 +43,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/favorite" element={<FavoriteList />} />
+        <Route path="/favorites" element={<SearchList />} />
         <Route path="/logout" element={<Logout />} />
       </Routes>
     </Router>
