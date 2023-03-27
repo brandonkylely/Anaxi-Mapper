@@ -26,6 +26,7 @@
     "react-router-dom": "^6.9.0",
     "react-select": "^5.7.0",
     "three": "^0.150.1",
+    "tw-elements": "^1.0.0-beta1",
     "typewriter-effect": "^2.19.0"
   },
   "devDependencies": {

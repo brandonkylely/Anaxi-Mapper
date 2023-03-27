@@ -1,6 +1,8 @@
 //@ts-nocheck
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Disclosure } from "@headlessui/react";
+import * as te from "tw-elements";
 
 //TODO: need to refactor code to take the entire favorites array and not just a single search result
 //Need to add a remove from favorites button that will remove entire searches from the favorites list
@@ -70,16 +72,17 @@ export default function SearchList() {
         <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {favoriteValue.map((favorite, index) => (
             <div>
-              {/* <button className="accordionButton"> */}
-              <h1>{favorite.address}</h1>
-              <h1>{favorite.radius}</h1>
-              <h1>{favorite.type}</h1>
-              {/* </button> */}
-              {/* <div className="accordion-body"> */}
-              {favoriteValue[index].search.map((search, index) => (
-                <SearchItem key={index} search={search} />
-              ))}
-              {/* </div> */}
+              <Disclosure>
+                <Disclosure.Button>{favorite.address}</Disclosure.Button>
+
+                {/* <h1>{favorite.radius}</h1>
+                <h1>{favorite.type}</h1> */}
+                <Disclosure.Panel>
+                  {favoriteValue[index].search.map((search, index) => (
+                    <SearchItem key={index} search={search} />
+                  ))}
+                </Disclosure.Panel>
+              </Disclosure>
             </div>
           ))}
         </ul>
