@@ -2,6 +2,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+//TODO: need to refactor code to take the entire favorites array and not just a single search result
+//Need to add a remove from favorites button that will remove entire searches from the favorites list
+//give user a way to remove individual items from a search result on the list
+
 export default function SearchList() {
   const [localLoader, setLocalLoader] = useState(false);
   const [favoriteValue, setFavoriteValue] = useState([]); //need error checking in case user has not added anything to favorites
@@ -15,7 +19,7 @@ export default function SearchList() {
     const userId = localStorage.getItem("userId");
     axios.get(`/api/favorite/getFavoritePlaces/${userId}`).then((response) => {
       if (response.data.success) {
-        console.log(response.data.favorites[0].search, "response");
+        console.log(response.data.favorites, "response");
         setFavoriteValue(response.data.favorites[0].search); //right now this is only being set to a single search result from favorites, need to refactor code to take the entire favorites
         setLocalLoader(true);
       } else {
