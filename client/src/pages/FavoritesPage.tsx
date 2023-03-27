@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Disclosure } from "@headlessui/react";
-import * as te from "tw-elements";
+
 
 //TODO: need to refactor code to take the entire favorites array and not just a single search result
 //Need to add a remove from favorites button that will remove entire searches from the favorites list
