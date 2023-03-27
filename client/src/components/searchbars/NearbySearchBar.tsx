@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { MouseEventHandler, ChangeEventHandler, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { nearbySearchData, post } from "../../api";
