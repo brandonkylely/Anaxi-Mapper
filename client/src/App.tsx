@@ -10,6 +10,7 @@ import { useSetAtom } from "jotai/react";
 import { userAtom } from "./state";
 import { test } from "./api";
 import SearchList from "./pages/FavoritesPage";
+import HomePage from "./pages/HomePage";
 
 function App() {
   const setUser = useSetAtom(userAtom);
@@ -41,6 +42,7 @@ function App() {
         </Link> */}
       <Routes>
         <Route path="/" element={<MainPage />} />
+        <Route path="/home" element={<HomePage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/favorites" element={<SearchList />} />
