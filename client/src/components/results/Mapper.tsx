@@ -19,10 +19,13 @@ import {
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { nearbyPlacesAtom, coordinateAtom, loadingAtom, mapStyleAtom, mapReloadAtom } from "../../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { GoogleMapsOverlay } from "@deck.gl/google-maps";
+import { TripsLayer } from "deck.gl";
 
 // TODO: set style toggle for user
 // let styleToggle = 'full';
 // let styleToggle = "retail";
+
 
 let mapOptions: unknown;
 
@@ -78,8 +81,6 @@ function MyMap() {
   // const nearbyPlacesArray = useAtomValue(nearbyPlacesAtom)
   const nearbyPlacesArray = useAtomValue(nearbyPlacesAtom) 
   const setMapReload = useSetAtom(mapReloadAtom)
-
-
   // const loadValue = useAtomValue(loadingAtom);
   // const setLoadValue = useSetAtom(loadingAtom);
   const [loadValue, setLoadValue] = useState(false)
@@ -154,6 +155,32 @@ function moveToLocation(lat: number, lng: number) {
 let overlay: unknown;
 
 function createOverlay(map) {
+
+const DATA_URL =
+  "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/trips/trips-v7.json";
+
+const LOOP_LENGTH = 1800;
+const VENDOR_COLORS = [
+  [255, 0, 0], // vendor #0
+  [0, 0, 255], // vendor #1
+];
+const overlay2 = new GoogleMapsOverlay({});
+  let currentTime = 0;
+  const props = {
+    id: "trips",
+    data: DATA_URL,
+    getPath: (d: Data) => d.path,
+    getTimestamps: (d: Data) => d.timestamps,
+    getColor: (d: Data) => VENDOR_COLORS[d.vendor],
+    opacity: 1,
+    widthMinPixels: 2,
+    trailLength: 180,
+    currentTime,
+    shadowEnabled: false,
+  };
+
+
+
   overlay = new google.maps.WebGLOverlayView();
   let renderer: WebGLBufferRenderer, scene: Scene, camera: Camera, loader: Loader;
 
@@ -205,6 +232,23 @@ function createOverlay(map) {
     // gives us control of setting renderer before next scene
     renderer.autoClear = false;
 
+    const animate = () => {
+      currentTime = (currentTime + 1) % LOOP_LENGTH;
+
+      const tripsLayer = new TripsLayer({
+        ...props,
+        currentTime,
+      });
+
+      overlay2.setProps({
+        layers: [tripsLayer],
+      });
+
+      window.requestAnimationFrame(animate);
+    };
+
+    window.requestAnimationFrame(animate);
+
     // happens when scene is rendered, can use to start animation
     loader.manager.onLoad = () => {
       renderer.setAnimationLoop(() => {
@@ -245,6 +289,8 @@ function createOverlay(map) {
   };
   // tells overlay which map to use
   overlay.setMap(map);
+
+  overlay2.setMap(map);
 
   return overlay;
 }
