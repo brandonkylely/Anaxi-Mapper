@@ -54,8 +54,8 @@ export default function HomePage() {
           <div className="text-sm w-40 font-normal">B.B.A. in Finance</div> 
       </div>
       <div className="flex justify-around">
-        <a href="" className="text-amber-50 text-3xl" target="_blank"><i className="fa-brands fa-github"></i></a>
-        <a href="" className="text-amber-50 text-3xl" target="_blank"><i className="fa-brands fa-linkedin"></i></a>
+        <a href="https://github.com/Lsenn404" className="text-amber-50 text-3xl" target="_blank"><i className="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/logansenn/" className="text-amber-50 text-3xl" target="_blank"><i className="fa-brands fa-linkedin"></i></a>
         <a href="" className="text-amber-50 text-3xl" target="_blank"><i className="fa-solid fa-file"></i></a>
       </div>
     </div>
