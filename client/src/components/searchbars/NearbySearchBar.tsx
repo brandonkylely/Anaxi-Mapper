@@ -183,10 +183,10 @@ export default function NearbySearchBar() {
         destinations: destinations,
         travelMode: google.maps.TravelMode.DRIVING,
       };
-      console.log("request", request)
+      console.log("request", request);
       distanceMatrixService.getDistanceMatrix(request, (response, status) => {
         if (status === "OK") {
-          console.log("response", response)
+          console.log("response", response);
           resolve(response);
         } else {
           reject(`Error fetching distance matrix: ${status}`);
