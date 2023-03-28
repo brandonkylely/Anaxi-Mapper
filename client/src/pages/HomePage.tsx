@@ -35,12 +35,12 @@ export default function HomePage() {
           <div className="text-sm w-40 font-normal">B.S. in Biochemistry</div> 
       </div>
       <div className="flex justify-around">
-        <a href="https://github.com/brandonkylely" className="text-amber-50 text-3xl"><i className="fa-brands fa-github"></i></a>
+        <a href="https://github.com/brandonkylely" className="text-amber-50 text-3xl "><i className="fa-brands fa-github"></i></a>
         <a href="https://www.linkedin.com/in/brandon-ly-7300b1205/" className="text-amber-50 text-3xl"><i className="fa-brands fa-linkedin"></i></a>
         <a href="https://brandonkylely.github.io/r3-portfolio/" className="text-amber-50 text-3xl"><i className="fa-solid fa-file"></i></a>
       </div>
     </div>
-    {/* empty promo card */}
+    {/* logan promo card */}
     <div className="z-10 text-xl font-fuzzy-bubbles">
       <div className="logan h-40 w-40 border-2 border-amber-50 rounded-full"/>
       <div className="text-center font-bold text-amber-50 italic">
