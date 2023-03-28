@@ -39,7 +39,7 @@ export default function Signup() {
       //update user state
       setUser(user.data);
       //maybe redirect to home page?
-      navigate("/");
+      navigate("/search");
     } catch (err) {
       console.log(err);
       //failed, what do?
