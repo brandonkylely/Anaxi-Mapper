@@ -35,9 +35,9 @@ export default function HomePage() {
           <div className="text-sm w-40 font-normal">B.S. in Biochemistry</div> 
       </div>
       <div className="flex justify-around">
-        <a href="https://github.com/brandonkylely" className="text-amber-50 text-3xl "><i className="fa-brands fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/brandon-ly-7300b1205/" className="text-amber-50 text-3xl"><i className="fa-brands fa-linkedin"></i></a>
-        <a href="https://brandonkylely.github.io/r3-portfolio/" className="text-amber-50 text-3xl"><i className="fa-solid fa-file"></i></a>
+        <a href="https://github.com/brandonkylely" className="text-amber-50 text-3xl" target="_blank"><i className="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/brandon-ly-7300b1205/" className="text-amber-50 text-3xl" target="_blank"><i className="fa-brands fa-linkedin"></i></a>
+        <a href="https://brandonkylely.github.io/r3-portfolio/" className="text-amber-50 text-3xl" target="_blank"><i className="fa-solid fa-file"></i></a>
       </div>
     </div>
     {/* logan promo card */}
@@ -54,47 +54,47 @@ export default function HomePage() {
           <div className="text-sm w-40 font-normal">fun fact</div> 
       </div>
       <div className="flex justify-around">
-        <a href="" className="text-amber-50 text-3xl"><i className="fa-brands fa-github"></i></a>
-        <a href="" className="text-amber-50 text-3xl"><i className="fa-brands fa-linkedin"></i></a>
-        <a href="" className="text-amber-50 text-3xl"><i className="fa-solid fa-file"></i></a>
+        <a href="" className="text-amber-50 text-3xl" target="_blank"><i className="fa-brands fa-github"></i></a>
+        <a href="" className="text-amber-50 text-3xl" target="_blank"><i className="fa-brands fa-linkedin"></i></a>
+        <a href="" className="text-amber-50 text-3xl" target="_blank"><i className="fa-solid fa-file"></i></a>
       </div>
     </div>
     {/* empty promo card */}
     <div className="z-10 text-xl font-fuzzy-bubbles">
       <div className="mirjana h-40 w-40 border-2 border-amber-50 rounded-full"/>
       <div className="text-center font-bold text-amber-50 italic">
-        <span className="font-righteous font-medium">name</span>
+        <span className="font-righteous font-medium">Hannah Kim</span>
         <br />
-        <span className="font-medium font-righteous">title</span>
+        <span className="font-medium font-righteous w-40">Software Dev.</span>
         <br/>
         <div className="text-sm font-normal w-40">
-          occupation
+          title
           </div>
           <div className="text-sm w-40 font-normal">fun fact</div> 
       </div>
       <div className="flex justify-around">
-        <a href="" className="text-amber-50 text-3xl"><i className="fa-brands fa-github"></i></a>
-        <a href="" className="text-amber-50 text-3xl"><i className="fa-brands fa-linkedin"></i></a>
-        <a href="" className="text-amber-50 text-3xl"><i className="fa-solid fa-file"></i></a>
+        <a href="" className="text-amber-50 text-3xl" target="_blank"><i className="fa-brands fa-github"></i></a>
+        <a href="" className="text-amber-50 text-3xl" target="_blank"><i className="fa-brands fa-linkedin"></i></a>
+        <a href="" className="text-amber-50 text-3xl" target="_blank"><i className="fa-solid fa-file"></i></a>
       </div>
     </div>
     {/* empty promo card */}
     <div className="z-10 text-xl font-fuzzy-bubbles">
       <div className="hannah h-40 w-40 border-2 border-amber-50 rounded-full"/>
       <div className="text-center font-bold text-amber-50 italic">
-        <span className="font-righteous font-medium">name</span>
+        <span className="font-righteous font-medium">Mirjana Dukic</span>
         <br />
-        <span className="font-medium font-righteous">title</span>
+        <span className="font-medium font-righteous w-40">Software Dev.</span>
         <br/>
         <div className="text-sm font-normal w-40">
-          occupation
+          <title></title>
           </div>
           <div className="text-sm w-40 font-normal">fun fact</div> 
       </div>
       <div className="flex justify-around">
-        <a href="" className="text-amber-50 text-3xl"><i className="fa-brands fa-github"></i></a>
-        <a href="" className="text-amber-50 text-3xl"><i className="fa-brands fa-linkedin"></i></a>
-        <a href="" className="text-amber-50 text-3xl"><i className="fa-solid fa-file"></i></a>
+        <a href="" className="text-amber-50 text-3xl" target="_blank"><i className="fa-brands fa-github"></i></a>
+        <a href="" className="text-amber-50 text-3xl" target="_blank"><i className="fa-brands fa-linkedin"></i></a>
+        <a href="" className="text-amber-50 text-3xl" target="_blank"><i className="fa-solid fa-file"></i></a>
       </div>
     </div>
 
