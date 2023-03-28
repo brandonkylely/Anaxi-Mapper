@@ -17,6 +17,7 @@ import {
   categoryAtom,
   nextPageAtom,
   currentParamsAtom,
+  originIDAtom,
 } from "../../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import NearbySearchResults from "../results/NearbySearchResults";
@@ -126,6 +127,7 @@ export default function NearbySearchBar() {
   const setNearbySearch = useSetAtom(nearbyPlacesAtom);
   const setReloading = useSetAtom(mapReloadAtom);
   const formattedAddress = useAtomValue(addressAtom);
+  const originID = useAtomValue(originIDAtom);
   // const setLoadValue = useSetAtom(loadingAtom)
 
   //if search result comes back with more than 20 results, will be called
@@ -136,6 +138,7 @@ export default function NearbySearchBar() {
   const [radius, setRadius] = useState<string>("");
   const [type, setType] = useState<string>("");
   const [keyword, setKeyword] = useState<string>("");
+  let resultDestinations = [];
 
   const nav = useNavigate();
 
@@ -199,39 +202,52 @@ export default function NearbySearchBar() {
       type: type,
     });
 
-    getNearby(userParams).then((result) => {
-      localStorage.setItem("lastCoords", JSON.stringify(coordValue));
-
-      // setReloading(true);
-      // setTimeout(() => setReloading(false), 300);
-
-      // console.log('getNearby Result', result)
-      // setSearch(result);
-      // console.log(result);
-      // return result.json();
-      // alert(`${apiFetch(result)}`);
-    });
-  };
-
-  const RouteMatrix = async (originPlaceId, destinationPlaceIds) => {
-    return new Promise((resolve, reject) => {
-      const distanceMatrixService = new google.maps.DistanceMatrixService();
-      const destinations = destinationPlaceIds.map((placeId) => ({ placeId }));
-      const request = {
-        origins: [{ placeId: originPlaceId }],
-        destinations: destinations,
-        travelMode: google.maps.TravelMode.DRIVING,
-      };
-      console.log("request", request);
-      distanceMatrixService.getDistanceMatrix(request, (response, status) => {
-        if (status === "OK") {
-          console.log("response", response);
-          resolve(response);
-        } else {
-          reject(`Error fetching distance matrix: ${status}`);
-        }
+    const RouteMatrix = async (originPlaceId, destinationPlaceIds) => {
+      return new Promise((resolve, reject) => {
+        const distanceMatrixService = new google.maps.DistanceMatrixService();
+        const destinations = destinationPlaceIds.map((placeId) => ({
+          placeId,
+        }));
+        const request = {
+          origins: [{ placeId: originPlaceId }],
+          destinations: destinations,
+          travelMode: google.maps.TravelMode.DRIVING,
+        };
+        console.log("request", request);
+        distanceMatrixService.getDistanceMatrix(request, (response, status) => {
+          if (status === "OK") {
+            console.log("response", response);
+            resultDestinations = [];
+            
+            resolve(response);
+          } else {
+            reject(`Error fetching distance matrix: ${status}`);
+          }
+        });
       });
-    });
+    };
+
+    getNearby(userParams)
+      .then((result) => {
+        localStorage.setItem("lastCoords", JSON.stringify(coordValue));
+        console.log("TESTINGdata", result);
+        result.searchResults.map((place: any) => {
+          resultDestinations.push(place.place_id);
+        });
+        // setReloading(true);
+        // setTimeout(() => setReloading(false), 300);
+
+        // console.log('getNearby Result', result)
+        // setSearch(result);
+        // console.log(result);
+        // return result.json();
+        // alert(`${apiFetch(result)}`);
+      })
+      .then(() => {
+        console.log("resultDestinations!!!!!!!!!!!!!!!!!", resultDestinations);
+        console.log("originID", originID);
+        RouteMatrix(originID, resultDestinations);
+      });
   };
 
   async function getNearby(userParams: object) {
@@ -257,6 +273,7 @@ export default function NearbySearchBar() {
       // console.log(nearbyData);
       // console.log("setting Loaded");
       setLoaded(true);
+      return nearbyData;
     }
 
     //TODO: if moreResults is true, generate a button that can make another API call to get the next 20 results

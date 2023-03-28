@@ -2,7 +2,7 @@
 // @ts-nocheck
 import { MouseEventHandler, useState, useContext } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { coordinateAtom, userAtom, addressAtom, categoryAtom } from "../../state";
+import { coordinateAtom, userAtom, addressAtom, categoryAtom, originIDAtom } from "../../state";
 import Categories from "../archived-components/Categories";
 // import coordState from "../state";
 import { nearbySearchData, post } from "../../api";
@@ -149,6 +149,7 @@ export default function SearchBar() {
   const coordValue = useAtomValue(coordinateAtom);
   const setCoord = useSetAtom(coordinateAtom);
   const setAddress = useSetAtom(addressAtom);
+  const [originID, setOriginID] = useAtom(originIDAtom);
 
   const [loaded, setLoaded] = useState(false);
 
@@ -205,6 +206,7 @@ export default function SearchBar() {
       setLoaded(true);
       setCoord(addressData.newAddress.coords);
       setAddress(addressData.newAddress.address);
+      setOriginID(addressData.newAddress.place_id);
     }
     if (!addressData.validAddress) console.log("that is not a valid address");
     // setCoord(addressData.newAddress.coords);

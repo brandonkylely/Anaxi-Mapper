@@ -44,14 +44,14 @@ export default function HomePage() {
     <div className="z-10 text-xl font-fuzzy-bubbles">
       <div className="logan h-40 w-40 border-2 border-amber-50 rounded-full"/>
       <div className="text-center font-bold text-amber-50 italic">
-        <span className="font-righteous font-medium">name</span>
+        <span className="font-righteous font-medium">Logan Senn</span>
         <br />
-        <span className="font-medium font-righteous">title</span>
+        <span className="font-medium font-righteous">Co-Lead Developer</span>
         <br/>
         <div className="text-sm font-normal w-40">
-          occupation
+          Fullstack Developer
           </div>
-          <div className="text-sm w-40 font-normal">fun fact</div> 
+          <div className="text-sm w-40 font-normal">B.B.A. in Finance</div> 
       </div>
       <div className="flex justify-around">
         <a href="" className="text-amber-50 text-3xl" target="_blank"><i className="fa-brands fa-github"></i></a>
