@@ -10,4 +10,6 @@ function fetch(){
 
 fetch()
 
+// https://maps.googleapis.com/maps/api/directions/json?origin=Disneyland&destination=Universal+Studios+Hollywood&key=AIzaSyDxzeVlpiFMVDKZyK12PFPHc69U0Pvf6Z8
+
 // https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=1500&type=${type}&keyword=${keyword}&key=import.meta.env.VITE_APIKEY`
