@@ -25,7 +25,7 @@ export default function MainPage() {
         <button
           className="col-start-10 mx-1 transition-all ease-out duration-300 pt-1 hover:scale-110 hover:bg-black hover:bg-opacity-10 border-1 rounded-t-lg text-xl tracking-wide text-stone-800"
           onClick={() => {
-            navigate("/home");
+            navigate("/");
           }}
         >
           home

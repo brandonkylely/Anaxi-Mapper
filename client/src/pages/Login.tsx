@@ -29,7 +29,7 @@ export default function Login() {
       const user = token.decode(data.data.token);
       localStorage.setItem("userId", data.data.userId);
       setUser(user.data);
-      navigate("/");
+      navigate("/search");
     } catch (err: unknown) {
       //this will either be Username not found!
       //or Incorrect password!

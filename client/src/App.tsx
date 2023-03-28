@@ -41,8 +41,8 @@ function App() {
           LOGOUT
         </Link> */}
       <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/home" element={<HomePage />} />
+        <Route path="/search" element={<MainPage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/favorites" element={<SearchList />} />

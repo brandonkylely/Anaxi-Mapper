@@ -1,4 +1,9 @@
-import { MouseEventHandler, ChangeEventHandler, useState, useEffect } from "react";
+import {
+  MouseEventHandler,
+  ChangeEventHandler,
+  useState,
+  useEffect,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { nearbySearchData, post } from "../../api";
 import Categories from "../archived-components/Categories";
@@ -12,6 +17,7 @@ import {
   categoryAtom,
   nextPageAtom,
   currentParamsAtom,
+  originIDAtom,
 } from "../../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import NearbySearchResults from "../results/NearbySearchResults";
@@ -121,6 +127,7 @@ export default function NearbySearchBar() {
   const setNearbySearch = useSetAtom(nearbyPlacesAtom);
   const setReloading = useSetAtom(mapReloadAtom);
   const formattedAddress = useAtomValue(addressAtom);
+  const originID = useAtomValue(originIDAtom);
   // const setLoadValue = useSetAtom(loadingAtom)
 
   //if search result comes back with more than 20 results, will be called
@@ -131,6 +138,7 @@ export default function NearbySearchBar() {
   const [radius, setRadius] = useState<string>("");
   const [type, setType] = useState<string>("");
   const [keyword, setKeyword] = useState<string>("");
+  let resultDestinations = [];
 
   const nav = useNavigate();
 
@@ -146,23 +154,22 @@ export default function NearbySearchBar() {
   //       });
 
   const handleTypeSelect = (event: ChangeEventHandler) => {
-    const selection = event.target.value.toLowerCase()
-    setType(selection.replaceAll(' ', '_'))
+    const selection = event.target.value.toLowerCase();
+    setType(selection.replaceAll(" ", "_"));
     // console.log(event.target.value)
-  }
+  };
 
   // useEffect(() =>{
   //   console.log("type" + type)
   // }, [type])
 
-
   const handleSetUserParams = (event: ChangeEventHandler) => {
     const { name, value } = event.target;
     return name === "radius"
       ? setRadius(value)
-      // : name === "type"
-      // ? setType(value)
-      : setKeyword(value);
+      : // : name === "type"
+        // ? setType(value)
+        setKeyword(value);
   };
 
   const handleFormSubmit = (event: any) => {
@@ -185,7 +192,7 @@ export default function NearbySearchBar() {
       //loadNextPage is a state that defaults to false, becomes true when the user clicks the next page button
       useNextPage: loadNextPage,
     };
-    console.log("userParams",userParams)
+    console.log("userParams", userParams);
     // console.log("keyword",keyword)
     setCurrentParams({
       coords: coordValue,
@@ -195,22 +202,56 @@ export default function NearbySearchBar() {
       type: type,
     });
 
-    getNearby(userParams).then((result) => {
-      localStorage.setItem("lastCoords", JSON.stringify(coordValue));
+    const RouteMatrix = async (originPlaceId, destinationPlaceIds) => {
+      return new Promise((resolve, reject) => {
+        const distanceMatrixService = new google.maps.DistanceMatrixService();
+        const destinations = destinationPlaceIds.map((placeId) => ({
+          placeId,
+        }));
+        const request = {
+          origins: [{ placeId: originPlaceId }],
+          destinations: destinations,
+          travelMode: google.maps.TravelMode.DRIVING,
+        };
+        console.log("request", request);
+        distanceMatrixService.getDistanceMatrix(request, (response, status) => {
+          if (status === "OK") {
+            console.log("response", response);
+            resultDestinations = [];
+            
+            resolve(response);
+          } else {
+            reject(`Error fetching distance matrix: ${status}`);
+          }
+        });
+      });
+    };
 
-      // setReloading(true);
-      // setTimeout(() => setReloading(false), 300);
+    getNearby(userParams)
+      .then((result) => {
+        localStorage.setItem("lastCoords", JSON.stringify(coordValue));
+        console.log("TESTINGdata", result);
+        result.searchResults.map((place: any) => {
+          resultDestinations.push(place.place_id);
+        });
+        // setReloading(true);
+        // setTimeout(() => setReloading(false), 300);
 
-      // console.log('getNearby Result', result)
-      // setSearch(result);
-      // console.log(result);
-      // return result.json();
-      // alert(`${apiFetch(result)}`);
-    });
+        // console.log('getNearby Result', result)
+        // setSearch(result);
+        // console.log(result);
+        // return result.json();
+        // alert(`${apiFetch(result)}`);
+      })
+      .then(() => {
+        console.log("resultDestinations!!!!!!!!!!!!!!!!!", resultDestinations);
+        console.log("originID", originID);
+        RouteMatrix(originID, resultDestinations);
+      });
   };
 
   async function getNearby(userParams: object) {
-    console.log(userParams)
+    console.log(userParams);
     const nearbyData = await post("/api/address/nearby", { userParams });
     //nearbyData
     //  searchResults: the result of the nearbySearchData API call
@@ -232,6 +273,7 @@ export default function NearbySearchBar() {
       // console.log(nearbyData);
       // console.log("setting Loaded");
       setLoaded(true);
+      return nearbyData;
     }
 
     //TODO: if moreResults is true, generate a button that can make another API call to get the next 20 results
@@ -269,11 +311,15 @@ export default function NearbySearchBar() {
         /> */}
 
         {/* needs work */}
-        <select name="type" 
-        onChange={handleTypeSelect}
-        className="font-fuzzy-bubbles w-1/6 h-12 text-2xl py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600">
+        <select
+          name="type"
+          onChange={handleTypeSelect}
+          className="font-fuzzy-bubbles w-1/6 h-12 text-2xl py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
+        >
           {category.map((option, index) => (
-            <option value={option.name} key={index}>{option.name}</option>
+            <option value={option.name} key={index}>
+              {option.name}
+            </option>
           ))}
         </select>
         <input
@@ -292,7 +338,7 @@ export default function NearbySearchBar() {
         </button>
       </form>
       <FavoriteList />
-      {loaded ? <NearbySearchResults/> : <div></div>}
+      {loaded ? <NearbySearchResults /> : <div></div>}
     </>
   );
 }
