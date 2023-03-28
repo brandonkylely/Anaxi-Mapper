@@ -24,7 +24,7 @@
 
   [Developer Roadmap 🛣️](#developer-roadmap-🛣️)
 
-  [Developers 🤓🤓🤓🤓](#developers-:nerd_face::nerd_face::nerd_face::nerd_face:)
+  [Developers 🤓🤓🤓🤓](#developers:nerd_face::nerd_face::nerd_face::nerd_face:)
 
   [Acknowledgements 👨‍💻👨‍💻](#acknowledgements-👨‍💻👨‍💻)
 
@@ -82,7 +82,7 @@
 
   - User QOL improvements
 
-  ## Developers :nerd_face::nerd_face::nerd_face::nerd_face:
+  ## Developers:nerd_face::nerd_face::nerd_face::nerd_face:
 
   Brandon Ly 🫠 : [Github](https://github.com/brandonkylely) & [LinkedIn](https://www.linkedin.com/in/brandon-ly-7300b1205/) & [Email](mailto:brandonkly@ucla.edu)
 
