@@ -17,17 +17,21 @@ import {
   InstancedBufferAttribute,
 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { nearbyPlacesAtom, coordinateAtom, loadingAtom } from "../../state";
+import { nearbyPlacesAtom, coordinateAtom, loadingAtom, mapStyleAtom, mapReloadAtom } from "../../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 // TODO: set style toggle for user
 // let styleToggle = 'full';
-let styleToggle = "retail";
+// let styleToggle = "retail";
 
 let mapOptions: unknown;
 
 export default function Mapper() {
+  const mapStyleValue = useAtomValue(mapStyleAtom);
   const coordValue = useAtomValue(coordinateAtom);
+
+
+
   // coordValue = useAtomValue(coordinateAtom);
   // mapOptions.center = coordValue;
 
@@ -42,9 +46,10 @@ export default function Mapper() {
   //     moveToLocation(coordValue.lat, coordValue.lng);
   //   }
   // }, [coordValue]);
+//     mapId: mapStyleValue === "full" ? "605e131c3939f175" : "f5d27befd916db8c"
 
   mapOptions = {
-    mapId: styleToggle === "full" ? "605e131c3939f175" : "f5d27befd916db8c",
+    mapId: mapStyleValue === "full" ? "605e131c3939f175" : "f5d27befd916db8c",
     center: coordValue || { lat: 34.0729297, lng: -118.4401635 },
     // zoom based on secondary search radius
     zoom: 19,
@@ -72,6 +77,7 @@ function MyMap() {
   const coordValue = useAtomValue(coordinateAtom)
   // const nearbyPlacesArray = useAtomValue(nearbyPlacesAtom)
   const nearbyPlacesArray = useAtomValue(nearbyPlacesAtom) 
+  const setMapReload = useSetAtom(mapReloadAtom)
 
 
   // const loadValue = useAtomValue(loadingAtom);

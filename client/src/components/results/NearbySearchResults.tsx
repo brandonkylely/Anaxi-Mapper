@@ -51,13 +51,13 @@ export default function NearbySearchResults() {
       <div className="container flex justify-between">
         <div className="font-righteous m-4 bg-white border border-gray-200 rounded-lg shadow p-4">
           <Favorite id={id} place_id={place_id} address={address} />
-          <h5 className="mb-2 text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
+          <h5 className="mb-2 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
             {address}
           </h5>
-          <h6 className="mb-4 text-3xl font-light tracking-tight text-gray-900 dark:text-white">
+          <h6 className="mb-4 text-2xl font-light tracking-tight text-gray-900 dark:text-white">
             Nearby Results
           </h6>
-          <div className="text-2xl flex flex-wrap columns-3 font-fuzzy-bubbles text-gray-700 dark:text-gray-400">
+          <div className="text-xl flex flex-wrap columns-3 font-fuzzy-bubbles text-gray-700 dark:text-gray-400">
             {searchResults.map((result) => (
               <div className=" w-full m-3 p-4 border border-gray-200 rounded-lg shadow" key={result.place_id}>
                 <ul>

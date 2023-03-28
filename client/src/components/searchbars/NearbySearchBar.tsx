@@ -15,6 +15,7 @@ import {
 } from "../../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import NearbySearchResults from "../results/NearbySearchResults";
+import FavoriteList from "../results/FavoriteList";
 
 const category = [
   { id: 1, name: "Accounting" },
@@ -164,8 +165,6 @@ export default function NearbySearchBar() {
       : setKeyword(value);
   };
 
-  const testing = (event: any) => {};
-
   const handleFormSubmit = (event: any) => {
     event.preventDefault();
     // console.log("query", query);
@@ -292,7 +291,8 @@ export default function NearbySearchBar() {
           submit
         </button>
       </form>
-      {loaded ? <NearbySearchResults></NearbySearchResults> : <div></div>}
+      <FavoriteList />
+      {loaded ? <NearbySearchResults/> : <div></div>}
     </>
   );
 }

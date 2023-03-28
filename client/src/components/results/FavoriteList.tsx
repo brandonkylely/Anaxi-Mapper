@@ -105,7 +105,7 @@ export default function FavoriteList() {
   // });
 
   return (
-    <div className="container flex place-content-center xy-40">
+    <div className="container flex place-content-start">
       <div className="m-4 bg-white border border-gray-200 rounded-lg shadow p-4">
         <div className="w-full font-righteous text-lg text-left text-gray-500 dark:text-gray-400">
           {/* <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -119,9 +119,7 @@ export default function FavoriteList() {
             </tr>
           </thead> */}
           {/* <tbody>{renderTableBody}</tbody> */}
-
-
-
+          <h4 className="font-semibold">favorited searches:</h4>
           {localLoader && favoriteValue.map((favorite, index) => (
             <div key={favorite._id}>
               {favorite.address} ({index + 1}): {favorite.search[0].types[0]}, {favorite.search[0].types[1]}, and more
