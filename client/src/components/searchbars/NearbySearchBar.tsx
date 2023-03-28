@@ -1,4 +1,9 @@
-import { MouseEventHandler, ChangeEventHandler, useState, useEffect } from "react";
+import {
+  MouseEventHandler,
+  ChangeEventHandler,
+  useState,
+  useEffect,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { nearbySearchData, post } from "../../api";
 import Categories from "../archived-components/Categories";
@@ -146,23 +151,22 @@ export default function NearbySearchBar() {
   //       });
 
   const handleTypeSelect = (event: ChangeEventHandler) => {
-    const selection = event.target.value.toLowerCase()
-    setType(selection.replaceAll(' ', '_'))
+    const selection = event.target.value.toLowerCase();
+    setType(selection.replaceAll(" ", "_"));
     // console.log(event.target.value)
-  }
+  };
 
   // useEffect(() =>{
   //   console.log("type" + type)
   // }, [type])
 
-
   const handleSetUserParams = (event: ChangeEventHandler) => {
     const { name, value } = event.target;
     return name === "radius"
       ? setRadius(value)
-      // : name === "type"
-      // ? setType(value)
-      : setKeyword(value);
+      : // : name === "type"
+        // ? setType(value)
+        setKeyword(value);
   };
 
   const handleFormSubmit = (event: any) => {
@@ -185,7 +189,7 @@ export default function NearbySearchBar() {
       //loadNextPage is a state that defaults to false, becomes true when the user clicks the next page button
       useNextPage: loadNextPage,
     };
-    console.log("userParams",userParams)
+    console.log("userParams", userParams);
     // console.log("keyword",keyword)
     setCurrentParams({
       coords: coordValue,
@@ -209,8 +213,29 @@ export default function NearbySearchBar() {
     });
   };
 
+  const RouteMatrix = async (originPlaceId, destinationPlaceIds) => {
+    return new Promise((resolve, reject) => {
+      const distanceMatrixService = new google.maps.DistanceMatrixService();
+      const destinations = destinationPlaceIds.map((placeId) => ({ placeId }));
+      const request = {
+        origins: [{ placeId: originPlaceId }],
+        destinations: destinations,
+        travelMode: google.maps.TravelMode.DRIVING,
+      };
+      console.log("request", request);
+      distanceMatrixService.getDistanceMatrix(request, (response, status) => {
+        if (status === "OK") {
+          console.log("response", response);
+          resolve(response);
+        } else {
+          reject(`Error fetching distance matrix: ${status}`);
+        }
+      });
+    });
+  };
+
   async function getNearby(userParams: object) {
-    console.log(userParams)
+    console.log(userParams);
     const nearbyData = await post("/api/address/nearby", { userParams });
     //nearbyData
     //  searchResults: the result of the nearbySearchData API call
@@ -269,11 +294,15 @@ export default function NearbySearchBar() {
         /> */}
 
         {/* needs work */}
-        <select name="type" 
-        onChange={handleTypeSelect}
-        className="font-fuzzy-bubbles w-1/6 h-12 text-2xl py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600">
+        <select
+          name="type"
+          onChange={handleTypeSelect}
+          className="font-fuzzy-bubbles w-1/6 h-12 text-2xl py-1 pl-3 pr-2 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
+        >
           {category.map((option, index) => (
-            <option value={option.name} key={index}>{option.name}</option>
+            <option value={option.name} key={index}>
+              {option.name}
+            </option>
           ))}
         </select>
         <input
@@ -292,7 +321,7 @@ export default function NearbySearchBar() {
         </button>
       </form>
       <FavoriteList />
-      {loaded ? <NearbySearchResults/> : <div></div>}
+      {loaded ? <NearbySearchResults /> : <div></div>}
     </>
   );
 }
