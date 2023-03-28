@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import Routes from "../components/results/Routes";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -157,6 +158,7 @@ export default function HomePage() {
           </div>
         </div>
       </div>
+      <Routes />
       <footer></footer>
     </div>
   );
