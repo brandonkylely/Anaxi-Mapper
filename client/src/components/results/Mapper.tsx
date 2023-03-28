@@ -17,23 +17,27 @@ import {
   InstancedBufferAttribute,
 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { nearbyPlacesAtom, coordinateAtom, loadingAtom, mapStyleAtom, mapReloadAtom } from "../../state";
+import {
+  nearbyPlacesAtom,
+  coordinateAtom,
+  loadingAtom,
+  mapStyleAtom,
+  mapReloadAtom,
+} from "../../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { GoogleMapsOverlay } from "@deck.gl/google-maps";
 import { TripsLayer } from "deck.gl";
+import polyline from "@mapbox/polyline";
 
 // TODO: set style toggle for user
 // let styleToggle = 'full';
 // let styleToggle = "retail";
-
 
 let mapOptions: unknown;
 
 export default function Mapper() {
   const mapStyleValue = useAtomValue(mapStyleAtom);
   const coordValue = useAtomValue(coordinateAtom);
-
-
 
   // coordValue = useAtomValue(coordinateAtom);
   // mapOptions.center = coordValue;
@@ -49,7 +53,7 @@ export default function Mapper() {
   //     moveToLocation(coordValue.lat, coordValue.lng);
   //   }
   // }, [coordValue]);
-//     mapId: mapStyleValue === "full" ? "605e131c3939f175" : "f5d27befd916db8c"
+  //     mapId: mapStyleValue === "full" ? "605e131c3939f175" : "f5d27befd916db8c"
 
   mapOptions = {
     mapId: mapStyleValue === "full" ? "605e131c3939f175" : "f5d27befd916db8c",
@@ -60,7 +64,6 @@ export default function Mapper() {
     heading: 15,
     tilt: 55,
   };
-  
 
   return (
     <>
@@ -77,13 +80,13 @@ function MyMap() {
   const overlayRef = useRef();
   const [map, setMap] = useState();
   const ref = useRef();
-  const coordValue = useAtomValue(coordinateAtom)
+  const coordValue = useAtomValue(coordinateAtom);
   // const nearbyPlacesArray = useAtomValue(nearbyPlacesAtom)
-  const nearbyPlacesArray = useAtomValue(nearbyPlacesAtom) 
-  const setMapReload = useSetAtom(mapReloadAtom)
+  const nearbyPlacesArray = useAtomValue(nearbyPlacesAtom);
+  const setMapReload = useSetAtom(mapReloadAtom);
   // const loadValue = useAtomValue(loadingAtom);
   // const setLoadValue = useSetAtom(loadingAtom);
-  const [loadValue, setLoadValue] = useState(false)
+  const [loadValue, setLoadValue] = useState(false);
 
   // mapOptions.center = coordValue
 
@@ -155,34 +158,49 @@ function moveToLocation(lat: number, lng: number) {
 let overlay: unknown;
 
 function createOverlay(map) {
+  const encodedPolyline =
+    "{p~nEbt~qUORn@x@r@`AjDnEbC~CPZLb@JdA?^Gn@Qx@E`@@z@Hj@Pd@dAxAlBlC^n@Vz@AJ@NJpAC~@UrAWn@g@x@k@h@c@l@O`@Md@Eb@DbA`@pAdAdCxBbF`@~@~@xBgAnA]ZSFKBKCMEM]C]@a@J[JOVY?SNMbBmA~@s@rB}AfEiDxLgKfS}PpNoLtGiFfGwEhMeJxDsCtGiFjEmD~AmAjAu@dAk@lAi@dDmAvCu@nDy@jCy@|BkA`CyAtBaBxD_D`F_EpLqJlOeMfDqCnDsC|@u@`Aq@d@Yn@[~@c@vAk@`Bk@T@R@r@Q~Bq@rB_ArBmA\\WN@j@a@dDaCdA]`AI^?f@Fv@Tf@Tn@f@j@t@Vj@Vr@Jf@XvBNx@`@dE@DR^BXNjBP`CXxCp@rFvA~InEpWfAnG^`CPxBFnB?z@GvDKtDC~BFzBRpCbAlIrBpP~@rGzApIdE|UxF`\\j@bDn@dDh@tB`@pA|@|BrAhCfBdClCnDvEhGhPfTV\\ETPZh@|@Zt@`@tATjBDl@Pn@NVFLBRx@`Av@hA\\n@\\j@o@x@_AjAm@t@aAnAkAxAmErFgI|J";
 
-const DATA_URL =
-  "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/trips/trips-v7.json";
+  const decodedPolyline = polyline.toGeoJSON(encodedPolyline);
+  const DATA_URL =
+    "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/trips/trips-v7.json";
 
-const LOOP_LENGTH = 1800;
-const VENDOR_COLORS = [
-  [255, 0, 0], // vendor #0
-  [0, 0, 255], // vendor #1
-];
-const overlay2 = new GoogleMapsOverlay({});
+  console.log(decodedPolyline);
+  const data = { waypoints: [] };
+  for (let i = 0; i < decodedPolyline.coordinates.length; i++) {
+    data.waypoints.push({
+      coordinates: decodedPolyline.coordinates[i],
+      timestamp: 1554772579000 + i * 10,
+    });
+  }
+
+  console.log(data, "data");
+  const LOOP_LENGTH = 1800;
+  const VENDOR_COLORS = [
+    [255, 0, 0], // vendor #0
+    [0, 0, 255], // vendor #1
+  ];
+  const overlay2 = new GoogleMapsOverlay({});
   let currentTime = 0;
   const props = {
     id: "trips",
-    data: DATA_URL,
-    getPath: (d: Data) => d.path,
+    data: data,
+    getPath: (d) => d.waypoints.map((p) => p.coordinates),
     getTimestamps: (d: Data) => d.timestamps,
-    getColor: (d: Data) => VENDOR_COLORS[d.vendor],
+    getColor: [253, 128, 93],
     opacity: 1,
     widthMinPixels: 2,
-    trailLength: 180,
-    currentTime,
-    shadowEnabled: false,
+    trailLength: 18000,
+    currentTime: 100,
   };
 
-
+  console.log(props, "props");
 
   overlay = new google.maps.WebGLOverlayView();
-  let renderer: WebGLBufferRenderer, scene: Scene, camera: Camera, loader: Loader;
+  let renderer: WebGLBufferRenderer,
+    scene: Scene,
+    camera: Camera,
+    loader: Loader;
 
   // onAdd happens once when the overlay is created
   // threejs scene setting
