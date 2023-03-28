@@ -65,10 +65,10 @@ export default function HomePage() {
       <div className="text-center font-bold text-amber-50 italic">
         <span className="font-righteous font-medium">Hannah Kim</span>
         <br />
-        <span className="font-medium font-righteous">Software Developer</span>
+        <span className="font-medium font-righteous w-40">Software Dev.</span>
         <br/>
         <div className="text-sm font-normal w-40">
-          occupation
+          title
           </div>
           <div className="text-sm w-40 font-normal">fun fact</div> 
       </div>
@@ -84,10 +84,10 @@ export default function HomePage() {
       <div className="text-center font-bold text-amber-50 italic">
         <span className="font-righteous font-medium">Mirjana Dukic</span>
         <br />
-        <span className="font-medium font-righteous">Software Developer</span>
+        <span className="font-medium font-righteous w-40">Software Dev.</span>
         <br/>
         <div className="text-sm font-normal w-40">
-          occupation
+          <title></title>
           </div>
           <div className="text-sm w-40 font-normal">fun fact</div> 
       </div>

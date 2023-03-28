@@ -23,7 +23,7 @@ export default function MainPage() {
 
         {/* to avoid redirect, convert a tags to buttons, use onclick to trigger event */}
         <button
-          className="col-start-10 transition-all ease-out duration-300 pt-4 hover:scale-110 hover:bg-black hover:bg-opacity-10 border-1 rounded-t-lg text-3xl tracking-wide text-stone-800"
+          className="col-start-10 mx-1 transition-all ease-out duration-300 pt-1 hover:scale-110 hover:bg-black hover:bg-opacity-10 border-1 rounded-t-lg text-xl tracking-wide text-stone-800"
           onClick={() => {
             navigate("/home");
           }}
@@ -31,7 +31,7 @@ export default function MainPage() {
           home
         </button>
         <button
-          className="pt-4 transition-all ease-out duration-300 pt-3 hover:scale-110 hover:bg-black hover:bg-opacity-10 border-1 rounded-t-lg text-3xl tracking-wide text-stone-800"
+          className="pt-1 mx-1 transition-all ease-out duration-300 hover:scale-110 hover:bg-black hover:bg-opacity-10 border-1 rounded-t-lg text-xl tracking-wide text-stone-800"
           onClick={() => {
             navigate("/favorites");
           }}
@@ -41,7 +41,7 @@ export default function MainPage() {
 
         {!user ? (
           <button
-            className="pt-4 transition-all ease-out duration-300 pt-3 hover:scale-110 hover:bg-black hover:bg-opacity-10 border-1 rounded-t-lg text-3xl tracking-wide text-stone-800"
+            className="pt-1 mx-1 transition-all ease-out duration-300  hover:scale-110 hover:bg-black hover:bg-opacity-10 border-1 rounded-t-lg text-xl tracking-wide text-stone-800"
             onClick={() => {
               navigate("/login");
             }}
@@ -50,7 +50,7 @@ export default function MainPage() {
           </button>
         ) : (
           <button
-            className="pt-4 transition-all ease-out duration-300 pt-3 hover:scale-110 hover:bg-black hover:bg-opacity-10 border-1 rounded-t-lg text-3xl tracking-wide text-stone-800"
+            className="pt-1 mx-1 transition-all ease-out duration-300 hover:scale-110 hover:bg-black hover:bg-opacity-10 border-1 rounded-t-lg text-xl tracking-wide text-stone-800"
             onClick={() => {
               tokenUtil.logout();
               setUser(null);
@@ -68,7 +68,7 @@ export default function MainPage() {
 
       <SearchBar />
 
-      <FavoriteList />
+      {/* <FavoriteList /> */}
     </div>
   );
 }

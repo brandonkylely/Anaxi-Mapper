@@ -7,6 +7,9 @@ import Categories from "../archived-components/Categories";
 // import coordState from "../state";
 import { nearbySearchData, post } from "../../api";
 import NearbySearchBar from "./NearbySearchBar";
+import MapStyle from "./MapStyle";
+import FavoriteList from "../results/FavoriteList";
+
 
 type City = {
   address: string;
@@ -213,6 +216,7 @@ export default function SearchBar() {
 
   return (
     <>
+      <MapStyle />
       <form className="px-4 form">
         {/* JUST POC , THIS IS HOW TO CONSUME */}
 
@@ -241,7 +245,7 @@ export default function SearchBar() {
           />
         </div> */}
       </form>
-      {loaded ? <NearbySearchBar></NearbySearchBar> : <div></div>}
+      {loaded ? <NearbySearchBar></NearbySearchBar> : <FavoriteList/>}
     </>
   );
 }
