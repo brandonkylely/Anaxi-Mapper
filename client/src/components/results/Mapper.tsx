@@ -44,7 +44,8 @@ export default function Mapper() {
   // }, [coordValue]);
 
   mapOptions = {
-    mapId: styleToggle === "full" ? "605e131c3939f175" : "f5d27befd916db8c",
+    mapId: "f5d27befd916db8c",
+    // styleToggle === "full" ? "605e131c3939f175" : "f5d27befd916db8c",
     center: coordValue || { lat: 34.0729297, lng: -118.4401635 },
     // zoom based on secondary search radius
     zoom: 19,

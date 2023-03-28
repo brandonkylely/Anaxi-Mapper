@@ -49,6 +49,8 @@ router.post("/search", auth, async (req, res) => {
   }
 });
 
+
+
 router.post("/nearby", auth, async (req, res) => {
   const returnValue = {
     validParams: false,
@@ -88,7 +90,7 @@ router.post("/nearby", auth, async (req, res) => {
       // const nearbyUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coords.lat},${coords.lng}&radius=${parameters.radius}&type=${parameters.type}&keyword=${parameters.keyword}&key=${process.env.apiKey}`;
     }
     returnValue.searchResults = filteredResults;
-
+    console.log("filteredResults", filteredResults);
     //filtered results take out any political / locality results, these are cities
     res.json(returnValue);
   } catch (err) {
@@ -96,4 +98,6 @@ router.post("/nearby", auth, async (req, res) => {
     res.json({ success: false, data: null });
   }
 });
+
+
 module.exports = router;

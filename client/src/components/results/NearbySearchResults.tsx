@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from "react";
 import Favorite from "../favorites/Favorite";
-
+import { RouteMatrix } from "./RoutingMatrix";
 import Comments from "../comments/Comments";
 import CommentsList from "../comments/CommentsList";
 import { useAtomValue, useAtom } from "jotai";
@@ -19,6 +19,8 @@ export default function NearbySearchResults() {
   const address = useAtomValue(addressAtom);
   const user = useAtomValue(userAtom);
   const currentParams = useAtomValue(currentParamsAtom);
+  // const originPlaceId = "";
+  // const destinationPlaceIds = [];
   //side project, can't figure out implementation, want to generate a button that will load more results
   //should read the next page atom, and if it is true, the last search has more than 20 results
   //this means we can make a different api search call, with the same parameters, feeding it the next page token at the end
@@ -32,8 +34,9 @@ export default function NearbySearchResults() {
   //   }
   //is set in the secondary search bar, if true, load a button that will make an api call and then set to false
   console.log("searchResults", searchResults);
-  const place_id = searchResults[0].place_id;
-  const id = searchResults[0]._id;
+  
+  // const place_id = searchResults[0].place_id;
+  // const id = searchResults[0]._id;
 
   const handleFormSubmit = (event: any) => {
     let userEmail = user.email;
@@ -50,7 +53,7 @@ export default function NearbySearchResults() {
     <>
       <div className="container flex justify-between">
         <div className="font-righteous m-4 bg-white border border-gray-200 rounded-lg shadow p-4">
-          <Favorite id={id} place_id={place_id} address={address} />
+          {/* <Favorite id={id} place_id={place_id} address={address} /> */}
           <h5 className="mb-2 text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
             {address}
           </h5>
@@ -90,6 +93,7 @@ export default function NearbySearchResults() {
               Save Search to Favorites?
             </button>
           </form>
+          {/* <RouteMatrix originPlaceId={originPlaceId} destinationPlaceIds={destinationPlaceIds} /> */}
           {/* {loadNextPage ? <NextPageButton></NextPageButton>} */}
           <Comments />
         </div>

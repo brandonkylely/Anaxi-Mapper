@@ -6,8 +6,9 @@ axios.defaults.headers["Authorization"] = `Bearer ${localStorage.getItem(
 )}`;
 
 export const test = async () => {
+  console.log("test")
   const res = await axios.get("/api/test");
-  // console.log("res.data", res.data);
+  console.log("res.data", res.data);
   return res.data;
 };
 
@@ -15,6 +16,7 @@ export const test = async () => {
 //export const addFav = () => does some fav stuff
 export const addFav = async () => {
   try {
+  console.log("addFav")
   const res = await axios.post(`/api/favorite`);
   console.log("res.data", res.data);
   return res.data;
@@ -25,6 +27,7 @@ export const addFav = async () => {
 
 export const addComment = async () => {
   try {
+  console.log("addComment")
   const res = await axios.post(`/api/comment`);
   console.log("res.data", res.data);
   return res.data;
@@ -35,6 +38,7 @@ export const addComment = async () => {
 
 
 export const nearbySearchData = async (url) => {
+  console.log("nearbySearchData")
   const res = await axios.get(url);
   console.log("res.data", res.data);
   return res.data;
@@ -48,5 +52,6 @@ export const post = async (
   params: { [key: string]: any } = {}
 ) => {
   const res = await axios.post(endpoint, params);
+  // console.log("post")
   return res.data;
 };

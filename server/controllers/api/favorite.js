@@ -69,8 +69,8 @@ router.get("/getFavoritePlaces/:UserId", auth, async (req, res) => {
   try {
     const userData = await User.findOne({ _id: req.params.UserId });
     const favorites = await userData.getFavorites();
-    console.log("favorites", favorites);
-    console.log("findUser", userData);
+    // console.log("favorites", favorites);
+    // console.log("findUser", userData);
     res.status(200).json({ success: true, favorites });
   } catch (err) {
     console.log(err);

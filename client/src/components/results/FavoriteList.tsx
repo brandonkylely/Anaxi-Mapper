@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAtomValue, useAtom, useSetAtom } from "jotai";
-import { favoriteAtom, addressAtom } from "../../state";
+import { favoriteAtom, addressAtom, userAtom } from "../../state";
 
 // type FavoritePlace = {
 //   place_id: string;
@@ -19,6 +19,7 @@ import { favoriteAtom, addressAtom } from "../../state";
 export default function FavoriteList() {
   const [favoriteValue, setFavoriteValue] = useAtom(favoriteAtom);
   const [localLoader, setLocalLoader] = useState(false);
+  const [userValue, setUserValue] = useAtom(userAtom);
 
   //const favList = useAtomValue(favoriteAtom);
   //console.log('favList',favList)
@@ -30,9 +31,13 @@ export default function FavoriteList() {
   //   place_id: props.place_id,
   //   address: props.address,
   // };
-  
 
-  useEffect((): void => {
+  useEffect((): void => { //checks if there is a user first, if no user, values will not be pulled from db and local storage will be cleared
+    if (!userValue) {
+      localStorage.clear();
+      console.log("no user logged in")
+      return;
+    }
     fetchFavorites();
     console.log(favoriteValue);
   }, [localLoader]);
@@ -120,17 +125,15 @@ export default function FavoriteList() {
           </thead> */}
           {/* <tbody>{renderTableBody}</tbody> */}
 
-
-
-          {localLoader && favoriteValue.map((favorite, index) => (
-            <div key={favorite._id}>
-              {favorite.address} ({index + 1}): {favorite.search[0].types[0]}, {favorite.search[0].types[1]}, and more
-            </div>))}
+          {localLoader &&
+            favoriteValue.map((favorite, index) => (
+              <div key={favorite._id}>
+                {favorite.address} ({index + 1}): {favorite.search[0].types[0]},{" "}
+                {favorite.search[0].types[1]}, and more
+              </div>
+            ))}
         </div>
       </div>
     </div>
   );
 }
-
-
-

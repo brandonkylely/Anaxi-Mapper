@@ -18,6 +18,7 @@ const CommentForm = () => {
 
   const fetchComments = () => {
     axios.post("/api/comment/getComments", variable).then((response) => {
+      console.log("get Comments");
       if (response.data.success) {
         setComments(response.data.comments);
       } else {
