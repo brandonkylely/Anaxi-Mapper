@@ -118,6 +118,7 @@ function MyMap() {
   nearbyPlacesArray.forEach((location) => {
     const tagsArray = location.types.map((tag) => tag.replaceAll("_", " "))
     const tags = tagsArray.toString().replaceAll(",", ", ")
+    const origin = "ucla";
     // needs more research, styling not fully functional
     // onclick="handleSetDestinationIDValue(${location.place_id}, ${setDestinationIDValue})"
     const contentString = `<div class="font-fuzzy-bubbles">
@@ -128,10 +129,13 @@ function MyMap() {
       <div>Location: ${location.vicinity}<div>
       <div>Tags: ${tags}<div>
     </div>
-    <button 
-    class="border-1 rounded-lg bg-slate-100 px-2 py-1 transition-all ease-out duration-300 hover:scale-110" 
-    id="${location.name}"
-    >Show route to ${location.name}</button>
+    <a 
+      class="border-1 rounded-lg bg-slate-100 px-2 py-1 transition-all ease-out duration-300 hover:scale-110" 
+      name="route" value="${location.place_id}" 
+      href="#${location.place_id}"
+      >
+      Jump to result for ${location.name} 
+    </a>
 
 
     </div>

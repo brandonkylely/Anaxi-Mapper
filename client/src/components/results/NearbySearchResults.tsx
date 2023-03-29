@@ -59,7 +59,7 @@ export default function NearbySearchResults() {
           </h6>
           <div className="text-xl flex flex-wrap columns-3 font-fuzzy-bubbles text-gray-700 dark:text-gray-400">
             {searchResults.map((result) => (
-              <div className=" w-full m-3 p-4 border border-gray-200 rounded-lg shadow" key={result.place_id}>
+              <div className=" w-full m-3 p-4 border border-gray-200 rounded-lg shadow" key={result.place_id} id={result.place_id}>
                 <ul>
                   <li>
                     <h1 className="font-bold">{result.name}</h1>
