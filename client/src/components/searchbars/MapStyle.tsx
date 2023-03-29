@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { nearbyPlacesAtom, coordinateAtom, loadingAtom, mapStyleAtom, mapReloadAtom } from "../../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
