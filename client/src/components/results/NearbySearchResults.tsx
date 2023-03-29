@@ -13,7 +13,8 @@ import {
   currentParamsAtom,
   destinationIDAtom,
   originIDAtom,
-  encodedPolylineAtom
+  encodedPolylineAtom,
+  mapReloadAtom
 } from "../../state";
 import axios from "axios";
 import {post} from "../../api"
@@ -26,6 +27,7 @@ export default function NearbySearchResults() {
   const [destinationIDValue, setDestinationIDValue] = useAtom(destinationIDAtom)
   const [originIDValue, setOriginIDValue] = useAtom(originIDAtom)
   const [encodedPolylineValue, setEncodedPolylineValue] = useAtom(encodedPolylineAtom)
+  const setMapReload = useSetAtom(mapReloadAtom)
 
   async function getDirections(originIDValue: string, destinationIDValue: string) {
     // console.log(originIDValue + " " + destinationIDValue)
@@ -33,6 +35,8 @@ export default function NearbySearchResults() {
     const directionsData = await post("/api/address/directions", { originIDValue, destinationIDValue });
       setEncodedPolylineValue(directionsData.data.routes[0].overview_polyline.points);
       console.log(directionsData)
+      setMapReload(true);
+      setTimeout(() => setMapReload(false), 100);
       // return directionsData
     } catch (err) {
       console.log(err)
@@ -83,7 +87,7 @@ export default function NearbySearchResults() {
   };
   return (
     <>
-    <div className="font-righteous px-4">Polyline: {encodedPolylineValue? encodedPolylineValue : "No polyline."}</div>
+    <div className="font-righteous px-4">Route active: {encodedPolylineValue? "Active!" : "No route active."}</div>
     <div className="font-righteous px-4">Origin ID: {originIDValue? originIDValue : "No origin selected."}</div>
     <div className="font-righteous px-4">Destination ID: {destinationIDValue? destinationIDValue : "No destination selected."}</div>
       <div className="container flex justify-between">

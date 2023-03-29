@@ -23,12 +23,13 @@ import {
   loadingAtom,
   mapStyleAtom,
   mapReloadAtom,
+  encodedPolylineAtom
 } from "../../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { GoogleMapsOverlay } from "@deck.gl/google-maps";
 import { TripsLayer } from "deck.gl";
 import polyline from "@mapbox/polyline";
-import pathData from "./path.json"
+// import pathData from "./path.json"
 
 // TODO: set style toggle for user
 // let styleToggle = 'full';
@@ -77,6 +78,7 @@ export default function Mapper() {
 }
 
 let instance: unknown;
+let encodedPolylineValue;
 
 function MyMap() {
   const overlayRef = useRef();
@@ -89,6 +91,7 @@ function MyMap() {
   // const loadValue = useAtomValue(loadingAtom);
   // const setLoadValue = useSetAtom(loadingAtom);
   const [loadValue, setLoadValue] = useState(false);
+  encodedPolylineValue = useAtomValue(encodedPolylineAtom)
 
   // mapOptions.center = coordValue
 
@@ -109,6 +112,10 @@ function MyMap() {
       moveToLocation(coordValue.lat, coordValue.lng);
     }
   }, [coordValue]);
+
+  // useEffect(() => {
+
+  // }, [encodedPolylineValue]);
 
   // MARKERS BELOW
 
@@ -189,28 +196,24 @@ function moveToLocation(lat: number, lng: number) {
 let overlay: unknown;
 
 function createOverlay(map) {
-  const encodedPolyline =
-    "{p~nEbt~qUORn@x@r@`AjDnEbC~CPZLb@JdA?^Gn@Qx@E`@@z@Hj@Pd@dAxAlBlC^n@Vz@AJ@NJpAC~@UrAWn@g@x@k@h@c@l@O`@Md@Eb@DbA`@pAdAdCxBbF`@~@~@xBgAnA]ZSFKBKCMEM]C]@a@J[JOVY?SNMbBmA~@s@rB}AfEiDxLgKfS}PpNoLtGiFfGwEhMeJxDsCtGiFjEmD~AmAjAu@dAk@lAi@dDmAvCu@nDy@jCy@|BkA`CyAtBaBxD_D`F_EpLqJlOeMfDqCnDsC|@u@`Aq@d@Yn@[~@c@vAk@`Bk@T@R@r@Q~Bq@rB_ArBmA\\WN@j@a@dDaCdA]`AI^?f@Fv@Tf@Tn@f@j@t@Vj@Vr@Jf@XvBNx@`@dE@DR^BXNjBP`CXxCp@rFvA~InEpWfAnG^`CPxBFnB?z@GvDKtDC~BFzBRpCbAlIrBpP~@rGzApIdE|UxF`\\j@bDn@dDh@tB`@pA|@|BrAhCfBdClCnDvEhGhPfTV\\ETPZh@|@Zt@`@tATjBDl@Pn@NVFLBRx@`Av@hA\\n@\\j@o@x@_AjAm@t@aAnAkAxAmErFgI|J";
+  const data = [{path: [], timestamps: []}];
 
-  const decodedPolyline = polyline.toGeoJSON(encodedPolyline);
+  const decodedPolyline = polyline.toGeoJSON(encodedPolylineValue);
   // console.log(decodedPolyline);
 
-  const DATA_URL =
-    "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/trips/trips-v7.json";
-
-    const data = [{path: [], timestamps: []}];
-    for (let i = 0; i < decodedPolyline.coordinates.length; i++) {
-      data[0].path.push(decodedPolyline.coordinates[i]);
-      data[0].timestamps.push((i * 8))
-    }
+  for (let i = 0; i < decodedPolyline.coordinates.length; i++) {
+    data[0].path.push(decodedPolyline.coordinates[i]);
+    data[0].timestamps.push((i * 8))
+  }
     
   // console.log(DATA_URL)
   console.log(data, "data");
+
   const LOOP_LENGTH = 1800;
-  const VENDOR_COLORS = [
-    [255, 0, 0], // vendor #0
-    [0, 0, 255], // vendor #1
-  ];
+  // const VENDOR_COLORS = [
+  //   [255, 0, 0], // vendor #0
+  //   [0, 0, 255], // vendor #1
+  // ];
   const overlay2 = new GoogleMapsOverlay({});
   let currentTime = 0;
 
@@ -241,7 +244,7 @@ function createOverlay(map) {
   //   currentTime,
   // };
 
-console.log(pathData)
+// console.log(pathData)
   // const props = {
   //   id: "trips",
   //   data: pathData,
