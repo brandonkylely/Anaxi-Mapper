@@ -189,7 +189,7 @@ export default function NearbySearchBar() {
     const userParams = {
       //maps the id's corresponding to the selected categories, will convert to type and concat in end
       type: type, //quick fix, will only select the first index of selected category
-      radius: radius,
+      radius: radius * 1000, //convert to meters
       keyword: keyword,
       coordinate: coordValue,
       //loadNextPage is a state that defaults to false, becomes true when the user clicks the next page button

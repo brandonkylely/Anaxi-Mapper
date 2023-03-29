@@ -62,7 +62,7 @@ export default function Mapper() {
     mapId: mapStyleValue === "full" ? "605e131c3939f175" : "f5d27befd916db8c",
     center: coordValue || { lat: 34.0729297, lng: -118.4401635 },
     // zoom based on secondary search radius
-    zoom: 19,
+    zoom: 18,
     disableDefaultUI: true,
     heading: 15,
     tilt: 55,
@@ -196,7 +196,7 @@ function moveToLocation(lat: number, lng: number) {
   // instance?.setZoom(5);
   try {
     console.log("trying to pan to");
-    console.log(instance, "instance")
+    console.log(instance, "instance");
     instance?.panTo(center);
   } catch (error) {
     console.log("panTo Failed", error);
@@ -350,7 +350,7 @@ function createOverlay(map) {
           zoom: mapOptions.zoom,
         });
 
-        if (mapOptions.zoom > 18.5) {
+        if (mapOptions.zoom > 17) {
           mapOptions.zoom -= 0.01;
           mapOptions.heading += 0.04;
         } else {
