@@ -107,7 +107,7 @@ export default function FavoriteList() {
   return (
     <div className="container flex place-content-start">
       <div className="m-4 bg-white border border-gray-200 rounded-lg shadow p-4">
-        <div className="w-full font-righteous text-lg text-left text-gray-500 dark:text-gray-400">
+        <div className="w-full font-righteous text-lg text-left text-gray-600 dark:text-gray-400">
           {/* <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">

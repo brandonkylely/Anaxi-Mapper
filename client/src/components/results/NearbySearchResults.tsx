@@ -1,9 +1,9 @@
 // @ts-nocheck
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Favorite from "../favorites/Favorite";
 
-import Comments from "../comments/Comments";
-import CommentsList from "../comments/CommentsList";
+import Comments from "../archived-components/comments/Comments";
+import CommentsList from "../archived-components/comments/CommentsList";
 import { useAtomValue, useAtom, useSetAtom } from "jotai";
 import {
   nearbyPlacesAtom,
@@ -14,7 +14,8 @@ import {
   destinationIDAtom,
   originIDAtom,
   encodedPolylineAtom,
-  mapReloadAtom
+  mapReloadAtom,
+  favClickedAtom
 } from "../../state";
 import axios from "axios";
 import {post} from "../../api"
@@ -28,6 +29,7 @@ export default function NearbySearchResults() {
   const [originIDValue, setOriginIDValue] = useAtom(originIDAtom)
   const [encodedPolylineValue, setEncodedPolylineValue] = useAtom(encodedPolylineAtom)
   const setMapReload = useSetAtom(mapReloadAtom)
+  const [favClicked, setFavClicked] = useAtom(favClickedAtom)
 
   async function getDirections(originIDValue: string, destinationIDValue: string) {
     // console.log(originIDValue + " " + destinationIDValue)
@@ -77,6 +79,7 @@ export default function NearbySearchResults() {
   const handleFormSubmit = (event: any) => {
     let userEmail = user.email;
     console.log("logging user email", userEmail);
+    setFavClicked(true)
     event.preventDefault();
     //currentParams comes from an atom set at secondarysearch bar line 180
     axios.post("/api/favorite/addToFavorite", {
@@ -92,7 +95,22 @@ export default function NearbySearchResults() {
     <div className="font-righteous px-4">Destination ID: {destinationIDValue? destinationIDValue : "No destination selected."}</div>
       <div className="container flex justify-between">
         <div className="font-righteous m-4 bg-white border border-gray-200 rounded-lg shadow p-4">
-          <Favorite id={id} place_id={place_id} address={address} />
+          <form className="flex flex-col">
+            {!favClicked? <button
+              className="text-gray-600 bg-white w-40 border float-right border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-2 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+              onClick={handleFormSubmit}
+            >
+              Save to Favorites?
+            </button> 
+            :
+            <div
+            className="text-center w-24 text-blue-600 bg-white border float-right border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+          >
+            Saved 😎
+          </div>
+            }
+          </form>
+          {/* <Favorite id={id} place_id={place_id} address={address} /> */}
           <h5 className="mb-2 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
             {address}
           </h5>
@@ -133,16 +151,9 @@ export default function NearbySearchResults() {
               </div>
             ))}
           </div>
-          <form className="flex flex-col">
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              onClick={handleFormSubmit}
-            >
-              Save Search to Favorites?
-            </button>
-          </form>
+
           {/* {loadNextPage ? <NextPageButton></NextPageButton>} */}
-          <Comments />
+          {/* <Comments /> */}
         </div>
       </div>
     </>

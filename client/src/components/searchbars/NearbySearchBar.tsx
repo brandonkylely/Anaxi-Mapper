@@ -18,6 +18,7 @@ import {
   nextPageAtom,
   currentParamsAtom,
   originIDAtom,
+  favClickedAtom
 } from "../../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import NearbySearchResults from "../results/NearbySearchResults";
@@ -138,6 +139,7 @@ export default function NearbySearchBar() {
   const [radius, setRadius] = useState<string>("");
   const [type, setType] = useState<string>("");
   const [keyword, setKeyword] = useState<string>("");
+  const [favClicked, setFavClicked] = useAtom(favClickedAtom)
   let resultDestinations = [];
 
   const nav = useNavigate();
@@ -201,6 +203,8 @@ export default function NearbySearchBar() {
       radius: radius,
       type: type,
     });
+
+    setFavClicked(false)
 
     const RouteMatrix = async (originPlaceId, destinationPlaceIds) => {
       return new Promise((resolve, reject) => {
