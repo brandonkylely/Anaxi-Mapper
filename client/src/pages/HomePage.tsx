@@ -26,13 +26,18 @@ export default function HomePage() {
       <div className="h-60vh w-screen opacity-40 bg-red-50 absolute"></div>
       <div className="about h-60vh w-screen grid grid-cols-6 divide-x divide-sky-800 text-sky-800 content-center italic font-fuzzy-bubbles ">
         <div className="text-2xl text-right pt-4 px-10 z-10">About</div>
-        <div className="text-xl text-left col-span-4 px-12 z-10 py-2">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque in
-          reprehenderit, natus impedit eum libero similique voluptatem. Saepe
-          quia assumenda porro excepturi, quaerat repellat repellendus quisquam
-          adipisci veniam culpa beatae explicabo totam facilis facere quos
-          quidem nulla, inventore laborum ipsa repudiandae eos omnis? Placeat ex
-          tempora eos quas culpa officia?
+        <div className="col-span-4 w-full h-full bg-white bg-opacity-70 flex items-center justify-center rounded-2xl shadow-xl shadow-zinc-900">
+          <div className="text-l text-left col-span-4 px-12 z-10 py-2">
+            Anaxi exists to provide the ultimate map experience, designed with features such as 3d rendered overlay and data visualizations. 
+            The primary functionality revolves around location based
+            searches, which will let you find the best places to eat, drink, and
+            shop in any area. To start, simply enter a location you would like
+            to explore, and from there, you can enter
+            more parameters to find the places of interest you are looking for in your area. 
+            Our application features route visualization and 3d model imports for a more enjoyable and 
+            immersive user experience, with further visualization features like animations and
+            arc layer mapping to come in future releases!
+          </div>
         </div>
       </div>
       <div className="h-60vh w-screen opacity-90 bg-slate-900 absolute"></div>

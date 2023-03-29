@@ -9,7 +9,7 @@ export default function Login() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     userName: "",
-    password: "", 
+    password: "",
   });
   const handleFormChange = ({
     target: { name, value },
@@ -22,7 +22,7 @@ export default function Login() {
     event.preventDefault();
     try {
       console.log(formData);
-      const data = (await axios.post("/api/user/login", formData))
+      const data = await axios.post("/api/user/login", formData);
       console.log("DATA FROM BACKEND", data.data);
       token.login(data.data.token);
       // got token, what do?
@@ -42,50 +42,62 @@ export default function Login() {
 
   return (
     <>
-      <form
-        id="signup-form"
-        className="card-body flex justify-center mt-56"
-        onSubmit={handleFormSubmit}
-      >
-        <div className="text-xl space-y-4 rounded-lg tracking-wide ">
-            <h2 className="font-bold text-3xl font-semibold tracking-widest">LOGIN: </h2>
-          <div className="flex justify-between">
-            <label htmlFor="username-input-signup" className="form-label">
-              Username:
-            </label>
-            <input
-              onChange={handleFormChange}
-              name="userName"
-              type="text"
-              id="username-input-signup"
-              className="form-control rounded-lg px-2 w-56"
+      <div className="w-full min-h-screen bg-opacity-40 bg-black z-10 absolute"></div>
+      <div className="flex justify-center items-center min-h-screen hero font-sans">
+        <form
+          id="signup-form"
+          className="card-body bg-white shadow-lg rounded-lg p-8 z-20"
+          onSubmit={handleFormSubmit}
+        >
+          <div className="space-y-4">
+            <h2 className="font-bold text-3xl font-semibold tracking-widest">
+              Login:
+            </h2>
+            <div className="flex flex-col">
+              <label
+                htmlFor="username-input-signup"
+                className="font-semibold mb-1"
+              >
+                Username:
+              </label>
+              <input
+                onChange={handleFormChange}
+                name="userName"
+                type="text"
+                id="username-input-signup"
+                className="form-input rounded-lg py-2 px-3 border-2 border-gray-200"
               />
+            </div>
+            <div className="flex flex-col">
+              <label
+                htmlFor="password-input-signup"
+                className="font-semibold mb-1"
+              >
+                Password:
+              </label>
+              <input
+                onChange={handleFormChange}
+                name="password"
+                type="password"
+                id="password-input-signup"
+                className="form-input rounded-lg py-2 px-3 border-2 border-gray-200"
+              />
+            </div>
+            <button
+              type="submit"
+              className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700"
+            >
+              Login
+            </button>
+            <a
+              href="/signup"
+              className="text-gray-500 font-bold py-2 px-4 rounded hover:text-gray-700"
+            >
+              Signup
+            </a>
           </div>
-          <div className="flex justify-between">
-            <label htmlFor="password-input-signup" className="form-label ">
-              Password:
-            </label>
-            <input
-              onChange={handleFormChange}
-              name="password"
-              type="password"
-              id="password-input-signup"
-              className="form-control rounded-lg w-56"
-            />
-          </div>
-          <button
-            type="submit"
-            className="pl-4 pr-4 px-2 py-2 text-gray-600 hover:text-gray-700 hover:bg-gray-50 shadow-sm appearance-none rounded-md bg-white"
-          >
-            login!
-          </button>
-          <a href="/signup"
-            className="pl-4 pr-4 px-2 py-2 text-gray-600 hover:text-gray-700 hover:bg-gray-50 shadow-sm appearance-none rounded-md bg-white"
-          >
-            signup
-          </a>
-        </div>
-      </form>
+        </form>
+      </div>
     </>
   );
 }

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Disclosure } from "@headlessui/react";
 
-
 //TODO: need to refactor code to take the entire favorites array and not just a single search result
 //Need to add a remove from favorites button that will remove entire searches from the favorites list
 //give user a way to remove individual items from a search result on the list
@@ -32,30 +31,29 @@ export default function SearchList() {
 
   //also need a clear way to seperate each individual result from SearchItem into its own accordion
   function SearchItem({ search }) {
-    //this is the individual search result, maybe find a way to put each item in an accordion? something collapsable
     return (
       <li className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
-        <div className="container flex justify-around">
-          <div className="font-righteous m-4 bg-white border border-gray-200 rounded-lg shadow p-4">
-            <h1 className="font-bold">{search.name}</h1>
-            <p>{search.vicinity}</p>
+        <div className="container mx-auto max-w-md p-4 bg-neutral-100">
+          <div className="bg-amber-50 border border-gray-200 rounded-lg shadow p-4">
+            <h1 className="text-2xl font-bold mb-2">{search.name}</h1>
+            <p className="text-gray-600 mb-4">{search.vicinity}</p>
             {search.photos ? (
               <img
                 src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${
                   search.photos[0].photo_reference
                 }&key=${import.meta.env.VITE_APIKEY}`}
                 alt="restaurant"
-                className="h-56"
+                className="w-full rounded-lg shadow"
               />
             ) : (
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
                 alt="No Image Available"
-                className="h-56"
+                className="w-full rounded-lg shadow"
               />
             )}
-            <p>Rating: {search.rating}</p>
-            <p>Price Level: {search.price_level}</p>
+            <p className="text-gray-600 mt-4">Rating: {search.rating}</p>
+            <p className="text-gray-600">Price Level: {search.price_level}</p>
           </div>
         </div>
       </li>
@@ -63,22 +61,22 @@ export default function SearchList() {
   }
 
   function SearchList({ searches }) {
-    //this is the main body of the page
     return (
       <div>
-        <h6 className="mb-4 text-3xl font-light tracking-tight text-gray-900 dark:text-white">
-          Favorite Searches
-        </h6>
-        <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="rounded-full bg-gray-800 my-8">
+          <h1 className="text-3xl text-amber-50 font-bold mb-4 text-center">
+            Favorite Searches
+          </h1>
+        </div>
+        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {favoriteValue.map((favorite, index) => (
-            <div>
+            <div key={index} className="mb-4">
               <Disclosure>
-                <Disclosure.Button>{favorite.address}</Disclosure.Button>
-
-                {/* <h1>{favorite.radius}</h1>
-                <h1>{favorite.type}</h1> */}
-                <Disclosure.Panel>
-                  {favoriteValue[index].search.map((search, index) => (
+                <Disclosure.Button className="w-full text-center bg-gray-800 hover:bg-gray-200 p-4 rounded-lg font-bold text-amber-50">
+                  {favorite.address}
+                </Disclosure.Button>
+                <Disclosure.Panel className="bg-gray-900 rounded-lg shadow p-4 mt-2">
+                  {favorite.search.map((search, index) => (
                     <SearchItem key={index} search={search} />
                   ))}
                 </Disclosure.Panel>
@@ -92,10 +90,12 @@ export default function SearchList() {
 
   function noFavorites() {
     return (
-      <div className="container flex justify-around">
-        <div className="font-righteous m-4 bg-white border border-gray-200 rounded-lg shadow p-4">
-          <h1 className="font-bold">No Favorites</h1>
-          <p>Click the heart to add a place to your favorites!</p>
+      <div className="container mx-auto max-w-md p-4">
+        <div className="bg-white border border-gray-200 rounded-lg shadow p-4">
+          <h1 className="text-2xl font-bold mb-2">No Favorites</h1>
+          <p className="text-gray-600">
+            Click the heart to add a place to your favorites!
+          </p>
         </div>
       </div>
     );
@@ -103,7 +103,7 @@ export default function SearchList() {
 
   return (
     <div>
-      <div className="container flex justify-around">
+      <div className="mx-3">
         {localLoader ? <SearchList searches={favoriteValue} /> : <div></div>}
       </div>
 
