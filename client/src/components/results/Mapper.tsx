@@ -23,7 +23,6 @@ import {
   loadingAtom,
   mapStyleAtom,
   mapReloadAtom,
-  destinationIDAtom
 } from "../../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { GoogleMapsOverlay } from "@deck.gl/google-maps";
@@ -41,7 +40,6 @@ let setDestinationIDValue;
 export default function Mapper() {
   const mapStyleValue = useAtomValue(mapStyleAtom);
   const coordValue = useAtomValue(coordinateAtom);
-  const [destinationIDValue, setDestinationIDValue] = useAtom(destinationIDAtom)
 
   // coordValue = useAtomValue(coordinateAtom);
   // mapOptions.center = coordValue;
@@ -71,7 +69,6 @@ export default function Mapper() {
 
   return (
     <>
-      <div>{destinationIDValue}</div>
       <Wrapper apiKey={import.meta.env.VITE_APIKEY}>
         <MyMap />
       </Wrapper>
@@ -118,7 +115,6 @@ function MyMap() {
   nearbyPlacesArray.forEach((location) => {
     const tagsArray = location.types.map((tag) => tag.replaceAll("_", " "))
     const tags = tagsArray.toString().replaceAll(",", ", ")
-    const origin = "ucla";
     // needs more research, styling not fully functional
     // onclick="handleSetDestinationIDValue(${location.place_id}, ${setDestinationIDValue})"
     const contentString = `<div class="font-fuzzy-bubbles">
@@ -189,9 +185,6 @@ function moveToLocation(lat: number, lng: number) {
   // using global variable:
   instance?.panTo(center);
 }
-// function handleSetDestinationIDValue(place_id) {
-//   setDestinationIDValue(place_id);
-// }
 
 let overlay: unknown;
 

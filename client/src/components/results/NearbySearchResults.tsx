@@ -4,13 +4,14 @@ import Favorite from "../favorites/Favorite";
 
 import Comments from "../comments/Comments";
 import CommentsList from "../comments/CommentsList";
-import { useAtomValue, useAtom } from "jotai";
+import { useAtomValue, useAtom, useSetAtom } from "jotai";
 import {
   nearbyPlacesAtom,
   addressAtom,
   nextPageAtom,
   userAtom,
   currentParamsAtom,
+  destinationIDAtom
 } from "../../state";
 import axios from "axios";
 
@@ -19,6 +20,13 @@ export default function NearbySearchResults() {
   const address = useAtomValue(addressAtom);
   const user = useAtomValue(userAtom);
   const currentParams = useAtomValue(currentParamsAtom);
+  const [destinationIDValue, setDestinationIDValue] = useAtom(destinationIDAtom)
+
+  const handleSetDestinationIDValue = (event) => {
+    event.preventDefault();
+    setDestinationIDValue(event.target.value)
+    // window.location.href='#map'
+  }
   //side project, can't figure out implementation, want to generate a button that will load more results
   //should read the next page atom, and if it is true, the last search has more than 20 results
   //this means we can make a different api search call, with the same parameters, feeding it the next page token at the end
@@ -48,6 +56,7 @@ export default function NearbySearchResults() {
   };
   return (
     <>
+    <div>{destinationIDValue}</div>
       <div className="container flex justify-between">
         <div className="font-righteous m-4 bg-white border border-gray-200 rounded-lg shadow p-4">
           <Favorite id={id} place_id={place_id} address={address} />
@@ -79,6 +88,15 @@ export default function NearbySearchResults() {
                   <li>Rating: {result.rating? result.rating : "No ratings available!"}</li>
                   <li>Pricing Level: {result.price_level? result.price_level : "No price level available!"}</li>
                 </ul>
+                <form action="">
+                  <button
+                    className="font-fuzzy-bubbles w-80 h-12 text-md text-gray-600 py-auto rounded-lg mt-2 bg-blue-400 bg-opacity-10 transition-all ease-out duration-300 hover:scale-110 hover:bg-blue-400 hover:bg-opacity-30"
+                    value={result.place_id}
+                    onClick={handleSetDestinationIDValue}
+                    >
+                      Route to this location  
+                  </button>
+                </form>
               </div>
             ))}
           </div>
