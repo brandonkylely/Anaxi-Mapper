@@ -23,6 +23,7 @@ import {
   loadingAtom,
   mapStyleAtom,
   mapReloadAtom,
+  destinationIDAtom
 } from "../../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { GoogleMapsOverlay } from "@deck.gl/google-maps";
@@ -35,10 +36,12 @@ import pathData from "./path.json"
 // let styleToggle = "retail";
 
 let mapOptions: unknown;
+let setDestinationIDValue;
 
 export default function Mapper() {
   const mapStyleValue = useAtomValue(mapStyleAtom);
   const coordValue = useAtomValue(coordinateAtom);
+  const [destinationIDValue, setDestinationIDValue] = useAtom(destinationIDAtom)
 
   // coordValue = useAtomValue(coordinateAtom);
   // mapOptions.center = coordValue;
@@ -68,6 +71,7 @@ export default function Mapper() {
 
   return (
     <>
+      <div>{destinationIDValue}</div>
       <Wrapper apiKey={import.meta.env.VITE_APIKEY}>
         <MyMap />
       </Wrapper>
@@ -115,6 +119,7 @@ function MyMap() {
     const tagsArray = location.types.map((tag) => tag.replaceAll("_", " "))
     const tags = tagsArray.toString().replaceAll(",", ", ")
     // needs more research, styling not fully functional
+    // onclick="handleSetDestinationIDValue(${location.place_id}, ${setDestinationIDValue})"
     const contentString = `<div class="font-fuzzy-bubbles">
     <div>
       <b>${location.name}<b>
@@ -123,12 +128,20 @@ function MyMap() {
       <div>Location: ${location.vicinity}<div>
       <div>Tags: ${tags}<div>
     </div>
-    <button class="border-1 rounded-lg bg-slate-100 px-2 py-1 transition-all ease-out duration-300 hover:scale-110">Show route to ${location.name}</button>
+    <button 
+    class="border-1 rounded-lg bg-slate-100 px-2 py-1 transition-all ease-out duration-300 hover:scale-110" 
+    id="${location.name}"
+    >Show route to ${location.name}</button>
+
+
     </div>
     `;
+    // document.querySelector(`#${location.name}`).addEventListener('click', event => {
+    //   setDestinationIDValue(10)
+    // })
+
     const infoWindow = new google.maps.InfoWindow({
       content: contentString,
-      ariaLabel: "Uluru",
     });
 
     const marker = new google.maps.Marker({
@@ -172,6 +185,9 @@ function moveToLocation(lat: number, lng: number) {
   // using global variable:
   instance?.panTo(center);
 }
+// function handleSetDestinationIDValue(place_id) {
+//   setDestinationIDValue(place_id);
+// }
 
 let overlay: unknown;
 

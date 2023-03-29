@@ -50,7 +50,7 @@ export const nextPageAtom = atom<boolean>(false);
 export const currentParamsAtom = atom<SearchParam>(null);
 export const mapStyleAtom = atom<string>('retail');
 export const originIDAtom = atom<string>('');
-
+export const destinationIDAtom = atom<string>('none')
 
 
 
