@@ -110,27 +110,27 @@ export default function HomePage() {
             </a>
           </div>
         </div>
-        {/* empty promo card */}
+        {/* mirjanas promo card */}
         <div className="z-10 text-xl font-fuzzy-bubbles">
           <div className="mirjana h-40 w-40 border-2 border-amber-50 rounded-full" />
           <div className="text-center font-bold text-amber-50 italic">
-            <span className="font-righteous font-medium">Hannah Kim</span>
+            <span className="font-righteous font-medium">Mirjana Dukic</span>
             <br />
             <span className="font-medium font-righteous w-40">
               Software Dev.
             </span>
             <br />
-            <div className="text-sm font-normal w-40"></div>
-            <div className="text-sm w-40 font-normal"></div>
+            <div className="text-sm font-normal w-40">Fullstack Developer </div>
+            <div className="text-sm w-40 font-normal">B.A in Psychology</div>
           </div>
           <div className="flex justify-around">
-            <a href="" className="text-amber-50 text-3xl" target="_blank">
+            <a href="https://github.com/MjDukic?tab=repositories" className="text-amber-50 text-3xl" target="_blank">
               <i className="fa-brands fa-github"></i>
             </a>
-            <a href="" className="text-amber-50 text-3xl" target="_blank">
+            <a href="https://www.linkedin.com/in/mirjanadukic/" className="text-amber-50 text-3xl" target="_blank">
               <i className="fa-brands fa-linkedin"></i>
             </a>
-            <a href="" className="text-amber-50 text-3xl" target="_blank">
+            <a href="https://mirjanadukicportfolio.netlify.app" className="text-amber-50 text-3xl" target="_blank">
               <i className="fa-solid fa-file"></i>
             </a>
           </div>
@@ -139,7 +139,7 @@ export default function HomePage() {
         <div className="z-10 text-xl font-fuzzy-bubbles">
           <div className="hannah h-40 w-40 border-2 border-amber-50 rounded-full" />
           <div className="text-center font-bold text-amber-50 italic">
-            <span className="font-righteous font-medium">Mirjana Dukic</span>
+            <span className="font-righteous font-medium">Hannah Kim</span>
             <br />
             <span className="font-medium font-righteous w-40">
               Software Dev.
