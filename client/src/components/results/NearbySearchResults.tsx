@@ -30,7 +30,7 @@ export default function NearbySearchResults() {
     const config = {
       method: 'get',
       url: `https://maps.googleapis.com/maps/api/directions/json?origin=place_id:${originIDValue}&destination=place_id:${destinationIDValue}&key=${import.meta.env.VITE_APIKEY}`,
-      // headers: {}
+      headers: { "content-type": "application/json" }
     };
 
     axios(config)
