@@ -48,10 +48,11 @@ export default function Signup() {
   };
   return (
     <>
-      <div className="flex justify-center items-center min-h-screen bg-gray-100 font-sans login-page">
+      <div className="w-full min-h-screen bg-opacity-40 bg-black z-10 absolute"></div>
+      <div className="flex justify-center items-center min-h-screen hero font-sans">
         <form
           id="signup-form"
-          className="card-body bg-white shadow-lg rounded-lg p-8"
+          className="card-body bg-white shadow-lg rounded-lg p-8 z-20"
           onSubmit={handleFormSubmit}
         >
           <div className="space-y-4">

@@ -33,8 +33,8 @@ export default function SearchList() {
   function SearchItem({ search }) {
     return (
       <li className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
-        <div className="container mx-auto max-w-md p-4 bg-red-600">
-          <div className="bg-yellow-300 border border-gray-200 rounded-lg shadow p-4">
+        <div className="container mx-auto max-w-md p-4 bg-neutral-100">
+          <div className="bg-amber-50 border border-gray-200 rounded-lg shadow p-4">
             <h1 className="text-2xl font-bold mb-2">{search.name}</h1>
             <p className="text-gray-600 mb-4">{search.vicinity}</p>
             {search.photos ? (
@@ -63,8 +63,8 @@ export default function SearchList() {
   function SearchList({ searches }) {
     return (
       <div>
-        <div className="rounded-full bg-sky-500 my-8">
-          <h1 className="text-3xl font-bold mb-4 text-center">
+        <div className="rounded-full bg-gray-800 my-8">
+          <h1 className="text-3xl text-amber-50 font-bold mb-4 text-center">
             Favorite Searches
           </h1>
         </div>
@@ -72,7 +72,7 @@ export default function SearchList() {
           {favoriteValue.map((favorite, index) => (
             <div key={index} className="mb-4">
               <Disclosure>
-                <Disclosure.Button className="w-full text-center bg-gray-800 hover:bg-gray-200 p-4 rounded-lg font-bold text-red-800">
+                <Disclosure.Button className="w-full text-center bg-gray-800 hover:bg-gray-200 p-4 rounded-lg font-bold text-amber-50">
                   {favorite.address}
                 </Disclosure.Button>
                 <Disclosure.Panel className="bg-gray-900 rounded-lg shadow p-4 mt-2">
