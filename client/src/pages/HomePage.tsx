@@ -115,8 +115,8 @@ export default function HomePage() {
               Software Dev.
             </span>
             <br />
-            <div className="text-sm font-normal w-40">title</div>
-            <div className="text-sm w-40 font-normal">fun fact</div>
+            <div className="text-sm font-normal w-40"></div>
+            <div className="text-sm w-40 font-normal"></div>
           </div>
           <div className="flex justify-around">
             <a href="" className="text-amber-50 text-3xl" target="_blank">
@@ -143,7 +143,7 @@ export default function HomePage() {
             <div className="text-sm font-normal w-40">
               <title></title>
             </div>
-            <div className="text-sm w-40 font-normal">fun fact</div>
+            <div className="text-sm w-40 font-normal"></div>
           </div>
           <div className="flex justify-around">
             <a href="" className="text-amber-50 text-3xl" target="_blank">
