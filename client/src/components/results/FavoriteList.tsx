@@ -34,7 +34,7 @@ export default function FavoriteList() {
 
   useEffect((): void => {
     fetchFavorites();
-    console.log(favoriteValue);
+    // console.log(favoriteValue);
   }, [localLoader]);
 
   // const fetchFavorites = () => {

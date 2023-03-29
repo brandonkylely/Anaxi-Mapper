@@ -51,6 +51,7 @@ export const currentParamsAtom = atom<SearchParam>(null);
 export const mapStyleAtom = atom<string>('retail');
 export const originIDAtom = atom<string>('');
 export const destinationIDAtom = atom<string>('')
+export const encodedPolylineAtom = atom<string>('')
 
 
 

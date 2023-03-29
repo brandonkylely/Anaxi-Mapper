@@ -96,4 +96,26 @@ router.post("/nearby", auth, async (req, res) => {
     res.json({ success: false, data: null });
   }
 });
+
+router.post("/directions", async (req, res) => {
+  try {
+    console.log("reqbody", req.body);
+    const originID = req.body.originIDValue;
+    const destinationID = req.body.destinationIDValue;
+    const directionsURL = `https://maps.googleapis.com/maps/api/directions/json?origin=place_id:${originID}&destination=place_id:${destinationID}&key=${process.env.apiKey}`;
+    const directionsRes = await fetch(directionsURL);
+    const directionsData = await directionsRes.json();
+
+    console.log(directionsData, "directionsData")
+
+    res.json({ 
+      success: true, 
+      data: directionsData 
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({ success: false, data: null });
+  }
+});
+
 module.exports = router;

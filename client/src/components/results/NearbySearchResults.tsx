@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from "react";
+import React, {useEffect} from "react";
 import Favorite from "../favorites/Favorite";
 
 import Comments from "../comments/Comments";
@@ -12,9 +12,11 @@ import {
   userAtom,
   currentParamsAtom,
   destinationIDAtom,
-  originIDAtom
+  originIDAtom,
+  encodedPolylineAtom
 } from "../../state";
 import axios from "axios";
+import {post} from "../../api"
 
 export default function NearbySearchResults() {
   const searchResults = useAtomValue(nearbyPlacesAtom);
@@ -23,26 +25,34 @@ export default function NearbySearchResults() {
   const currentParams = useAtomValue(currentParamsAtom);
   const [destinationIDValue, setDestinationIDValue] = useAtom(destinationIDAtom)
   const [originIDValue, setOriginIDValue] = useAtom(originIDAtom)
+  const [encodedPolylineValue, setEncodedPolylineValue] = useAtom(encodedPolylineAtom)
+
+  async function getDirections(originIDValue: string, destinationIDValue: string) {
+    // console.log(originIDValue + " " + destinationIDValue)
+    try{
+    const directionsData = await post("/api/address/directions", { originIDValue, destinationIDValue });
+      setEncodedPolylineValue(directionsData.data.routes[0].overview_polyline.points);
+      console.log(directionsData)
+      // return directionsData
+    } catch (err) {
+      console.log(err)
+    }
+
+  };
+
+  useEffect(() => {
+    if (destinationIDValue){
+      getDirections(originIDValue, destinationIDValue).then((result) => {
+        // console.log("get destination " + result)
+      })
+    }
+  }, [destinationIDValue])  
 
   const handleSetDestinationIDValue = (event) => {
     event.preventDefault();
     setDestinationIDValue(event.target.value)
-    const config = {
-      method: 'get',
-      url: `https://maps.googleapis.com/maps/api/directions/json?origin=place_id:${originIDValue}&destination=place_id:${destinationIDValue}&key=${import.meta.env.VITE_APIKEY}`,
-      headers: { "content-type": "application/json" }
-    };
-
-    axios(config)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-    // window.location.href='#map'
   }
+
   //side project, can't figure out implementation, want to generate a button that will load more results
   //should read the next page atom, and if it is true, the last search has more than 20 results
   //this means we can make a different api search call, with the same parameters, feeding it the next page token at the end
@@ -55,7 +65,8 @@ export default function NearbySearchResults() {
   //     console.log("button should be loading")
   //   }
   //is set in the secondary search bar, if true, load a button that will make an api call and then set to false
-  console.log("searchResults", searchResults);
+
+  // console.log("searchResults", searchResults);
   const place_id = searchResults[0].place_id;
   const id = searchResults[0]._id;
 
@@ -72,6 +83,7 @@ export default function NearbySearchResults() {
   };
   return (
     <>
+    <div className="font-righteous px-4">Polyline: {encodedPolylineValue? encodedPolylineValue : "No polyline."}</div>
     <div className="font-righteous px-4">Origin ID: {originIDValue? originIDValue : "No origin selected."}</div>
     <div className="font-righteous px-4">Destination ID: {destinationIDValue? destinationIDValue : "No destination selected."}</div>
       <div className="container flex justify-between">

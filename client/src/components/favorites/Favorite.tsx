@@ -28,7 +28,7 @@ function Favorite(props) {
             .then(response => {
                 if (response.data.success) {
                     setFavoriteNumber(response.data.favoriteNumber)
-                    console.log('favoriteNumber', response.data.favoriteNumber)
+                    // console.log('favoriteNumber', response.data.favoriteNumber)
                 } else {
                     alert('Failed to get favorite Number')
                 }
@@ -38,7 +38,7 @@ function Favorite(props) {
             .then(response => {
                 if (response.data.success) {
                     setFavorited( response.data.favorited)
-                    console.log('it is favorited');
+                    // console.log('it is favorited');
                 } else {
                     alert('Failed to get favorite info')
                 }

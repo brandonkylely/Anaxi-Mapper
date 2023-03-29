@@ -192,7 +192,7 @@ export default function NearbySearchBar() {
       //loadNextPage is a state that defaults to false, becomes true when the user clicks the next page button
       useNextPage: loadNextPage,
     };
-    console.log("userParams", userParams);
+    // console.log("userParams", userParams);
     // console.log("keyword",keyword)
     setCurrentParams({
       coords: coordValue,
@@ -213,10 +213,10 @@ export default function NearbySearchBar() {
           destinations: destinations,
           travelMode: google.maps.TravelMode.DRIVING,
         };
-        console.log("request", request);
+        // console.log("request", request);
         distanceMatrixService.getDistanceMatrix(request, (response, status) => {
           if (status === "OK") {
-            console.log("response", response);
+            // console.log("response", response);
             resultDestinations = [];
             
             resolve(response);
@@ -230,7 +230,7 @@ export default function NearbySearchBar() {
     getNearby(userParams)
       .then((result) => {
         localStorage.setItem("lastCoords", JSON.stringify(coordValue));
-        console.log("TESTINGdata", result);
+        // console.log("TESTINGdata", result);
         result.searchResults.map((place: any) => {
           resultDestinations.push(place.place_id);
         });
@@ -244,14 +244,14 @@ export default function NearbySearchBar() {
         // alert(`${apiFetch(result)}`);
       })
       .then(() => {
-        console.log("resultDestinations!!!!!!!!!!!!!!!!!", resultDestinations);
-        console.log("originID", originID);
+        // console.log("resultDestinations!!!!!!!!!!!!!!!!!", resultDestinations);
+        // console.log("originID", originID);
         RouteMatrix(originID, resultDestinations);
       });
   };
 
   async function getNearby(userParams: object) {
-    console.log(userParams);
+    // console.log(userParams);
     const nearbyData = await post("/api/address/nearby", { userParams });
     //nearbyData
     //  searchResults: the result of the nearbySearchData API call
@@ -270,7 +270,7 @@ export default function NearbySearchBar() {
       localStorage.setItem("lastSearch", JSON.stringify(nearbyData));
       //nearbyData.searchResults is the result of the NearbySearchData API call
       setNearbySearch(nearbyData.searchResults);
-      console.log(nearbyData);
+      // console.log(nearbyData);
       // console.log("setting Loaded");
       setLoaded(true);
       return nearbyData;
