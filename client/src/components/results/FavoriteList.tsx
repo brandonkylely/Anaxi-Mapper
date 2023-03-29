@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAtomValue, useAtom, useSetAtom } from "jotai";
-import { favoriteAtom, addressAtom } from "../../state";
+import { favoriteAtom, addressAtom, favClickedAtom } from "../../state";
 
 // type FavoritePlace = {
 //   place_id: string;
@@ -19,6 +19,7 @@ import { favoriteAtom, addressAtom } from "../../state";
 export default function FavoriteList() {
   const [favoriteValue, setFavoriteValue] = useAtom(favoriteAtom);
   const [localLoader, setLocalLoader] = useState(false);
+  const favClicked = useAtomValue(favClickedAtom)
 
   //const favList = useAtomValue(favoriteAtom);
   //console.log('favList',favList)
@@ -36,6 +37,10 @@ export default function FavoriteList() {
     fetchFavorites();
     // console.log(favoriteValue);
   }, [localLoader]);
+
+  useEffect((): void => {
+    fetchFavorites();
+  }, [favClicked]);
 
   // const fetchFavorites = () => {
   //     axios.post('/api/favorite/getFavoritePlaces', variable)
