@@ -112,13 +112,31 @@ function MyMap() {
   // MARKERS BELOW
 
   nearbyPlacesArray.forEach((location) => {
-    const infoWindow = new google.maps.InfoWindow();
+    const tagsArray = location.types.map((tag) => tag.replaceAll("_", " "))
+    const tags = tagsArray.toString().replaceAll(",", ", ")
+    // needs more research, styling not fully functional
+    const contentString = `<div class="font-fuzzy-bubbles">
+    <div>
+      <b>${location.name}<b>
+    </div>
+    <div>
+      <div>Location: ${location.vicinity}<div>
+      <div>Tags: ${tags}<div>
+    </div>
+    <button class="border-1 rounded-lg bg-slate-100 px-2 py-1 transition-all ease-out duration-300 hover:scale-110">Show route to ${location.name}</button>
+    </div>
+    `;
+    const infoWindow = new google.maps.InfoWindow({
+      content: contentString,
+      ariaLabel: "Uluru",
+    });
+
     const marker = new google.maps.Marker({
       // position: JSON.parse(localStorage.getItem('lastCoords')) || null,
       position: location.geometry.location,
       map,
       // label: location.name,
-      title: location.name,
+      // title: location.name,
       icon: {
         url: location.icon,
         scaledSize: new google.maps.Size(38, 31),
@@ -128,7 +146,6 @@ function MyMap() {
     });
     marker.addListener("click", () => {
       infoWindow.close();
-      infoWindow.setContent(marker.getTitle());
       infoWindow.open(marker.getMap(), marker);
     });
   });
@@ -173,12 +190,6 @@ function createOverlay(map) {
       data[0].path.push(decodedPolyline.coordinates[i]);
       data[0].timestamps.push((i * 8))
     }
-    // for (let i = 0; i < decodedPolyline.coordinates.length; i++) {
-    //   data.waypoints.push({
-    //     coordinates: decodedPolyline.coordinates[i],
-    //     timestamp: 1554772579000 + i * 10,
-    //   });
-    // }
     
   // console.log(DATA_URL)
   console.log(data, "data");

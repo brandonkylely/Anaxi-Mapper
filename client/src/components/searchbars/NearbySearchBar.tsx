@@ -270,7 +270,7 @@ export default function NearbySearchBar() {
       localStorage.setItem("lastSearch", JSON.stringify(nearbyData));
       //nearbyData.searchResults is the result of the NearbySearchData API call
       setNearbySearch(nearbyData.searchResults);
-      // console.log(nearbyData);
+      console.log(nearbyData);
       // console.log("setting Loaded");
       setLoaded(true);
       return nearbyData;
