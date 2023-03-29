@@ -18,6 +18,7 @@ import {
   nextPageAtom,
   currentParamsAtom,
   originIDAtom,
+  favClickedAtom
 } from "../../state";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import NearbySearchResults from "../results/NearbySearchResults";
@@ -138,6 +139,7 @@ export default function NearbySearchBar() {
   const [radius, setRadius] = useState<string>("");
   const [type, setType] = useState<string>("");
   const [keyword, setKeyword] = useState<string>("");
+  const [favClicked, setFavClicked] = useAtom(favClickedAtom)
   let resultDestinations = [];
 
   const nav = useNavigate();
@@ -192,7 +194,7 @@ export default function NearbySearchBar() {
       //loadNextPage is a state that defaults to false, becomes true when the user clicks the next page button
       useNextPage: loadNextPage,
     };
-    console.log("userParams", userParams);
+    // console.log("userParams", userParams);
     // console.log("keyword",keyword)
     setCurrentParams({
       coords: coordValue,
@@ -201,6 +203,8 @@ export default function NearbySearchBar() {
       radius: radius,
       type: type,
     });
+
+    setFavClicked(false)
 
     const RouteMatrix = async (originPlaceId, destinationPlaceIds) => {
       return new Promise((resolve, reject) => {
@@ -213,10 +217,10 @@ export default function NearbySearchBar() {
           destinations: destinations,
           travelMode: google.maps.TravelMode.DRIVING,
         };
-        console.log("request", request);
+        // console.log("request", request);
         distanceMatrixService.getDistanceMatrix(request, (response, status) => {
           if (status === "OK") {
-            console.log("response", response);
+            // console.log("response", response);
             resultDestinations = [];
             
             resolve(response);
@@ -230,7 +234,7 @@ export default function NearbySearchBar() {
     getNearby(userParams)
       .then((result) => {
         localStorage.setItem("lastCoords", JSON.stringify(coordValue));
-        console.log("TESTINGdata", result);
+        // console.log("TESTINGdata", result);
         result.searchResults.map((place: any) => {
           resultDestinations.push(place.place_id);
         });
@@ -244,14 +248,14 @@ export default function NearbySearchBar() {
         // alert(`${apiFetch(result)}`);
       })
       .then(() => {
-        console.log("resultDestinations!!!!!!!!!!!!!!!!!", resultDestinations);
-        console.log("originID", originID);
+        // console.log("resultDestinations!!!!!!!!!!!!!!!!!", resultDestinations);
+        // console.log("originID", originID);
         RouteMatrix(originID, resultDestinations);
       });
   };
 
   async function getNearby(userParams: object) {
-    console.log(userParams);
+    // console.log(userParams);
     const nearbyData = await post("/api/address/nearby", { userParams });
     //nearbyData
     //  searchResults: the result of the nearbySearchData API call

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAtomValue, useAtom, useSetAtom } from "jotai";
-import { favoriteAtom, addressAtom } from "../../state";
+import { favoriteAtom, addressAtom, favClickedAtom } from "../../state";
 
 // type FavoritePlace = {
 //   place_id: string;
@@ -19,6 +19,7 @@ import { favoriteAtom, addressAtom } from "../../state";
 export default function FavoriteList() {
   const [favoriteValue, setFavoriteValue] = useAtom(favoriteAtom);
   const [localLoader, setLocalLoader] = useState(false);
+  const favClicked = useAtomValue(favClickedAtom)
 
   //const favList = useAtomValue(favoriteAtom);
   //console.log('favList',favList)
@@ -34,8 +35,12 @@ export default function FavoriteList() {
 
   useEffect((): void => {
     fetchFavorites();
-    console.log(favoriteValue);
+    // console.log(favoriteValue);
   }, [localLoader]);
+
+  useEffect((): void => {
+    fetchFavorites();
+  }, [favClicked]);
 
   // const fetchFavorites = () => {
   //     axios.post('/api/favorite/getFavoritePlaces', variable)
@@ -107,7 +112,7 @@ export default function FavoriteList() {
   return (
     <div className="container flex place-content-start">
       <div className="m-4 bg-white border border-gray-200 rounded-lg shadow p-4">
-        <div className="w-full font-righteous text-lg text-left text-gray-500 dark:text-gray-400">
+        <div className="w-full font-righteous text-lg text-left text-gray-600 dark:text-gray-400">
           {/* <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">

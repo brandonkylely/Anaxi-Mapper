@@ -28,7 +28,7 @@ function Favorite(props) {
             .then(response => {
                 if (response.data.success) {
                     setFavoriteNumber(response.data.favoriteNumber)
-                    console.log('favoriteNumber', response.data.favoriteNumber)
+                    // console.log('favoriteNumber', response.data.favoriteNumber)
                 } else {
                     alert('Failed to get favorite Number')
                 }
@@ -38,7 +38,7 @@ function Favorite(props) {
             .then(response => {
                 if (response.data.success) {
                     setFavorited( response.data.favorited)
-                    console.log('it is favorited');
+                    // console.log('it is favorited');
                 } else {
                     alert('Failed to get favorite info')
                 }
@@ -82,7 +82,8 @@ function Favorite(props) {
 
     return (
     
-                <button onClick={onClickFavorite} type="button" className="text-gray-900 bg-white border float-right border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                <button onClick={onClickFavorite} type="button" 
+                className="text-gray-900 bg-white border float-right border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
                     Add to Favorite
                 </button>
                 

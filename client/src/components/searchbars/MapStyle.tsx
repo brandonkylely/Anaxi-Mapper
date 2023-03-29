@@ -3,9 +3,14 @@ import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 export default function MapStyle() {
   const [mapStyleValue, setMapStyle] = useAtom(mapStyleAtom);
+  const setMapReload = useSetAtom(mapReloadAtom)
+
   const handleSetMapStyle = (event) => {
     const selection = event.target.value.toLowerCase();
+    console.log(selection)
     setMapStyle(selection);
+    setMapReload(true);
+    setTimeout(() => setMapReload(false), 100);
    }
 
   return(

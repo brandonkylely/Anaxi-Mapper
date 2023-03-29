@@ -183,7 +183,7 @@ export default function SearchBar() {
     
     
     const newAddress = event.target.value;
-    console.log("address " + newAddress);
+    // console.log("address " + newAddress);
     setUserAddress(newAddress);
   };
 
@@ -200,7 +200,7 @@ export default function SearchBar() {
   async function getCoords(userAddress: string) {
     const addressData = await post("/api/address/search", { userAddress });
 
-    console.log("RES", addressData);
+    // console.log("RES", addressData);
     //if addressData.validAddress - if the geocode api search does not return a result, this will be false
     if (addressData.validAddress) {
       setLoaded(true);
@@ -210,10 +210,10 @@ export default function SearchBar() {
     }
     if (!addressData.validAddress) console.log("that is not a valid address");
     // setCoord(addressData.newAddress.coords);
-    console.log("coordValue", coordValue);
+    // console.log("coordValue", coordValue);
 
     //TODO HERE ---
-    console.log("address", addressData);
+    // console.log("address", addressData);
   }
 
   return (
