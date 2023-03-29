@@ -11,7 +11,8 @@ import {
   nextPageAtom,
   userAtom,
   currentParamsAtom,
-  destinationIDAtom
+  destinationIDAtom,
+  originIDAtom
 } from "../../state";
 import axios from "axios";
 
@@ -21,10 +22,25 @@ export default function NearbySearchResults() {
   const user = useAtomValue(userAtom);
   const currentParams = useAtomValue(currentParamsAtom);
   const [destinationIDValue, setDestinationIDValue] = useAtom(destinationIDAtom)
+  const [originIDValue, setOriginIDValue] = useAtom(originIDAtom)
 
   const handleSetDestinationIDValue = (event) => {
     event.preventDefault();
     setDestinationIDValue(event.target.value)
+    const config = {
+      method: 'get',
+      url: `https://maps.googleapis.com/maps/api/directions/json?origin=place_id:${originIDValue}&destination=place_id:${destinationIDValue}&key=${import.meta.env.VITE_APIKEY}`,
+      // headers: {}
+    };
+
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
     // window.location.href='#map'
   }
   //side project, can't figure out implementation, want to generate a button that will load more results
@@ -56,7 +72,8 @@ export default function NearbySearchResults() {
   };
   return (
     <>
-    <div>{destinationIDValue}</div>
+    <div className="font-righteous px-4">Origin ID: {originIDValue? originIDValue : "No origin selected."}</div>
+    <div className="font-righteous px-4">Destination ID: {destinationIDValue? destinationIDValue : "No destination selected."}</div>
       <div className="container flex justify-between">
         <div className="font-righteous m-4 bg-white border border-gray-200 rounded-lg shadow p-4">
           <Favorite id={id} place_id={place_id} address={address} />
