@@ -120,8 +120,8 @@ export default function MidwaySearchBars() {
       let userParams = {
         type: "",
         keyword: keyword,
-        radius: radius,
-        coordinate: { lat: midwayCoords[0], lng: midwayCoords[1] },
+        radius: radius*1000,
+        coordinate: { lng: midwayCoords[0], lat: midwayCoords[1] },
         useNextPage: false,
       };
 
