@@ -7,6 +7,7 @@ const auth = require("../../middleware/auth");
 
 
 router.post("/search", auth, async (req, res) => {
+
   const returnValue = {
     validAddress: false,
     newAddress: {},
@@ -69,8 +70,10 @@ router.post("/nearby", auth, async (req, res) => {
     //}
 
     const nearbyUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coords.lat},${coords.lng}&radius=${parameters.radius}&type=${parameters.type}&keyword=${parameters.keyword}&key=${process.env.apiKey}`;
+    console.log("nearbyUrl", nearbyUrl)
     const nearbyRes = await fetch(nearbyUrl);
     const nearbyData = await nearbyRes.json();
+    console.log("nearbyData", nearbyData);
 
 
     //checks to see if given parameters returns anything

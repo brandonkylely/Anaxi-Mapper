@@ -11,6 +11,7 @@ import { userAtom } from "./state";
 import { test } from "./api";
 import SearchList from "./pages/FavoritesPage";
 import HomePage from "./pages/HomePage";
+import MidwayPage from "./pages/MidwayPage";
 
 function App() {
   const setUser = useSetAtom(userAtom);
@@ -46,6 +47,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/favorites" element={<SearchList />} />
+        <Route path="/midway" element={<MidwayPage />} />
         <Route path="/logout" element={<Logout />} />
       </Routes>
     </Router>

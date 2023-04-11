@@ -40,6 +40,14 @@ export default function MainPage() {
             <button
               className="pt-1 mx-1 transition-all ease-out duration-300 hover:scale-110 hover:bg-black hover:bg-opacity-10 border-1 rounded-t-lg text-2xl tracking-wide text-stone-800"
               onClick={() => {
+                navigate("/midway");
+              }}
+            >
+              midway
+            </button>
+            <button
+              className="pt-1 mx-1 transition-all ease-out duration-300 hover:scale-110 hover:bg-black hover:bg-opacity-10 border-1 rounded-t-lg text-2xl tracking-wide text-stone-800"
+              onClick={() => {
                 navigate("/favorites");
               }}
             >
