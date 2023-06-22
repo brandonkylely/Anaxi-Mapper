@@ -5,10 +5,10 @@ export default function HomePage() {
   const navigate = useNavigate();
 
   return (
-    <div className="h-max">
+    <div className="h-max screen">
       <div>
-        <div className="h-60vh w-screen opacity-80 bg-neutral-800 absolute"></div>
-        <div className="hero h-60vh w-screen flex flex-col justify-center">
+        <div className="h-60vh w-full opacity-80 bg-neutral-800 absolute"></div>
+        <div className="hero h-60vh w-full flex flex-col justify-center">
           <div className="text-white font-fuzzy-bubbles text-5xl text-center z-10 italic">
             Anaxi
             <br />
@@ -23,11 +23,11 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-      <div className="h-60vh w-screen opacity-40 bg-red-50 absolute"></div>
-      <div className="about h-60vh w-screen grid grid-cols-6 divide-x divide-sky-800 text-sky-800 content-center italic font-fuzzy-bubbles ">
+      <div className="h-60vh w-full opacity-40 bg-red-50 absolute"></div>
+      <div className="about h-60vh w-full grid grid-cols-6 divide-x divide-sky-800 text-sky-800 content-center italic font-fuzzy-bubbles ">
         <div className="text-2xl text-right pt-4 px-10 z-10">About</div>
         <div className="col-span-4 w-full h-full bg-white bg-opacity-70 flex items-center justify-center rounded-2xl shadow-xl shadow-zinc-900">
-          <div className="text-l text-left col-span-4 px-12 z-10 py-2">
+          <div className="text-lg text-left col-span-4 px-12 z-10 py-2">
             Anaxi exists to provide the ultimate map experience, designed with
             features such as 3d rendered overlay and data visualizations. The
             primary functionality revolves around location based searches, which
@@ -41,8 +41,8 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-      <div className="h-60vh w-screen opacity-90 bg-slate-900 absolute"></div>
-      <div className="promo h-60vh w-screen flex flex-row justify-evenly pt-28">
+      <div className="h-60vh w-full opacity-90 bg-slate-900 absolute"></div>
+      <div className="promo h-60vh w-full flex flex-row justify-evenly pt-28">
         {/* brandon promo card */}
         <div className="z-10 text-xl font-fuzzy-bubbles">
           <div className="brandon h-40 w-40 border-2 border-amber-50 rounded-full" />
