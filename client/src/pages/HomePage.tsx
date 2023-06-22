@@ -49,7 +49,7 @@ export default function HomePage() {
           <div className="text-center font-bold text-amber-50 italic">
             <span className="font-righteous font-medium">Brandon Ly</span>
             <br />
-            <span className="font-medium font-righteous">Lead Developer</span>
+            <span className="font-medium font-righteous">Project Lead</span>
             <br />
             <div className="text-sm font-normal w-40">Fullstack Developer,</div>
             <div className="text-sm w-40 font-normal">B.S. - Biochemistry</div>
@@ -85,7 +85,7 @@ export default function HomePage() {
             <span className="font-righteous font-medium">Logan Senn</span>
             <br />
             <span className="font-medium font-righteous">
-              Co-Lead Dev.
+              Project Co-Lead
             </span>
             <br />
             <div className="text-sm font-normal w-40">Fullstack Developer</div>
@@ -118,7 +118,7 @@ export default function HomePage() {
             <span className="font-righteous font-medium">Mirjana Dukic</span>
             <br />
             <span className="font-medium font-righteous w-40">
-              Software Dev.
+              Collaborator
             </span>
             <br />
             <div className="text-sm font-normal w-40">Fullstack Developer </div>
@@ -155,7 +155,7 @@ export default function HomePage() {
             <span className="font-righteous font-medium">Hannah Kim</span>
             <br />
             <span className="font-medium font-righteous w-40">
-              Software Dev.
+              Collaborator
             </span>
             <br />
             <div className="text-sm font-normal w-40">Fullstack Developer </div>
