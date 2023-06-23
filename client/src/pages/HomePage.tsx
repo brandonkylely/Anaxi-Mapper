@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import Profile from "../components/Profile";
 // import Routes from "../components/archived-components/Routes";
 
 export default function HomePage() {
@@ -44,40 +45,9 @@ export default function HomePage() {
       <div className="h-60vh w-full opacity-90 bg-slate-900 absolute"></div>
       <div className="promo h-60vh w-full flex flex-row justify-evenly pt-28">
         {/* brandon promo card */}
-        <div className="z-10 text-xl font-fuzzy-bubbles">
-          <div className="brandon h-40 w-40 border-2 border-amber-50 rounded-full" />
-          <div className="text-center font-bold text-amber-50 italic">
-            <span className="font-righteous font-medium">Brandon Ly</span>
-            <br />
-            <span className="font-medium font-righteous">Project Lead</span>
-            <br />
-            <div className="text-sm font-normal w-40">Fullstack Developer,</div>
-            <div className="text-sm w-40 font-normal">B.S. - Biochemistry</div>
-          </div>
-          <div className="flex justify-around">
-            <a
-              href="https://github.com/brandonkylely"
-              className="text-amber-50 text-3xl"
-              target="_blank"
-            >
-              <i className="fa-brands fa-github"></i>
-            </a>
-            <a
-              href="https://www.linkedin.com/in/brandon-ly-7300b1205/"
-              className="text-amber-50 text-3xl"
-              target="_blank"
-            >
-              <i className="fa-brands fa-linkedin"></i>
-            </a>
-            <a
-              href="https://brandonkylely.github.io/r3-portfolio/"
-              className="text-amber-50 text-3xl"
-              target="_blank"
-            >
-              <i className="fa-solid fa-file"></i>
-            </a>
-          </div>
-        </div>
+        <Profile cssClass="brandon" name="Brandon Ly" role="Project Lead" occupation="Fullstack Developer" education="B.S. - Biochemistry" 
+        githubLink="https://github.com/brandonkylely" linkedinLink="https://www.linkedin.com/in/brandon-ly-7300b1205/" portfolioLink="https://brandonkylely.github.io/r3-portfolio/"
+        />
         {/* logan promo card */}
         <div className="z-10 text-xl font-fuzzy-bubbles">
           <div className="logan h-40 w-40 border-2 border-amber-50 rounded-full" />
