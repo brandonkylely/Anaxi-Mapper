@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import Profile from "../components/Profile";
 // import Routes from "../components/archived-components/Routes";
 
 export default function HomePage() {
@@ -44,148 +45,49 @@ export default function HomePage() {
       <div className="h-60vh w-full opacity-90 bg-slate-900 absolute"></div>
       <div className="promo h-60vh w-full flex flex-row justify-evenly pt-28">
         {/* brandon promo card */}
-        <div className="z-10 text-xl font-fuzzy-bubbles">
-          <div className="brandon h-40 w-40 border-2 border-amber-50 rounded-full" />
-          <div className="text-center font-bold text-amber-50 italic">
-            <span className="font-righteous font-medium">Brandon Ly</span>
-            <br />
-            <span className="font-medium font-righteous">Project Lead</span>
-            <br />
-            <div className="text-sm font-normal w-40">Fullstack Developer,</div>
-            <div className="text-sm w-40 font-normal">B.S. - Biochemistry</div>
-          </div>
-          <div className="flex justify-around">
-            <a
-              href="https://github.com/brandonkylely"
-              className="text-amber-50 text-3xl"
-              target="_blank"
-            >
-              <i className="fa-brands fa-github"></i>
-            </a>
-            <a
-              href="https://www.linkedin.com/in/brandon-ly-7300b1205/"
-              className="text-amber-50 text-3xl"
-              target="_blank"
-            >
-              <i className="fa-brands fa-linkedin"></i>
-            </a>
-            <a
-              href="https://brandonkylely.github.io/r3-portfolio/"
-              className="text-amber-50 text-3xl"
-              target="_blank"
-            >
-              <i className="fa-solid fa-file"></i>
-            </a>
-          </div>
-        </div>
+        <Profile
+          cssClass="brandon"
+          name="Brandon Ly"
+          role="Project Lead"
+          occupation="Fullstack Developer"
+          education="B.S. - Biochemistry"
+          githubLink="https://github.com/brandonkylely"
+          linkedinLink="https://www.linkedin.com/in/brandon-ly-7300b1205/"
+          portfolioLink="https://brandonkylely.github.io/r3-portfolio/"
+        />
         {/* logan promo card */}
-        <div className="z-10 text-xl font-fuzzy-bubbles">
-          <div className="logan h-40 w-40 border-2 border-amber-50 rounded-full" />
-          <div className="text-center font-bold text-amber-50 italic">
-            <span className="font-righteous font-medium">Logan Senn</span>
-            <br />
-            <span className="font-medium font-righteous">
-              Project Co-Lead
-            </span>
-            <br />
-            <div className="text-sm font-normal w-40">Fullstack Developer</div>
-            <div className="text-sm w-40 font-normal">B.B.A. - Finance</div>
-          </div>
-          <div className="flex justify-around">
-            <a
-              href="https://github.com/Lsenn404"
-              className="text-amber-50 text-3xl"
-              target="_blank"
-            >
-              <i className="fa-brands fa-github"></i>
-            </a>
-            <a
-              href="https://www.linkedin.com/in/logansenn/"
-              className="text-amber-50 text-3xl"
-              target="_blank"
-            >
-              <i className="fa-brands fa-linkedin"></i>
-            </a>
-            <a href="https://main--lambent-sopapillas-e0299b.netlify.app/" className="text-amber-50 text-3xl" target="_blank">
-              <i className="fa-solid fa-file"></i>
-            </a>
-          </div>
-        </div>
+        <Profile
+          cssClass="logan"
+          name="Logan Senn"
+          role="Project Co-Lead"
+          occupation="Fullstack Developer"
+          education="B.B.A. - Finance"
+          githubLink="https://github.com/Lsenn404"
+          linkedinLink="https://www.linkedin.com/in/logansenn/"
+          portfolioLink="https://main--lambent-sopapillas-e0299b.netlify.app/"
+        />
         {/* mirjanas promo card */}
-        <div className="z-10 text-xl font-fuzzy-bubbles">
-          <div className="mirjana h-40 w-40 border-2 border-amber-50 rounded-full" />
-          <div className="text-center font-bold text-amber-50 italic">
-            <span className="font-righteous font-medium">Mirjana Dukic</span>
-            <br />
-            <span className="font-medium font-righteous w-40">
-              Collaborator
-            </span>
-            <br />
-            <div className="text-sm font-normal w-40">Fullstack Developer </div>
-            <div className="text-sm w-40 font-normal">B.A - Psychology</div>
-          </div>
-          <div className="flex justify-around">
-            <a
-              href="https://github.com/MjDukic?tab=repositories"
-              className="text-amber-50 text-3xl"
-              target="_blank"
-            >
-              <i className="fa-brands fa-github"></i>
-            </a>
-            <a
-              href="https://www.linkedin.com/in/mirjanadukic/"
-              className="text-amber-50 text-3xl"
-              target="_blank"
-            >
-              <i className="fa-brands fa-linkedin"></i>
-            </a>
-            <a
-              href="https://mirjanadukicportfolio.netlify.app"
-              className="text-amber-50 text-3xl"
-              target="_blank"
-            >
-              <i className="fa-solid fa-file"></i>
-            </a>
-          </div>
-        </div>
-        {/* empty promo card */}
-        <div className="z-10 text-xl font-fuzzy-bubbles">
-          <div className="hannah h-40 w-40 border-2 border-amber-50 rounded-full" />
-          <div className="text-center font-bold text-amber-50 italic">
-            <span className="font-righteous font-medium">Hannah Kim</span>
-            <br />
-            <span className="font-medium font-righteous w-40">
-              Collaborator
-            </span>
-            <br />
-            <div className="text-sm font-normal w-40">Fullstack Developer </div>
-            <div className="text-sm w-40 font-normal">B.F.A - Graphic Design</div>
-            <div className="text-sm w-40 font-normal"></div>
-          </div>
-          <div className="flex justify-around">
-            <a
-              href="https://github.com/hannahsykim"
-              className="text-amber-50 text-3xl"
-              target="_blank"
-            >
-              <i className="fa-brands fa-github"></i>
-            </a>
-            <a
-              href="https://www.linkedin.com/in/kimhannah1/"
-              className="text-amber-50 text-3xl"
-              target="_blank"
-            >
-              <i className="fa-brands fa-linkedin"></i>
-            </a>
-            <a
-              href="https://portfolio-hannahkim.netlify.app/"
-              className="text-amber-50 text-3xl"
-              target="_blank"
-            >
-              <i className="fa-solid fa-file"></i>
-            </a>
-          </div>
-        </div>
+        <Profile
+          cssClass="mirjana"
+          name="Mirjana Dukic"
+          role="Collaborator"
+          occupation="Fullstack Developer"
+          education="B.A - Psychology"
+          githubLink="https://github.com/MjDukic?tab=repositories"
+          linkedinLink="https://www.linkedin.com/in/mirjanadukic/"
+          portfolioLink="https://mirjanadukicportfolio.netlify.app"
+        />
+        {/* hannah promo card */}
+        <Profile
+          cssClass="hannah"
+          name="Hannah Kim"
+          role="Collaborator"
+          occupation="Fullstack Developer"
+          education="B.F.A - Graphic Design"
+          githubLink="https://github.com/hannahsykim"
+          linkedinLink="https://www.linkedin.com/in/kimhannah1/"
+          portfolioLink="https://portfolio-hannahkim.netlify.app/"
+        />
       </div>
       {/* <Routes /> */}
       <footer></footer>
