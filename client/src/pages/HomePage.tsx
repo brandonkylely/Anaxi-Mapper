@@ -45,20 +45,48 @@ export default function HomePage() {
       <div className="h-60vh w-full opacity-90 bg-slate-900 absolute"></div>
       <div className="promo h-60vh w-full flex flex-row justify-evenly pt-28">
         {/* brandon promo card */}
-        <Profile cssClass="brandon" name="Brandon Ly" role="Project Lead" occupation="Fullstack Developer" education="B.S. - Biochemistry" 
-        githubLink="https://github.com/brandonkylely" linkedinLink="https://www.linkedin.com/in/brandon-ly-7300b1205/" portfolioLink="https://brandonkylely.github.io/r3-portfolio/"
+        <Profile
+          cssClass="brandon"
+          name="Brandon Ly"
+          role="Project Lead"
+          occupation="Fullstack Developer"
+          education="B.S. - Biochemistry"
+          githubLink="https://github.com/brandonkylely"
+          linkedinLink="https://www.linkedin.com/in/brandon-ly-7300b1205/"
+          portfolioLink="https://brandonkylely.github.io/r3-portfolio/"
         />
         {/* logan promo card */}
-        <Profile cssClass="logan" name="Logan Senn" role="Project Co-Lead" occupation="Fullstack Developer" education="B.B.A. - Finance" 
-        githubLink="https://github.com/Lsenn404" linkedinLink="https://www.linkedin.com/in/logansenn/" portfolioLink="https://main--lambent-sopapillas-e0299b.netlify.app/"
+        <Profile
+          cssClass="logan"
+          name="Logan Senn"
+          role="Project Co-Lead"
+          occupation="Fullstack Developer"
+          education="B.B.A. - Finance"
+          githubLink="https://github.com/Lsenn404"
+          linkedinLink="https://www.linkedin.com/in/logansenn/"
+          portfolioLink="https://main--lambent-sopapillas-e0299b.netlify.app/"
         />
         {/* mirjanas promo card */}
-        <Profile cssClass="mirjana" name="Mirjana Dukic" role="Collaborator" occupation="Fullstack Developer" education="B.A - Psychology" 
-        githubLink="https://github.com/MjDukic?tab=repositories" linkedinLink="https://www.linkedin.com/in/mirjanadukic/" portfolioLink="https://mirjanadukicportfolio.netlify.app"
+        <Profile
+          cssClass="mirjana"
+          name="Mirjana Dukic"
+          role="Collaborator"
+          occupation="Fullstack Developer"
+          education="B.A - Psychology"
+          githubLink="https://github.com/MjDukic?tab=repositories"
+          linkedinLink="https://www.linkedin.com/in/mirjanadukic/"
+          portfolioLink="https://mirjanadukicportfolio.netlify.app"
         />
         {/* hannah promo card */}
-        <Profile cssClass="hannah" name="Hannah Kim" role="Collaborator" occupation="Fullstack Developer" education="B.F.A - Graphic Design" 
-        githubLink="https://github.com/hannahsykim" linkedinLink="https://www.linkedin.com/in/kimhannah1/" portfolioLink="https://portfolio-hannahkim.netlify.app/"
+        <Profile
+          cssClass="hannah"
+          name="Hannah Kim"
+          role="Collaborator"
+          occupation="Fullstack Developer"
+          education="B.F.A - Graphic Design"
+          githubLink="https://github.com/hannahsykim"
+          linkedinLink="https://www.linkedin.com/in/kimhannah1/"
+          portfolioLink="https://portfolio-hannahkim.netlify.app/"
         />
       </div>
       {/* <Routes /> */}
